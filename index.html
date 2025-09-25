@@ -1,198 +1,79 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-
-<html>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ADVANCE - Home</title>
+  <link rel="stylesheet" href="style.css">
 
-<title>ADVANCE - Main Page</title>
-
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-
-<link rel="stylesheet" type="text/css" href="ADV_Style.css">
-
-<script language="JavaScript">
-
-// Clock
-var clockID = 0;
-
-function UpdateClock() {
-   if(clockID) {
-      clearTimeout(clockID);
-      clockID  = 0;
-   }
-
-   var tDate = new Date();
-
-   document.theClock.theTime.value = "" 
-                                   + tDate.getHours() + ":" 
-                                   + tDate.getMinutes() + ":" 
-                                   + tDate.getSeconds();
-   
-   clockID = setTimeout("UpdateClock()", 1000);
-}
-function StartClock() {
-   clockID = setTimeout("UpdateClock()", 500);
-}
-
-function KillClock() {
-   if(clockID) {
-      clearTimeout(clockID);
-      clockID  = 0;
-   }
-}
-
-</script>
-
-<style>
-/* CSS animated banner */
-.banner {
-  width: 622px;
-  height: 46px;
-  overflow: hidden;
-  border: 1px solid #ccc;
-  display: flex;
-  align-items: center;
-  background-color: #f2f2f2;
-  font-weight: bold;
-  font-size: 20px;
-  color: #333;
-}
-
-.banner p {
-  display: inline-block;
-  white-space: nowrap;
-  padding-left: 100%;
-  animation: scrollText 10s linear infinite;
-}
-
-@keyframes scrollText {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-100%); }
-}
-</style>
-
+  <script>
+  // clock function
+  let clockID = 0;
+  function updateClock() {
+    const now = new Date();
+    document.getElementById("clock").textContent =
+      now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    clockID = setTimeout(updateClock, 1000);
+  }
+  </script>
 </head>
 
-<body leftMargin="0" topMargin="0" marginheight="0" marginwidth="0" onload="StartClock()" onunload="KillClock()">
+<body onload="updateClock()">
 
-<table border="0" cellpadding="0" cellspacing="0" width="900">
+  <!-- logo area -->
+  <header class="site-header">
+    <div class="logo-area">
+      <img src="assets/images/top_eye.jpg" alt="Advance Logo Left" class="logo-left">
+      <img src="assets/images/advlogo1.jpg" alt="Advance Main Logo" class="logo-center">
+      <img src="assets/images/uclogo.jpg" alt="University of Cincinnati Logo" class="logo-right">
+    </div>
 
-  <tr>
+    <!-- Navigation -->
+    <nav>
+      <ul>
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="join.html">Join</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="board.html">Executive Board</a></li>
+        <li><a href="sponsors.html">Sponsors</a></li>
+        <li><a href="resources.html">Resources</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
 
-    <td><img name="top_eye" src="assets/images/top_eye.jpg" width="131" height="157" border="0" alt=""></td>
+  <!-- Banner -->
+  <div class="banner">
+    <p>ADVANCE - Where We Are Paving The Way For Tomorrow's Leaders!!!</p>
+  </div>
 
-    <td><table border="0" cellpadding="0" cellspacing="0" width="769">
+  <!-- Main Content -->
+  <main>
+    <section class="clock">
+      <p><b><i>Current Time</i></b></p>
+      <p id="clock"></p>
+    </section>
 
-        <tr>
+    <section class="intro">
+      <h1>Welcome To ADVANCE!!!</h1>
+      <h2>Where We Are Paving The Way For Tomorrow's Leaders!!!</h2>
+      <h2>ADVANCE offers you the opportunity to:</h2>
+      <ul>
+        <li>Join a winning team</li>
+        <li>Share your skills</li>
+        <li>Help us grow</li>
+        <li>Leave your mark as a leader</li>
+        <li>ADVANCE with us!!!</li>
+      </ul>
+    </section>
 
-          <td><img name="top_1" src="assets/images/top_1.jpg" width="147" height="111" border="0" alt=""></td>
+    
+  </main>
 
-          <td><table border="0" cellpadding="0" cellspacing="0" width="598">
-
-              <tr>
-
-                <td><img name="top_2" src="assets/images/top_2.jpg" width="198" height="111" border="0" alt=""></td>
-
-                <td><img name="top_3" src="assets/images/top_3.jpg" width="200" height="111" border="0" alt=""></td>
-
-                <td><img name="top_4" src="assets/images/top_4.jpg" width="224" height="111" border="0" alt=""></td>
-
-              </tr>
-
-            </table>
-
-          </td>
-
-        </tr>
-
-        <tr>
-
-          <td><img name="top_5" src="assets/images/top_5.jpg" width="147" height="46" border="0" alt=""></td>
-
-          <!-- Replaced Flash banner with CSS animated banner -->
-          <td>
-            <div class="banner">
-              <p>ADVANCE - Where We Are Paving The Way For Tomorrow's Leaders!!!</p>
-            </div>
-          </td>
-
-        </tr>
-
-      </table>
-
-    </td>
-
-  </tr>
-
-  <tr>
-
-    <td><img name="navbar_top_space" src="assets/images/navbar_top_space.jpg" width="131" height="27" border="0" alt=""></td>
-
-    <td><img name="top_space" src="assets/images/top_space.jpg" width="769" height="27" border="0" alt=""></td>
-
-  </tr>
-
-  <tr>
-
-    <td><table border="0" cellpadding="0" cellspacing="0" width="131">
-
-        <tr>
-
-          <td><img src="assets/images/navbar_1.jpg" alt="" name="navbar_1" width="131" height="78" border="0" usemap="#navbar_1Map"></td>
-
-        </tr>
-
-        <tr>
-
-          <td><img src="assets/images/navbar_2.jpg" alt="" name="navbar_2" width="131" height="76" border="0" usemap="#navbar_2Map"></td>
-
-        </tr>
-
-        <tr>
-
-          <td><img src="assets/images/navbar_3.jpg" alt="" name="navbar_3" width="131" height="83" border="0" usemap="#navbar_3Map"></td>
-
-        </tr>
-
-        <tr>
-
-          <td><img src="assets/images/navbar_4.jpg" alt="" name="navbar_4" width="131" height="58" border="0" usemap="#navbar_4Map"></td>
-
-        </tr>
-
-        <tr>
-
-          <td><img name="navbar_5" src="assets/images/navbar_5.jpg" width="131" height="171" border="0" alt=""></td>
-
-        </tr>
-
-        <tr>
-
-          <td><img name="navbar_fill_space" src="assets/images/navbar_fill_space.jpg" width="131" height="126" border="0" alt=""></td>
-
-        </tr>
-
-      </table>
-
-    </td>
-
-    <td valign="top">
-
-      <p class="title">Welcome To ADVANCE!!!</p>
-
-      <h1 class="header">Where We Are Paving The Way For Tomorrow's Leaders!!!</h1>
-      <h1 class="header">ADVANCE offers you the opportunity to:</h1>
-      <center>
-      <p>
-      <b>
-      Join a winning team<br />
-      Share your skills<br />
-      Help us grow<br />
-      Leave your mark as a leader<br />
-      ADVANCE with us!!!<br />
-      </b>
-      </p>
-      </center>
-
-      <p><b><i>Current Time</i></b>
-      <form name="theClock">
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 ADVANCE. All rights reserved.</p>
+  </footer>
+</body>
+</html>
