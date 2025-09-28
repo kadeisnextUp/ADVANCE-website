@@ -12,7 +12,7 @@ body {
 
 /* Header */
 .site-header {
-  background: #000000;
+  background: #FFFFFF;
   color: white;
   padding: 10px;
 }
@@ -23,12 +23,13 @@ body {
   margin-bottom: 10px;
 }
 .logo-area img {
-  max-height: 80px;
+  max-height: 160px;
   width: auto;
 }
 
-/* Nav */
+/* Navigation */
 nav ul {
+  background: #000000;
   list-style: none;
   display: flex;
   justify-content: center;
@@ -89,3 +90,10 @@ footer {
   background: #f4f4f4;
   margin-top: 30px;
 }
+
+
+/*App ideas
+- Study groups for assignments and exams
+- Peer tutoring sessions
+
+*/
