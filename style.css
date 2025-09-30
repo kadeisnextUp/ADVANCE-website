@@ -1,99 +1,136 @@
-/* Reset */
-body, ul, h1, h2, p {
+/* app ideas 
+tutor/mentor matching system
+event calendar with RSVP
+study group finder
+*/
+/* ADVANCE stylesheet */
+
+/* Base */
+body{font-family:Arial,Helvetica,sans-serif;margin:0;color:#fff;background:#111}
+
+/* Homepage background */
+body.home{background:url("images/campus photo night.jpg") no-repeat center center fixed;background-size:cover}
+
+/* Header / Nav */
+.site-header{width:100%;background:linear-gradient(180deg,rgba(0,0,0,0.6),rgba(0,0,0,0.35));position:relative;z-index:40}
+.container{max-width:1100px;margin:0 auto;padding:0 20px}
+.header-inner{display:flex;align-items:center;justify-content:space-between;padding:12px 0;gap:16px}
+.brand img{height:56px;width:auto;display:block}
+.site-nav ul{list-style:none;margin:0;padding:0;display:flex;gap:18px;align-items:center}
+.site-nav a{color:#fff;text-decoration:none;padding:8px 10px;border-radius:6px;font-weight:600;transition:all .15s ease}
+.site-nav a:hover,.site-nav a:focus{background:rgba(255,215,0,0.12);color:#FFD700;transform:translateY(-1px)}
+.site-nav a.active{background:rgba(255,215,0,0.18);color:#FFD700}
+.nav-toggle{display:none;background:transparent;border:0;cursor:pointer;padding:8px}
+.hamburger{display:block;width:26px;height:2px;background:#fff;position:relative}
+.hamburger::before,.hamburger::after{content:'';display:block;width:26px;height:2px;background:#fff;position:absolute;left:0}
+
+:root {
+  --accent: #FFD700;
+  --bg: #0b0b0b;
+}
+
+* { box-sizing: border-box; }
+body {
   margin: 0;
   padding: 0;
-}
-body {
-  font-family: Arial, sans-serif;
-  line-height: 1.6;
-  background: #fafafa;
-  color: #333;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.5;
+  color: #fff;
+  background: var(--bg);
 }
 
-/* Header */
+.container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+/* Homepage background */
+body.home { background: url('images/campus photo night.jpg') center/cover no-repeat fixed; }
+
+/* Header / Navbar */
 .site-header {
-  background: #FFFFFF;
-  color: white;
-  padding: 10px;
+  width: 100%;
+  background: linear-gradient(180deg, rgba(0,0,0,.6), rgba(0,0,0,.35));
+  position: relative;
+  z-index: 40;
 }
-.logo-area {
+
+.header-inner {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
-}
-.logo-area img {
-  max-height: 160px;
-  width: auto;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 0;
 }
 
-/* Navigation */
-nav ul {
-  background: #000000;
-  list-style: none;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-nav ul li {
-  margin: 0 15px;
-}
-nav ul li a {
-  color: white;
+.brand img { height: 56px; display: block; }
+
+/* Brand logos group (ADVANCE + UC) in header */
+.brand-logos { display: inline-flex; gap: 12px; align-items: center; }
+.brand-logos .brand img { height: 56px; }
+.brand-logos .partner img { height: 44px; }
+
+.site-nav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 18px; align-items: center; }
+.site-nav li { margin: 0; }
+
+.site-nav a {
+  color: #fff;
   text-decoration: none;
-  font-weight: bold;
-}
-nav ul li a:hover,
-nav ul li a.active {
-  text-decoration: underline;
-}
-
-/* Banner */
-.banner {
-  background: #FFD700;
-  color: #333;
-  font-weight: bold;
-  font-size: 20px;
-  padding: 10px;
-  overflow: hidden;
-  white-space: nowrap;
-}
-.banner p {
-  display: inline-block;
-  animation: scrollText 15s linear infinite;
-}
-@keyframes scrollText {
-  0% { transform: translateX(100%); }
-  100% { transform: translateX(-100%); }
+  padding: 8px 10px;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: background .18s ease, color .18s ease, transform .12s ease;
 }
 
-/* Main */
-main {
-  max-width: 900px;
-  margin: 20px auto;
-  padding: 0 15px;
+.site-nav a:hover,
+.site-nav a:focus { background: rgba(255,215,0,0.12); color: var(--accent); transform: translateY(-1px); outline: none; }
+.site-nav a.active { background: rgba(255,215,0,0.18); color: var(--accent); }
+
+.nav-toggle { display: none; background: transparent; border: 0; cursor: pointer; padding: 8px; }
+
+.hamburger { display: block; width: 26px; height: 2px; background: #fff; position: relative; }
+.hamburger::before, .hamburger::after { content: ''; position: absolute; left: 0; width: 26px; height: 2px; background: #fff; }
+.hamburger::before { top: -8px; }
+.hamburger::after { top: 8px; }
+
+/* Hero */
+.hero-text { position: absolute; top: 20%; left: 5%; }
+.hero-text h1 { font-size: clamp(32px, 6vw, 100px); color: var(--accent); margin: 0; text-shadow: 3px 3px 8px rgba(0,0,0,.7); }
+
+/* Clock */
+.clock { position: absolute; top: 20px; right: 20px; font-size: 24px; font-weight: 700; background: rgba(0,0,0,.6); padding: 5px 10px; border-radius: 5px; }
+
+
+
+/* Responsive */
+@media (max-width: 820px) {
+  .site-nav { display: none; }
+  .nav-toggle { display: inline-flex; }
+  .site-nav.open { display: block; position: absolute; left: 0; right: 0; top: 100%; background: rgba(0,0,0,.95); padding: 12px 0; }
+  .site-nav.open ul { flex-direction: column; gap: 6px; align-items: stretch; padding: 6px 18px; }
+  .site-nav.open a { display: block; padding: 10px 12px; }
+  .brand img { height: 46px; }
 }
-.intro ul {
-  list-style: disc inside;
-  margin-top: 10px;
+
+@media (max-width: 420px) {
+  .brand img { height: 40px; }
+  .hero-text { left: 4%; }
 }
-.clock {
-  margin-top: 20px;
-  font-size: 18px;
-  text-align: center;
+
+@media (max-width: 820px) {
+  .brand-logos .brand img { height: 46px; }
+  .brand-logos .partner img { height: 36px; }
 }
+
+/* Social links sizing (prevent large images like from overflowing) */
+.social-links { display: inline-flex; gap: 10px; align-items: center; justify-content: center; margin-top: 8px; }
+.social-links a { display: inline-block; }
+.social-links img { height: 28px; width: auto; display: block; border-radius: 4px; }
+
+/* Ensure footer content stacks nicely on very narrow screens */
+@media (max-width:420px){
+  footer { padding: 12px; }
+  .social-links img { height: 24px; }
+}
+
 
 /* Footer */
-footer {
-  text-align: center;
-  padding: 15px;
-  background: #f4f4f4;
-  margin-top: 30px;
-}
+footer { text-align: center; padding: 15px; background: transparent; color: var(--accent); position: fixed; bottom: 0; width: 100%; }
 
-
-/*App ideas
-- Study groups for assignments and exams
-- Peer tutoring sessions
-
-*/

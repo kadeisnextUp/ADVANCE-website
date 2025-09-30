@@ -1,91 +1,99 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ADVANCE - Home</title>
+  <title>ADVANCE - Main Page</title>
   <link rel="stylesheet" href="style.css">
-
   <script>
-  // clock function
-  let clockID = 0;
-  function updateClock() {
-    const now = new Date();
-    document.getElementById("clock").textContent =
-      now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-    clockID = setTimeout(updateClock, 1000);
-  }
+    // Clock
+    var clockID = 0;
+
+    function UpdateClock() {
+      if(clockID) {
+        clearTimeout(clockID);
+        clockID  = 0;
+      }
+
+      var tDate = new Date();
+      document.getElementById("theTime").textContent = 
+        tDate.getHours().toString().padStart(2,'0') + ":" +
+        tDate.getMinutes().toString().padStart(2,'0') + ":" +
+        tDate.getSeconds().toString().padStart(2,'0');
+      
+      clockID = setTimeout("UpdateClock()", 1000);
+    }
+
+    function StartClock() {
+      clockID = setTimeout("UpdateClock()", 500);
+    }
+
+    function KillClock() {
+      if(clockID) {
+        clearTimeout(clockID);
+        clockID  = 0;
+      }
+    }
   </script>
+  <script src="script.js" defer></script>
 </head>
+<body class="home" onload="StartClock()" onunload="KillClock()">
 
-<body onload="updateClock()">
-
-  <!-- logo area -->
   <header class="site-header">
-    <div class="logo-area">
-      <img src="images/Logos/Advance Logo.png" alt="Advance Main Left" class="logo-left">
-      <img src="images/Logos/university_of_cincinnati_logo.svg" alt="University of Cincinnati Logo" class="logo-right">
+    <div class="container header-inner">
+      <div class="brand-logos">
+        <a href="index.html" class="brand" aria-label="ADVANCE home">
+          <img src="images/Logos/Advance Logo.png" alt="ADVANCE logo">
+        </a>
+        <a href="https://www.uc.edu" class="partner" aria-label="University of Cincinnati">
+          <img src="images/Logos/university_of_cincinnati_logo.svg" alt="UC Logo">
+        </a>
+      </div>
+      <button class="nav-toggle" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="hamburger" aria-hidden="true"></span>
+      </button>
+      <nav class="site-nav" aria-label="Main Navigation">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="join.html">Join</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a href="executiveBoard.html">Executive Board</a></li>
+          <li><a href="sponsors.html">Sponsors</a></li>
+          <li><a href="resources.html">Resources</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
     </div>
   </header>
 
-    <!-- Navigation -->
-    <nav>
-      <ul>
-        <li><a href="index.html" class="active">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="join.html">Join</a></li>
-        <li><a href="events.html">Events</a></li>
-        <li><a href="board.html">Executive Board</a></li>
-        <li><a href="sponsors.html">Sponsors</a></li>
-        <li><a href="resources.html">Resources</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-    </nav>
-</body>
+  <!-- Hero Text -->
+  <section class="hero-text">
+    <h1>Advance</h1>
+  </section>
 
-  <!-- Banner -->
-  <div class="banner">
-    <p>ADVANCE - Where We Are Paving The Way For Tomorrow's Leaders!!!</p>
+  <!-- Clock top right -->
+  <div class="clock">
+    <span id="theTime"></span>
   </div>
 
-  <!-- Main Content -->
-  <main>
-    <section class="clock">
-      <p><b><i>Current Time</i></b></p>
-      <p id="clock"></p>
-    </section>
 
-    <section class="intro">
-      <h1>Welcome To ADVANCE!!!</h1>
-      <h2>Where We Are Paving The Way For Tomorrow's Leaders!!!</h2>
-      <h2>ADVANCE offers you the opportunity to:</h2>
-      <ul>
-        <li>Join a winning team</li>
-        <li>Share your skills</li>
-        <li>Help us grow</li>
-        <li>Leave your mark as a leader</li>
-        <li>ADVANCE with us!!!</li>
-      </ul>
-    </section>
-    
-
-  </main>
-
-  
-</body>
-    <section class="goals" style="text-align: center;">
-        <h2>Our Goals</h2>
-        <ul style="list-style: none; padding: 0;"></ul>
-          <li>To provide a support network for students</li>
-          <li>To promote professional development</li>
-          <li>To foster community engagement</li>
-          <li>To enhance academic success</li>
-          <li>To encourage leadership skills</li>
-        </ul>
-    </section>
-    </section>
-<!-- Footer -->
+  <!-- Footer -->
   <footer>
     <p>&copy; 2025 ADVANCE. All rights reserved.</p>
+    <div class="social-links">
+      <a href="https://facebook.com/advance" target="_blank">
+        <img src="images\Logos\facebook logo.jpg" alt="Facebook">
+      </a>
+      <a href="https://www.tiktok.com/@advance" target="_blank">
+        <img src="images\Logos\tiktok logo.webp" alt="tiktok">
+      </a>
+      <a href="https://instagram.com/advance_uc" target="_blank">
+        <img src="images\Logos\instagram icon.png" alt="Instagram">
+      </a>
+    </div>
   </footer>
+
+</body>
 </html>
