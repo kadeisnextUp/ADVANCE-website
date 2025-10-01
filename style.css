@@ -62,7 +62,7 @@ body.home { background: url('images/campus photo night.jpg') center/cover no-rep
 
 .brand img { height: 56px; display: block; }
 
-/* Brand logos group (ADVANCE + UC) in header */
+/* logos group (ADVANCE + UC) in header */
 .brand-logos { display: inline-flex; gap: 12px; align-items: center; }
 .brand-logos .brand img { height: 56px; }
 .brand-logos .partner img { height: 44px; }
@@ -90,12 +90,30 @@ body.home { background: url('images/campus photo night.jpg') center/cover no-rep
 .hamburger::before { top: -8px; }
 .hamburger::after { top: 8px; }
 
-/* Hero */
-.hero-text { position: absolute; top: 20%; left: 5%; }
-.hero-text h1 { font-size: clamp(32px, 6vw, 100px); color: var(--accent); margin: 0; text-shadow: 3px 3px 8px rgba(0,0,0,.7); }
+/* Advance title and slogan */
+.title-text { position: absolute; top: 20%; left: 5%; }
+.title-text h1 { font-size: clamp(32px, 6vw, 100px); color: var(--accent); margin: 0; text-shadow: 3px 3px 8px rgba(0,0,0,.7); }
+.slogan-text { position: absolute; right: 20%; bottom: 20%; }
+.slogan-text p { font-size: clamp(16px, 2.5vw, 32px); color: var(--accent); margin: 6px 0; text-shadow: 2px 2px 6px rgba(0,0,0,.6); }
+.quote-text { position: absolute; left: 5%; top: 35%; }
+.quote-text p { font-size: clamp(14px, 2vw, 28px); color: var(--accent); margin: 6px 0; font-style: italic; text-shadow: 2px 2px 6px rgba(0,0,0,.6); }
+
+#mission {
+  border-right: 2px solid var(--accent);
+  white-space: nowrap;
+  overflow: hidden;
+  animation: blinkCursor 0.9s infinite;
+}
+
+@keyframes blinkCursor {
+  0% { border-color: transparent; }
+  50% { border-color: var(--accent); }
+  100% { border-color: transparent; }
+}
+
 
 /* Clock */
-.clock { position: absolute; top: 20px; right: 20px; font-size: 24px; font-weight: 700; background: rgba(0,0,0,.6); padding: 5px 10px; border-radius: 5px; }
+.clock { position: absolute; top: 100px; right: 20px; font-size: 24px; font-weight: 700; background: rgba(0,0,0,.6); padding: 5px 10px; border-radius: 5px; }
 
 
 
