@@ -6,11 +6,14 @@ study group finder
 /* ADVANCE stylesheet */
 
 /* Base */
-body{font-family:Arial,Helvetica,sans-serif;margin:0;color:#fff;background:#111}
 
-/* Homepage background */
-body.home{background:url("images/campus photo night.jpg") no-repeat center center fixed;background-size:cover}
-
+/* Font for homepage*/
+@font-face {
+  font-family: 'CustomFont';
+  src: url("Fonts/Anta-Regular.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
 /* Header / Nav */
 .site-header{width:100%;background:linear-gradient(180deg,rgba(0,0,0,0.6),rgba(0,0,0,0.35));position:relative;z-index:40}
 .container{max-width:1100px;margin:0 auto;padding:0 20px}
@@ -27,9 +30,15 @@ body.home{background:url("images/campus photo night.jpg") no-repeat center cente
 :root {
   --accent: #FFD700;
   --bg: #0b0b0b;
+  /* Default header/footer sizes used to compute page min-height. Adjust if header/footer change. */
+  --header-height: 84px; /* approximate height of .site-header */
+  --footer-height: 88px; /* approximate height of footer area */
 }
 
 * { box-sizing: border-box; }
+/* Layout base: use flex column to create a sticky/footer that stays at bottom on short pages */
+html, body { height: 100%; }
+
 body {
   margin: 0;
   padding: 0;
@@ -37,14 +46,34 @@ body {
   line-height: 1.5;
   color: #fff;
   background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* ensure body is at least viewport height */
 }
 
+/* Main should expand to fill available space; this keeps footer at page bottom on short pages */
 .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+/* CLASSES FOR EACH PAGE */
+/* Homepage*/
+body.home { background: url('images/campus sky.jpeg') center/cover no-repeat fixed; 
+  font-family: 'CustomFont', Arial, sans-serif;
+  }
 
-/* Homepage background */
-body.home { background: url('images/campus photo night.jpg') center/cover no-repeat fixed; }
+/* About us */
 
-/* Header / Navbar */
+/*Join */
+
+/* Events */
+
+/*Executive Board */
+
+/* Sponsors */
+
+/* Resources */
+
+/* Contact  */
+
+/* Navbar */
 .site-header {
   width: 100%;
   background: linear-gradient(180deg, rgba(0,0,0,.6), rgba(0,0,0,.35));
@@ -91,19 +120,30 @@ body.home { background: url('images/campus photo night.jpg') center/cover no-rep
 .hamburger::after { top: 8px; }
 
 /* Advance title and slogan */
-.title-text { position: absolute; top: 20%; left: 5%; }
-.title-text h1 { font-size: clamp(32px, 6vw, 100px); color: var(--accent); margin: 0; text-shadow: 3px 3px 8px rgba(0,0,0,.7); }
-.slogan-text { position: absolute; right: 20%; bottom: 20%; }
-.slogan-text p { font-size: clamp(16px, 2.5vw, 32px); color: var(--accent); margin: 6px 0; text-shadow: 2px 2px 6px rgba(0,0,0,.6); }
-.quote-text { position: absolute; left: 5%; top: 35%; }
-.quote-text p { font-size: clamp(14px, 2vw, 28px); color: var(--accent); margin: 6px 0; font-style: italic; text-shadow: 2px 2px 6px rgba(0,0,0,.6); }
-
-#mission {
-  border-right: 2px solid var(--accent);
-  white-space: nowrap;
-  overflow: hidden;
-  animation: blinkCursor 0.9s infinite;
+/* Title, quote, slogan: default layout (stacked, responsive) */
+.title-text { position: relative; margin: 48px 5% 12px 5%; max-width: calc(100% - 10%); }
+.title-text h1 {
+  font-size: clamp(36px, 6vw, 96px);
+  color: var(--accent);
+  margin: 0;
+  text-shadow: 2px 2px 6px rgba(0,0,0,.7);
 }
+
+.quote-text { position: relative; margin: 12px 5%; max-width: calc(100% - 10%); }
+.quote-text p { font-size: clamp(10px, 2.2vw, 36px); 
+  color: var(--accent); 
+  margin: 6px 0; 
+  font-style: italic; 
+  text-shadow: 2px 2px 6px rgba(0,0,0,.6); 
+ }
+
+.slogan-text { position: relative; margin: 12px 5% 40px 5%; max-width: calc(100% - 10%); }
+.slogan-text p { font-size: clamp(12px, 2.5vw, 36px); 
+  color: var(--accent); margin: 6px 0; 
+  text-shadow: 2px 2px 6px rgba(0,0,0,.6); 
+  word-wrap: normal; }
+
+
 
 @keyframes blinkCursor {
   0% { border-color: transparent; }
@@ -148,7 +188,55 @@ body.home { background: url('images/campus photo night.jpg') center/cover no-rep
   .social-links img { height: 24px; }
 }
 
+/* Upcoming events carousel */
+.upcoming-events { padding: 28px 0; }
+.events-carousel-wrapper { display: flex; align-items: center; gap: 12px; }
+.events-carousel { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 12px 6px; -webkit-overflow-scrolling: touch; }
+
+/* Show one item at a time: make each event take the full carousel width */
+.events-carousel { width: 360px; }
+.event-item { min-width: 100%; max-width: 100%; background: rgba(255,255,255,0.04); border-radius: 8px; overflow: hidden; scroll-snap-align: center; box-shadow: 0 6px 18px rgba(0,0,0,0.45); }
+.event-flyer-wrap img { width: 100%; height: 220px; object-fit: cover; display: block; }
+.event-meta { padding: 10px 12px; }
+.event-meta h3 { margin: 4px 0; font-size: 18px; color: var(--accent); }
+.event-meta time { display: block; color: #ddd; font-size: 13px; margin-bottom: 8px; }
+.events-carousel-wrapper .carousel-prev, .events-carousel-wrapper .carousel-next { background: transparent; border: 0; color: #fff; font-size: 28px; cursor: pointer; padding: 6px 8px; }
+
+/* Place the upcoming events over to the right of the main content on wide screens */
+@media (min-width: 1000px) {
+  .upcoming-events { position: absolute; top: 140px; right: 32px; width: 360px; z-index: 30; }
+  /* leave room on the left for main page text so it doesn't get covered */
+  /* place the title/quote/slogan in a left column so they remain visible and large */
+  .title-text, .quote-text, .slogan-text { position: relative; max-width: calc(100% - 460px); margin-right: 460px; margin-left: 48px; }
+  main { margin-right: 420px; }
+  /* adjust carousel height for desktop */
+  .event-flyer-wrap img { height: 240px; }
+}
+
+@media (max-width:720px){
+  .event-item { min-width: 240px; }
+  .event-flyer-wrap img { height: 150px; }
+}
+
+/* Carousel dots */
+.carousel-dots { display: flex; gap: 6px; justify-content: center; margin-top: 10px; }
+.carousel-dots button { width: 10px; height: 10px; border-radius: 50%; border: 0; background: rgba(255,255,255,0.25); cursor: pointer; }
+.carousel-dots button.active { background: var(--accent); }
+
+/* Pause autoplay on hover */
+.events-carousel-wrapper:hover .events-carousel { scroll-behavior: auto; }
+
 
 /* Footer */
-footer { text-align: center; padding: 15px; background: transparent; color: var(--accent); position: fixed; bottom: 0; width: 100%; }
+footer { text-align: center; 
+  padding: 18px 12px; 
+  background: transparent; 
+  color: var(--accent); 
+  position: relative; width: 100%; 
+}
+
+/* (replaced by flex-based main rule earlier) */
+
+/* Small spacer for very short pages to ensure footer isn't immediately visible */
+.page-bottom-spacer { height: 120px; }
 

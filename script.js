@@ -35,10 +35,10 @@ function stagedTypewriter(elements) {
 // Run on homepage load
 document.addEventListener("DOMContentLoaded", function () {
   stagedTypewriter([
-    { id: "typewriter", text: "Advance", speed: 300 },
-    { id: "quote", text: "The mark of a leader.", speed: 150 },
-    { id: "welcome", text: "Welcome to the revived site!", speed: 100 },
-    { id: "mission", text: "Advance is where we are paving the way for tomorrow's leaders!", speed: 120 }
+    { id: "typewriter", text: "Advance", speed: 100 },
+    { id: "quote", text: "The mark of a leader.", speed: 50 },
+    { id: "welcome", text: "Welcome to the revived site!", speed: 50 },
+    { id: "mission", text: "Advance is where we are paving the way for tomorrow's leaders!", speed: 50 }
   ]);
 });
 
@@ -48,8 +48,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Navbar mobile toggle and active-link highlighting + events carousel
 document.addEventListener('DOMContentLoaded', function () {
-	var navToggle = document.querySelector('.nav-toggle');
-	var siteNav = document.querySelector('.site-nav');
+  var navToggle = document.querySelector('.nav-toggle');
+  var siteNav = document.querySelector('.site-nav');
 
   function normalizePath(path) {
     if (!path) return 'index.html';
@@ -59,25 +59,25 @@ document.addEventListener('DOMContentLoaded', function () {
     return base || 'index.html';
   }
 
-	if (navToggle && siteNav) {
-		navToggle.addEventListener('click', function (e) {
-			var expanded = navToggle.getAttribute('aria-expanded') === 'true';
-			navToggle.setAttribute('aria-expanded', String(!expanded));
-			siteNav.classList.toggle('open');
+  if (navToggle && siteNav) {
+    navToggle.addEventListener('click', function (e) {
+      var expanded = navToggle.getAttribute('aria-expanded') === 'true';
+      navToggle.setAttribute('aria-expanded', String(!expanded));
+      siteNav.classList.toggle('open');
       if (!expanded) {
         // optionally move focus to first link for accessibility
         var first = siteNav.querySelector('a');
         if (first) first.focus();
       }
-		});
+    });
 
-		// Close menu when clicking outside
-		document.addEventListener('click', function (e) {
-			if (!siteNav.contains(e.target) && !navToggle.contains(e.target)) {
-				siteNav.classList.remove('open');
-				navToggle.setAttribute('aria-expanded', 'false');
-			}
-		});
+    // Close menu when clicking outside
+    document.addEventListener('click', function (e) {
+      if (!siteNav.contains(e.target) && !navToggle.contains(e.target)) {
+        siteNav.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      }
+    });
 
     // Close on Escape
     document.addEventListener('keydown', function (e) {
@@ -87,18 +87,18 @@ document.addEventListener('DOMContentLoaded', function () {
         navToggle.focus();
       }
     });
-	}
+  }
 
   // Highlight active link based on current path (more robust)
-	var links = document.querySelectorAll('.site-nav a');
+  var links = document.querySelectorAll('.site-nav a');
   var current = normalizePath(window.location.pathname);
-	links.forEach(function (a) {
-		var href = a.getAttribute('href');
+  links.forEach(function (a) {
+    var href = a.getAttribute('href');
     try {
       var hrefPath = new URL(href, window.location.href).pathname;
       if (normalizePath(hrefPath) === current) {
-			a.classList.add('active');
-		}
+        a.classList.add('active');
+      }
     } catch (err) {
       // ignore malformed hrefs
     }
@@ -145,5 +145,18 @@ document.addEventListener('DOMContentLoaded', function () {
         if (e.key === 'ArrowLeft') scrollPrev();
       });
     }
+  }
+
+  // Render full events list on Events page (if present)
+  var eventsListContainer = document.querySelector('.events-list');
+  if (eventsListContainer && window.EVENTS && Array.isArray(window.EVENTS)) {
+    // clear any placeholder content
+    eventsListContainer.innerHTML = '';
+    window.EVENTS.forEach(function (ev) {
+      var section = document.createElement('section');
+      section.className = 'event-full';
+      section.innerHTML = '\n        <div class="event-full-inner container">\n          <div class="event-flyer-wrap">\n            <img src="' + ev.flyer + '" alt="' + (ev.title || 'Event flyer') + '">\n          </div>\n          <div class="event-meta">\n            <h3>' + (ev.title || '') + '</h3>\n            <time>' + (ev.date || '') + '</time>\n            <p>' + (ev.description || '') + '</p>\n          </div>\n        </div>\n      ';
+      eventsListContainer.appendChild(section);
+    });
   }
 });

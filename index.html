@@ -36,6 +36,7 @@
       }
     }
   </script>
+  <script src="events-data.js" defer></script>
   <script src="script.js" defer></script>
 </head>
 <body class="home" onload="StartClock()" onunload="KillClock()">
@@ -72,7 +73,7 @@
   <section class="title-text">
     <h1 id ="typewriter"></h1>
   </section>
-  
+
   <!-- quote text -->
   <section class="quote-text">
     <p id="quote"></p>  
@@ -80,8 +81,20 @@
 
   <!-- slogan text -->
   <section class="slogan-text">
-      <p style="margin-top:30vh;" id="welcome"></p>
+      <p style="margin-top:10vh;" id="welcome"></p>
       <p id="mission"></p>
+  </section>
+
+  <!-- upcoming events section -->
+  <section class="upcoming-events container" aria-label="Upcoming events">
+    <h2>Upcoming Events</h2>
+    <div class="events-carousel-wrapper">
+      <button class="carousel-prev" aria-label="Previous event">‹</button>
+      <div class="events-carousel" role="list" aria-live="polite">
+        <!-- items injected by events-data.js / script.js -->
+      </div>
+      <button class="carousel-next" aria-label="Next event">›</button>
+    </div>
   </section>
 
   <!-- Clock top right -->
