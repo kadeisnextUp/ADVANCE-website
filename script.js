@@ -46,16 +46,29 @@ document.addEventListener("DOMContentLoaded", function () {
 
 /* Mobile Navigation */
 
-// Navbar mobile toggle and active-link highlighting
+// Navbar mobile toggle and active-link highlighting + events carousel
 document.addEventListener('DOMContentLoaded', function () {
 	var navToggle = document.querySelector('.nav-toggle');
 	var siteNav = document.querySelector('.site-nav');
+
+  function normalizePath(path) {
+    if (!path) return 'index.html';
+    // remove query and hash, strip trailing slash
+    path = path.split('?')[0].split('#')[0].replace(/\/$/, '');
+    var base = path.split('/').pop();
+    return base || 'index.html';
+  }
 
 	if (navToggle && siteNav) {
 		navToggle.addEventListener('click', function (e) {
 			var expanded = navToggle.getAttribute('aria-expanded') === 'true';
 			navToggle.setAttribute('aria-expanded', String(!expanded));
 			siteNav.classList.toggle('open');
+      if (!expanded) {
+        // optionally move focus to first link for accessibility
+        var first = siteNav.querySelector('a');
+        if (first) first.focus();
+      }
 		});
 
 		// Close menu when clicking outside
@@ -65,16 +78,72 @@ document.addEventListener('DOMContentLoaded', function () {
 				navToggle.setAttribute('aria-expanded', 'false');
 			}
 		});
+
+    // Close on Escape
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && siteNav.classList.contains('open')) {
+        siteNav.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+        navToggle.focus();
+      }
+    });
 	}
 
-	// Highlight active link based on current path
+  // Highlight active link based on current path (more robust)
 	var links = document.querySelectorAll('.site-nav a');
-	var current = window.location.pathname.split('/').pop() || 'index.html';
+  var current = normalizePath(window.location.pathname);
 	links.forEach(function (a) {
 		var href = a.getAttribute('href');
-		var hrefBase = href.split('/').pop();
-		if (hrefBase === current || (hrefBase === 'index.html' && current === '')) {
+    try {
+      var hrefPath = new URL(href, window.location.href).pathname;
+      if (normalizePath(hrefPath) === current) {
 			a.classList.add('active');
 		}
-	});
+    } catch (err) {
+      // ignore malformed hrefs
+    }
+    // close menu when any nav link is clicked (mobile UX)
+    a.addEventListener('click', function () {
+      if (siteNav) {
+        siteNav.classList.remove('open');
+        if (navToggle) navToggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+  });
+
+  // Events carousel rendering (if events-data.js provided window.EVENTS)
+  if (window.EVENTS && Array.isArray(window.EVENTS) && window.EVENTS.length) {
+    var carousel = document.querySelector('.events-carousel');
+    var prevBtn = document.querySelector('.carousel-prev');
+    var nextBtn = document.querySelector('.carousel-next');
+    if (carousel) {
+      // render items
+      window.EVENTS.forEach(function (ev) {
+        var item = document.createElement('article');
+        item.className = 'event-item';
+        item.setAttribute('role', 'listitem');
+        item.innerHTML = '\n          <div class="event-flyer-wrap">\n            <img src="' + ev.flyer + '" alt="' + (ev.title || 'Event flyer') + '">\n          </div>\n          <div class="event-meta">\n            <h3>' + (ev.title || '') + '</h3>\n            <time>' + (ev.date || '') + '</time>\n            <p>' + (ev.description || '') + '</p>\n          </div>\n        ';
+        carousel.appendChild(item);
+      });
+
+      // basic navigation helpers
+      function scrollNext() {
+        var w = carousel.clientWidth;
+        carousel.scrollBy({ left: w * 0.9, behavior: 'smooth' });
+      }
+      function scrollPrev() {
+        var w = carousel.clientWidth;
+        carousel.scrollBy({ left: -w * 0.9, behavior: 'smooth' });
+      }
+
+      if (nextBtn) nextBtn.addEventListener('click', scrollNext);
+      if (prevBtn) prevBtn.addEventListener('click', scrollPrev);
+
+      // keyboard nav for carousel
+      carousel.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowRight') scrollNext();
+        if (e.key === 'ArrowLeft') scrollPrev();
+      });
+    }
+  }
 });
