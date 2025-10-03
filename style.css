@@ -60,6 +60,23 @@ body.home { background: url('images/campus sky.jpeg') center/cover no-repeat fix
   }
 
 /* About us */
+body.about { background: #fff; color: #000; 
+  font-family: Arial, Helvetica, sans-serif; 
+}
+
+/* About page two-column layout: logo left, content right */
+.about-grid { display: grid; grid-template-columns: 1fr; gap: 24px; align-items: start; }
+.about-visual img { max-width: 100%; height: auto; display: block; }
+.about-content { color: #000; }
+.about-content h1, .about-content h2 { color: #111; }
+
+@media (min-width: 900px) {
+  .about-grid { grid-template-columns: 360px 1fr; gap: 48px; }
+  .about-visual { display: block; }
+  .about-visual img { width: 100%; height: auto; }
+  /* right-align content text on larger screens */
+  .about-content { text-align: right; }
+}
 
 /*Join */
 
@@ -199,8 +216,15 @@ body.home { background: url('images/campus sky.jpeg') center/cover no-repeat fix
 .event-flyer-wrap img { width: 100%; height: 220px; object-fit: cover; display: block; }
 .event-meta { padding: 10px 12px; }
 .event-meta h3 { margin: 4px 0; font-size: 18px; color: var(--accent); }
-.event-meta time { display: block; color: #ddd; font-size: 13px; margin-bottom: 8px; }
-.events-carousel-wrapper .carousel-prev, .events-carousel-wrapper .carousel-next { background: transparent; border: 0; color: #fff; font-size: 28px; cursor: pointer; padding: 6px 8px; }
+.event-meta time { display: block; color: var(--accent); font-size: 13px; margin-bottom: 8px; }
+.events-carousel-wrapper .carousel-prev, .events-carousel-wrapper .carousel-next { 
+  background: transparent; 
+  border: 0; 
+  color: var(--accent); 
+  font-size: 28px; 
+  cursor: pointer; 
+  padding: 6px 8px; 
+}
 
 /* Place the upcoming events over to the right of the main content on wide screens */
 @media (min-width: 1000px) {
