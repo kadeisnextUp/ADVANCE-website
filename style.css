@@ -7,7 +7,7 @@ study group finder
 
 /* Base */
 
-/* Font for homepage*/
+/* Fonts*/
 @font-face {
   font-family: 'CustomFont';
   src: url("Fonts/Anta-Regular.ttf");
@@ -39,6 +39,7 @@ study group finder
 /* Layout base: use flex column to create a sticky/footer that stays at bottom on short pages */
 html, body { height: 100%; }
 
+
 body {
   margin: 0;
   padding: 0;
@@ -50,44 +51,6 @@ body {
   flex-direction: column;
   min-height: 100vh; /* ensure body is at least viewport height */
 }
-
-/* Main should expand to fill available space; this keeps footer at page bottom on short pages */
-.container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
-/* CLASSES FOR EACH PAGE */
-/* Homepage*/
-body.home { background: url('images/campus sky.jpeg') center/cover no-repeat fixed; 
-  font-family: 'CustomFont', Arial, sans-serif;
-  }
-
-/* About us */
-body.about { background: #fff; color: #000; 
-  font-family: Arial, Helvetica, sans-serif; 
-}
-
-/* About page two-column layout: logo left, content right */
-.about-grid { display: grid; grid-template-columns: 1fr; gap: 24px; align-items: start; }
-.about-visual img { max-width: 100%; height: auto; display: block; }
-.about-content { color: #000; }
-.about-content h1, .about-content h2 { color: #111; }
-
-
-
-/* Ensure all about page text is left-aligned across sizes */
-body.about, body.about p, body.about h1, body.about h2 { text-align: left; }
-
-
-
-/*Join */
-
-/* Events */
-
-/*Executive Board */
-
-/* Sponsors */
-
-/* Resources */
-
-/* Contact  */
 
 /* Navbar */
 .site-header {
@@ -135,37 +98,31 @@ body.about, body.about p, body.about h1, body.about h2 { text-align: left; }
 .hamburger::before { top: -8px; }
 .hamburger::after { top: 8px; }
 
-/* Advance title and slogan */
-/* Title, quote, slogan: default layout (stacked, responsive) */
-.title-text { position: relative; margin: 48px 5% 12px 5%; max-width: calc(100% - 10%); }
-.title-text h1 {
-  font-size: clamp(36px, 6vw, 96px);
-  color: var(--accent);
-  margin: 0;
-  text-shadow: 2px 2px 6px rgba(0,0,0,.7);
+/* Marquee banner */
+.marquee { overflow: hidden; width: 100%; background: linear-gradient(180deg, rgba(0,0,0,0.2), rgba(0,0,0,0.2)); }
+.marquee__inner { display: inline-flex; white-space: nowrap; gap: 48px; align-items: center; }
+.marquee__item { display: inline-block; padding: 12px 0; color: var(--accent); font-weight: 700; }
+
+@keyframes marquee-scroll {
+  from { transform: translateX(0%); }
+  to { transform: translateX(-50%); }
 }
 
-.quote-text { position: relative; margin: 12px 5%; max-width: calc(100% - 10%); }
-.quote-text p { font-size: clamp(10px, 2.2vw, 36px); 
-  color: var(--accent); 
-  margin: 6px 0; 
-  font-style: italic; 
-  text-shadow: 2px 2px 6px rgba(0,0,0,.6); 
- }
+/* Default animation; duration will be overridden by inline style set from JS for accurate speed */
+.marquee__inner { animation: marquee-scroll linear infinite; animation-duration: 10s; }
 
-.slogan-text { position: relative; margin: 12px 5% 40px 5%; max-width: calc(100% - 10%); }
-.slogan-text p { font-size: clamp(12px, 2.5vw, 36px); 
-  color: var(--accent); margin: 6px 0; 
-  text-shadow: 2px 2px 6px rgba(0,0,0,.6); 
-  word-wrap: normal; }
-
-
-
-@keyframes blinkCursor {
-  0% { border-color: transparent; }
-  50% { border-color: var(--accent); }
-  100% { border-color: transparent; }
+@media (prefers-reduced-motion: reduce) {
+  .marquee__inner { animation: none; }
 }
+
+/* Pause marquee on hover or focus for accessibility */
+.marquee:hover .marquee__inner,
+.marquee:focus-within .marquee__inner { animation-play-state: paused; }
+
+.marquee { outline: none; }
+.marquee:focus { outline: 2px dashed rgba(255,215,0,0.25); outline-offset: 4px; }
+
+
 
 
 /* Clock */
@@ -192,17 +149,41 @@ body.about, body.about p, body.about h1, body.about h2 { text-align: left; }
   .brand-logos .brand img { height: 46px; }
   .brand-logos .partner img { height: 36px; }
 }
+/* Main should expand to fill available space; this keeps footer at page bottom on short pages */
+.container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+/* CLASSES FOR EACH PAGE */
 
-/* Social links sizing (prevent large images like from overflowing) */
-.social-links { display: inline-flex; gap: 10px; align-items: center; justify-content: center; margin-top: 8px; }
-.social-links a { display: inline-block; }
-.social-links img { height: 28px; width: auto; display: block; border-radius: 4px; }
+/* Homepage
+*
+*
+*/
+body.home { background: url('images/campus sky.jpeg') center/cover no-repeat fixed; 
+  font-family: 'CustomFont', Arial, sans-serif;
+  }
 
-/* Ensure footer content stacks nicely on very narrow screens */
-@media (max-width:420px){
-  footer { padding: 12px; }
-  .social-links img { height: 24px; }
+/* Advance title and slogan */
+/* Title, quote, slogan: default layout (stacked, responsive) */
+.title-text { position: relative; margin: 48px 5% 12px 5%; max-width: calc(100% - 10%); }
+.title-text h1 {
+  font-size: clamp(36px, 6vw, 96px);
+  color: var(--accent);
+  margin: 0;
+  text-shadow: 2px 2px 6px rgba(0,0,0,.7);
 }
+
+.quote-text { position: relative; margin: 12px 5%; max-width: calc(100% - 10%); }
+.quote-text p { font-size: clamp(10px, 2.2vw, 36px); 
+  color: var(--accent); 
+  margin: 6px 0; 
+  font-style: italic; 
+  text-shadow: 2px 2px 6px rgba(0,0,0,.6); 
+ }
+
+.slogan-text { position: relative; margin: 12px 5% 40px 5%; max-width: calc(100% - 10%); }
+.slogan-text p { font-size: clamp(12px, 2.5vw, 36px); 
+  color: var(--accent); margin: 6px 0; 
+  text-shadow: 2px 2px 6px rgba(0,0,0,.6); 
+  word-wrap: normal; }
 
 /* Upcoming events carousel */
 .upcoming-events { padding: 28px 0; }
@@ -263,20 +244,6 @@ body.about, body.about p, body.about h1, body.about h2 { text-align: left; }
 /* Pause autoplay on hover */
 .events-carousel-wrapper:hover .events-carousel { scroll-behavior: auto; }
 
-
-/* Footer */
-footer { text-align: center; 
-  padding: 18px 12px; 
-  background: transparent; 
-  color: var(--accent); 
-  position: relative; width: 100%; 
-}
-
-/* (replaced by flex-based main rule earlier) */
-
-/* Small spacer for very short pages to ensure footer isn't immediately visible */
-.page-bottom-spacer { height: 120px; }
-
 /* Lightbox for flyers */
 .lightbox-overlay {
   position: fixed;
@@ -313,28 +280,65 @@ footer { text-align: center;
 /* Ensure visible focus inside lightbox */
 .lightbox-content :focus { outline: 2px solid var(--accent); outline-offset: 3px; }
 
-/* Marquee banner */
-.marquee { overflow: hidden; width: 100%; background: linear-gradient(180deg, rgba(0,0,0,0.2), rgba(0,0,0,0.2)); }
-.marquee__inner { display: inline-flex; white-space: nowrap; gap: 48px; align-items: center; }
-.marquee__item { display: inline-block; padding: 12px 0; color: var(--accent); font-weight: 700; }
+/* About us
+*
+*
+*/
+body.about { background: #fff; color: #000; 
+  font-family: Arial, Helvetica, sans-serif; 
+}
+/* About page two-column layout: logo left, content right */
+.about-grid { display: grid; grid-template-columns: 1fr; gap: 24px; align-items: start; }
+.about-visual img { max-width: 100%; height: auto; display: block; }
+.about-content { color: #000; }
+.about-content h1, .about-content h2 { color: #111; }
 
-@keyframes marquee-scroll {
-  from { transform: translateX(0%); }
-  to { transform: translateX(-50%); }
+
+
+/* Ensure all about page text is left-aligned across sizes */
+body.about, body.about p, body.about h1, body.about h2 { text-align: left; }
+
+
+
+/*Join */
+
+/* Events */
+
+/*Executive Board */
+
+/* Sponsors */
+
+/* Resources */
+
+/* Contact  */
+
+
+
+/* Social links sizing (prevent large images like from overflowing) */
+.social-links { display: inline-flex; gap: 10px; align-items: center; justify-content: center; margin-top: 8px; }
+.social-links a { display: inline-block; }
+.social-links img { height: 28px; width: auto; display: block; border-radius: 4px; }
+
+/* Ensure footer content stacks nicely on very narrow screens */
+@media (max-width:420px){
+  footer { padding: 12px; }
+  .social-links img { height: 24px; }
 }
 
-/* Default animation; duration will be overridden by inline style set from JS for accurate speed */
-.marquee__inner { animation: marquee-scroll linear infinite; animation-duration: 10s; }
 
-@media (prefers-reduced-motion: reduce) {
-  .marquee__inner { animation: none; }
+
+
+/* Footer */
+footer { text-align: center; 
+  padding: 18px 12px; 
+  background: transparent; 
+  color: var(--accent); 
+  position: relative; width: 100%; 
 }
 
-/* Pause marquee on hover or focus for accessibility */
-.marquee:hover .marquee__inner,
-.marquee:focus-within .marquee__inner { animation-play-state: paused; }
 
-.marquee { outline: none; }
-.marquee:focus { outline: 2px dashed rgba(255,215,0,0.25); outline-offset: 4px; }
+
+
+
 
 
