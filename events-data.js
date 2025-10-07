@@ -3,16 +3,19 @@
 window.EVENTS = [
   {
     id: 'evt-1',
-    title: 'Fall Welcome Mixer',
-    date: '2025-10-10',
-    flyer: 'images/Event photos/Executive Board Retreat 2025 1.jpeg',
-    description: 'Meet & greet — refreshments and network with members.'
+    title: 'Meet the Eboard',
+    date: 'Soon',
+    flyer: 'images/Executive Board Photos/Executive Board Retreat 2025 1.jpeg',
+    // full: provide a higher-resolution version if available; fallback to `flyer` when not provided
+    full: 'images/Executive Board Photos/Executive Board Retreat 2025 1.jpeg',
+    description: 'Meet the new executive board and learn about upcoming events.'
   },
   {
     id: 'evt-2',
     title: 'Resume Workshop',
     date: '2025-10-22',
     flyer: 'images/Event photos/Executive Board Retreat 2025 2.jpeg',
+    full: 'images/Event photos/Executive Board Retreat 2025 2.jpeg',
     description: 'Hands-on resume review with career services.'
   },
   {
@@ -20,6 +23,7 @@ window.EVENTS = [
     title: 'Company Info Session: Acme Corp',
     date: '2025-11-05',
     flyer: 'images/Event photos/campus photo.jpg',
+    full: 'images/Event photos/campus photo.jpg',
     description: 'Recruiters present internship and full-time opportunities.'
   }
 ];
