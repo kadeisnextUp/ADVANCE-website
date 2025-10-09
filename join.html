@@ -51,7 +51,18 @@
     </section>
     <section>
       <h2>Forms</h2>
-      <a href="forms.pdf" download>Download Forms</a>
+      <!-- Membership form wired to Google Sheets via Google Apps Script web app -->
+      <form id="joinForm">
+        <fieldset>
+          <legend>Membership Form</legend>
+          <label> Name: <input name="name" type="text" required /></label>
+          <label> Major: <input name="major" type="text" /></label>
+          <label> Year: <input name="year" type="text" /></label>
+          <label> Email: <input name="email" type="email" required /></label>
+          <button type="submit">Submit</button>
+        </fieldset>
+        <div id="joinFormMsg" role="status" aria-live="polite" style="margin-top:8px"></div>
+      </form>
     </section>
   </main>
 

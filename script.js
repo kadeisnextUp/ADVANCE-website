@@ -352,3 +352,35 @@ function releaseFocusTrap() {
     _focusTrap = null;
   }
 }
+
+/* Join form -> Google Sheets helper */
+;(function () {
+  var GOOGLE_SHEETS_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbziC_PbD3YiG0cHWLy2BNRICKWILQt0lIq1VWWiVT_SRVsnFq-I7MS0-twJHx_Vwbe_/exec'; 
+  var form = document.getElementById('joinForm');
+  if (!form) return; // nothing to do on pages without the form
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var msgEl = document.getElementById('joinFormMsg');
+    msgEl.textContent = 'Sending...';
+    var fd = new FormData(form);
+    var payload = {};
+    fd.forEach(function (v, k) { payload[k] = v; });
+
+    fetch(GOOGLE_SHEETS_WEBAPP_URL, {
+      method: 'POST',
+      mode: 'cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).then(function (res) {
+      if (!res.ok) throw new Error('Network response was not ok');
+      return res.json().catch(function () { return {}; });
+    }).then(function (data) {
+      msgEl.textContent = 'Thanks — your membership request was received.';
+      form.reset();
+    }).catch(function (err) {
+      console.error('Join form submit error:', err);
+      msgEl.textContent = 'Sorry — there was a problem sending the form. Please try again later.';
+    });
+  });
+})();
