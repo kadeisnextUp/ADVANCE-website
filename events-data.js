@@ -4,7 +4,7 @@ window.EVENTS = [
   {
     id: 'evt-1',
     title: 'Meet the Eboard',
-    date: 'Soon',
+    date: '10-22-2025',
     flyer: 'images/Executive Board Photos/Executive Board Retreat 2025 1.jpeg',
     // full: provide a higher-resolution version if available; fallback to `flyer` when not provided
     full: 'images/Executive Board Photos/Executive Board Retreat 2025 1.jpeg',

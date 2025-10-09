@@ -8,12 +8,21 @@ study group finder
 /* Base */
 
 /* Fonts*/
+/* Homepage font */
 @font-face {
   font-family: 'CustomFont';
   src: url("Fonts/Anta-Regular.ttf");
   font-weight: normal;
   font-style: normal;
 }
+
+@font-face {
+  font-family: 'HomepageFont';
+  src: url("Fonts/SpaceGrotesk-VariableFont_wght.ttf");
+  font-weight: bold;
+  font-style: normal;
+}
+
 /* Header / Nav */
 .site-header{width:100%;background:linear-gradient(180deg,rgba(0,0,0,0.6),rgba(0,0,0,0.35));position:relative;z-index:40}
 .container{max-width:1100px;margin:0 auto;padding:0 20px}
@@ -158,7 +167,7 @@ body {
 *
 */
 body.home { background: url('images/campus sky.jpeg') center/cover no-repeat fixed; 
-  font-family: 'CustomFont', Arial, sans-serif;
+  font-family: 'HomepageFont';
   }
 
 /* Advance title and slogan */
@@ -191,9 +200,16 @@ body.home { background: url('images/campus sky.jpeg') center/cover no-repeat fix
 .events-carousel { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 12px 6px; -webkit-overflow-scrolling: touch; }
 
 .events-carousel { width: 520px; }
-.event-item { min-width: 100%; max-width: 100%; background: rgba(255,255,255,0.04); border-radius: 8px; overflow: hidden; scroll-snap-align: center; box-shadow: 0 6px 18px rgba(0,0,0,0.45); }
+.event-item { min-width: 100%; max-width: 100%; background: rgba(0, 0, 0, 0.04); border-radius: 8px; overflow: hidden; scroll-snap-align: center; box-shadow: 0 6px 18px rgba(0,0,0,0.45); }
 .event-flyer-wrap img { width: 100%; height: 360px; object-fit: cover; display: block; }
-.event-meta { padding: 10px 12px; }
+.event-meta {
+  padding: 10px 12px;
+  background: rgba(0, 0, 0, 0.6); /* darker overlay behind text */
+  backdrop-filter: blur(4px);     /* optional soft blur effect */
+  border-top: 1px solid rgba(255,215,0,0.15); /* subtle gold accent */
+  border-radius: 0 0 8px 8px;     /* matches the bottom corners of flyer card */
+}
+
 .event-meta h3 { margin: 4px 0; font-size: 18px; color: var(--accent); }
 .event-meta time { display: block; color: var(--accent); font-size: 13px; margin-bottom: 8px; }
 .view-flyer-btn {
@@ -217,7 +233,7 @@ body.home { background: url('images/campus sky.jpeg') center/cover no-repeat fix
   padding: 6px 8px; 
 }
 
-/* Place the upcoming events to the right of the main content on wide screens using CSS Grid */
+/* Place the upcoming events to the right*/
 @media (min-width: 1000px) {
   /* Use a responsive width for the right column so it scales on different large screens */
   .home-grid { display: grid; grid-template-columns: 1fr minmax(340px, clamp(360px, 28vw, 620px)); gap: 36px; align-items: start; }
@@ -285,15 +301,66 @@ body.home { background: url('images/campus sky.jpeg') center/cover no-repeat fix
 *
 */
 body.about { background: #fff; color: #000; 
-  font-family: Arial, Helvetica, sans-serif; 
+  font-family: 'CustomFont', Arial, Helvetica, sans-serif; 
 }
-/* About page two-column layout: logo left, content right */
-.about-grid { display: grid; grid-template-columns: 1fr; gap: 24px; align-items: start; }
-.about-visual img { max-width: 100%; height: auto; display: block; }
-.about-content { color: #000; }
-.about-content h1, .about-content h2 { color: #111; }
+/* About top section: logo + intro text */
+.about-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 32px;
+  padding: 40px 0;
+  border-bottom: 1px solid #ddd; /* subtle separator */
+}
 
+.about-logo {
+  flex: 0 0 180px; /* fixed width for logo */
+  text-align: center;
+}
 
+.about-logo img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+}
+
+.about-who {
+  flex: 1 1 400px; /* text takes remaining space */
+}
+
+.about-who h1 {
+  margin-top: 0;
+  font-size: 2.2rem;
+  color: #111;
+}
+
+.about-who h2 {
+  font-size: 1.6rem;
+  color: #444;
+  margin-top: 8px;
+}
+
+.about-who p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #333;
+}
+
+/* Responsive: stack logo and text on small screens */
+@media (max-width: 768px) {
+  .about-top {
+    flex-direction: column;
+    text-align: center;
+    gap: 24px;
+  }
+  .about-logo {
+    flex: 1 1 auto;
+  }
+  .about-who {
+    flex: 1 1 auto;
+  }
+}
 
 /* Ensure all about page text is left-aligned across sizes */
 body.about, body.about p, body.about h1, body.about h2 { text-align: left; }
@@ -314,15 +381,10 @@ body.about, body.about p, body.about h1, body.about h2 { text-align: left; }
 
 
 
-/* Social links sizing (prevent large images like from overflowing) */
-.social-links { display: inline-flex; gap: 10px; align-items: center; justify-content: center; margin-top: 8px; }
-.social-links a { display: inline-block; }
-.social-links img { height: 28px; width: auto; display: block; border-radius: 4px; }
-
 /* Ensure footer content stacks nicely on very narrow screens */
 @media (max-width:420px){
-  footer { padding: 12px; }
-  .social-links img { height: 24px; }
+  footer { padding: 12px;}
+
 }
 
 
