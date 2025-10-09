@@ -355,32 +355,77 @@ function releaseFocusTrap() {
 
 /* Join form -> Google Sheets helper */
 ;(function () {
-  var GOOGLE_SHEETS_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbziC_PbD3YiG0cHWLy2BNRICKWILQt0lIq1VWWiVT_SRVsnFq-I7MS0-twJHx_Vwbe_/exec'; 
+  var GOOGLE_SHEETS_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbw0AmxeIiGqoguXOqknIzJpb0dONIBtQrrPTbiSrq_eisMCeQR_C_F-D-tZC4MnFZo0/exec'; 
   var form = document.getElementById('joinForm');
   if (!form) return; // nothing to do on pages without the form
 
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     var msgEl = document.getElementById('joinFormMsg');
-    msgEl.textContent = 'Sending...';
+    if (msgEl) msgEl.textContent = 'Sending...';
     var fd = new FormData(form);
-    var payload = {};
-    fd.forEach(function (v, k) { payload[k] = v; });
 
-    fetch(GOOGLE_SHEETS_WEBAPP_URL, {
-      method: 'POST',
-      mode: 'cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    }).then(function (res) {
-      if (!res.ok) throw new Error('Network response was not ok');
-      return res.json().catch(function () { return {}; });
-    }).then(function (data) {
-      msgEl.textContent = 'Thanks — your membership request was received.';
+    // Helper: POST as form data (no custom headers) to avoid CORS preflight when possible.
+    function doFormPost() {
+      return fetch(GOOGLE_SHEETS_WEBAPP_URL, {
+        method: 'POST',
+        mode: 'cors',
+        body: fd
+      });
+    }
+
+    // JSON POST (keeps for compatibility)
+    function doJsonPost() {
+      var payload = {};
+      fd.forEach(function (v, k) { payload[k] = v; });
+      return fetch(GOOGLE_SHEETS_WEBAPP_URL, {
+        method: 'POST',
+        mode: 'cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+    }
+
+    function doNoCorsPost() {
+      // no-cors mode sends an opaque request (we can't read the response),
+      // but it can succeed where CORS would block the regular request.
+      return fetch(GOOGLE_SHEETS_WEBAPP_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        body: fd
+      });
+    }
+
+    // Try form POST first to avoid OPTIONS preflight; if it fails, fall back to JSON then no-cors.
+    doFormPost()
+    .then(function (res) {
+      if (!res.ok) throw new Error('Form POST failed: ' + res.status + ' ' + res.statusText);
+      return res.text().then(function (t) { try { return JSON.parse(t || '{}'); } catch (e) { return {}; } });
+    })
+    .then(function () {
+      if (msgEl) msgEl.textContent = 'Thanks — your membership request was received.';
       form.reset();
-    }).catch(function (err) {
-      console.error('Join form submit error:', err);
-      msgEl.textContent = 'Sorry — there was a problem sending the form. Please try again later.';
+    })
+    .catch(function (err) {
+      console.warn('Form POST failed (trying JSON POST). Error:', err);
+      // Try JSON POST as a second attempt
+      doJsonPost().then(function (res) {
+        if (!res.ok) throw new Error('JSON POST failed: ' + res.status + ' ' + res.statusText);
+        return res.text().then(function (t) { try { return JSON.parse(t || '{}'); } catch (e) { return {}; } });
+      }).then(function () {
+        if (msgEl) msgEl.textContent = 'Thanks — your membership request was received.';
+        form.reset();
+      }).catch(function (err2) {
+        console.warn('JSON POST failed (trying no-cors). Error:', err2);
+        // Last attempt: no-cors fallback
+        doNoCorsPost().then(function () {
+          if (msgEl) msgEl.textContent = 'Thanks — your membership request was submitted. If it does not appear in the sheet within a few minutes, check the web app deployment settings.';
+          form.reset();
+        }).catch(function (err3) {
+          console.error('All POST attempts failed:', err3);
+          if (msgEl) msgEl.textContent = 'Sorry — there was a problem sending the form. Please try again later.';
+        });
+      });
     });
   });
 })();

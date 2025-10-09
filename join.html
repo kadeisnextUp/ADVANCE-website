@@ -51,8 +51,9 @@
     </section>
     <section>
       <h2>Forms</h2>
-      <!-- Membership form wired to Google Sheets via Google Apps Script web app -->
-      <form id="joinForm">
+  <!-- Membership form wired to Google Sheets via Google Apps Script web app -->
+  <!-- Submits directly to the Apps Script web app using a hidden iframe (no CORS needed) -->
+  <form id="joinForm" action="https://script.google.com/macros/s/AKfycbw0AmxeIiGqoguXOqknIzJpb0dONIBtQrrPTbiSrq_eisMCeQR_C_F-D-tZC4MnFZo0/exec" method="post" target="hidden_iframe">
         <fieldset>
           <legend>Membership Form</legend>
           <label> Name: <input name="name" type="text" required /></label>
@@ -63,6 +64,8 @@
         </fieldset>
         <div id="joinFormMsg" role="status" aria-live="polite" style="margin-top:8px"></div>
       </form>
+      <!-- Hidden iframe to receive the form POST response without navigating the page -->
+      <iframe name="hidden_iframe" id="hidden_iframe" style="display:none" title="hidden-form-target"></iframe>
     </section>
   </main>
 
