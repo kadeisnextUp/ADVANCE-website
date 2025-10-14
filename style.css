@@ -305,8 +305,8 @@ body.home { background: url('images/campus sky.jpeg') center/cover no-repeat fix
 /* Ensure visible focus inside lightbox */
 .lightbox-content :focus { outline: 2px solid var(--accent); outline-offset: 3px; }
 
-/* About us
-*
+/* 
+* ABOUT PAGE
 *
 */
 body.about { background: #fff; color: #000; 
@@ -328,11 +328,13 @@ body.about { background: #fff; color: #000;
 }
 
 .about-logo img {
-  width: 100%;
-  height: auto;
+  max-width: 500px;
+  max-height: 500px;
   border-radius: 12px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
 }
+
+
+
 
 .about-who {
   flex: 1 1 400px; /* text takes remaining space */
