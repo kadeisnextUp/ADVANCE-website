@@ -238,7 +238,12 @@ body.home { background: url('images/campus sky.jpeg') center/cover no-repeat fix
   /* Use a responsive width for the right column so it scales on different large screens */
   .home-grid { display: grid; grid-template-columns: 1fr minmax(340px, clamp(360px, 28vw, 620px)); gap: 36px; align-items: start; }
   .home-left { min-width: 0; }
-  .upcoming-events { position: relative; width: 100%; padding-left: 18px; border-left: 1px solid rgba(255,255,255,0.04); }
+  .upcoming-events { 
+    position: relative; 
+    width: 100%; 
+    padding-left: 40px; 
+    border-left: 1px solid rgba(255,255,255,0.04); 
+  }
   /* Adjust title/quote/slogan to fit the left column nicely */
   .title-text, .quote-text, .slogan-text { position: relative; margin-left: 0; max-width: 100%; }
   .title-text { margin-top: 40px; }
