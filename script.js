@@ -1,5 +1,5 @@
 // typewriter function
-function typeWriterEffect(elementId, text, speed = 150, callback) {
+function typeWriterEffect(elementId, text, speed = 50, callback) {
   const target = document.getElementById(elementId);
   let i = 0;
 
@@ -35,10 +35,10 @@ function stagedTypewriter(elements) {
 // Run on homepage load
 document.addEventListener("DOMContentLoaded", function () {
   stagedTypewriter([
-    { id: "typewriter", text: "Advance", speed: 100 },
-    { id: "quote", text: "The mark of a leader.", speed: 50 },
-    { id: "welcome", text: "Welcome to the revived site!", speed: 50 },
-    { id: "mission", text: "Advance is where we are paving the way for tomorrow's leaders!", speed: 50 }
+    { id: "typewriter", text: "Advance" , speed: 400 },
+    { id: "quote", text: "The mark of a leader." },
+    { id: "welcome", text: "Welcome to the revived site!" },
+    { id: "mission", text: "Advance is where we are paving the way for tomorrow's leaders!" }
   ]);
   //banner motion
   // initialize marquee duration if present
