@@ -1,71 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Events</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="events-data.js" defer></script>
+
+  <!-- Uses the existing global stylesheet. 
+       We are NOT changing CSS in this PR. -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Keep the site JS (handles mobile nav + any shared behavior). -->
   <script src="script.js" defer></script>
 </head>
+
 <body>
+  <!-- ============================================================
+       HEADER (unchanged structure so global styles still apply)
+       ============================================================ -->
   <header class="site-header">
     <div class="container header-inner">
       <div class="brand-logos">
         <a href="index.html" class="brand" aria-label="ADVANCE home">
-          <img src="images/Logos/Advance Logo.png" alt="ADVANCE logo">
+          <img src="images/Logos/Advance Logo.png" alt="ADVANCE logo" />
         </a>
         <a href="https://www.uc.edu" class="partner" aria-label="University of Cincinnati">
-          <img src="images/Logos/university_of_cincinnati_logo.svg" alt="UC Logo">
+          <img src="images/Logos/university_of_cincinnati_logo.svg" alt="UC Logo" />
         </a>
       </div>
+
       <button class="nav-toggle" aria-expanded="false" aria-label="Toggle navigation">
         <span class="hamburger" aria-hidden="true"></span>
       </button>
+
       <nav class="site-nav" aria-label="Main Navigation">
         <ul>
           <li><a href="index.html">Home</a></li>
           <li><a href="about.html">About</a></li>
           <li><a href="join.html">Join</a></li>
-          <li><a href="events.html">Events</a></li>
+          <li><a class="active" href="events.html">Events</a></li>
           <li><a href="executiveBoard.html">Executive Board</a></li>
           <li><a href="sponsors.html">Sponsors</a></li>
           <li><a href="resources.html">Resources</a></li>
+          <li><a href="contact.html">Contact</a></li>
         </ul>
       </nav>
     </div>
   </header>
-  <!-- Banner  -->
-  <div class="banner">
+
+  <!-- ============================================================
+       BANNER / MARQUEE
+       NOTE: fully closed tags to prevent the "slides left / cut off"
+       issue. No CSS changes; just valid HTML structure.
+       ============================================================ -->
+  <div class="banner" role="region" aria-label="Site banner">
     <div class="marquee" aria-hidden="true">
       <div class="marquee__inner">
-        <span class="marquee__item">ADVANCE - Where We Are Paving The Way For Tomorrow's Leaders!!!</span>
+        <span class="marquee__item">ADVANCE — Where We Are Paving The Way For Tomorrow's Leaders!!!</span>
+        <!-- duplicated once so existing marquee animation can loop smoothly -->
+        <span class="marquee__item">ADVANCE — Where We Are Paving The Way For Tomorrow's Leaders!!!</span>
       </div>
     </div>
-  
+  </div>
+
+  <!-- ============================================================
+       PAGE CONTENT
+       We render static event cards using class names your CSS already
+       styles (.events-list, .event-item, .event-flyer-wrap, .event-meta).
+       That keeps layout clean WITHOUT touching CSS or adding new styles.
+       ============================================================ -->
   <main>
     <div class="container">
       <h1>Events</h1>
+
+      <!-- Kaden/Javon: If you later want to feed these from JS, you can.
+           For now they’re static so the page isn’t blank if JS/image paths
+           change. Updating = just replace/duplicate an <article>. -->
       <section class="events-list" aria-label="All events">
-        <!-- Full events list injected by events-data.js / script.js -->
+
+        <!-- Event #1 -->
+        <article class="event-item" role="article">
+          <div class="event-flyer-wrap">
+            <!-- If this image ever moves, the card still renders; just update the path. -->
+            <img src="images/Executive Board Photos/Executive Board Retreat 2025 1.jpeg"
+                 alt="Meet the E-board" loading="lazy" />
+          </div>
+          <div class="event-meta">
+            <h3>Meet the E-board</h3>
+            <time datetime="2025-10-22">Soon</time>
+            <p>Meet the new executive board and learn about upcoming events.</p>
+          </div>
+        </article>
+
+        <!-- Event #2 -->
+        <article class="event-item" role="article">
+          <div class="event-flyer-wrap">
+            <img src="images/Event photos/Executive Board Retreat 2025 2.jpeg"
+                 alt="Resume Workshop" loading="lazy" />
+          </div>
+          <div class="event-meta">
+            <h3>Resume Workshop</h3>
+            <time datetime="2025-10-22">2025-10-22</time>
+            <p>Hands-on resume review with career services.</p>
+          </div>
+        </article>
+
+        <!-- Event #3 -->
+        <article class="event-item" role="article">
+          <div class="event-flyer-wrap">
+            <img src="images/Event photos/campus photo.jpg"
+                 alt="Company Info Session: Acme Corp" loading="lazy" />
+          </div>
+          <div class="event-meta">
+            <h3>Company Info Session: Acme Corp</h3>
+            <time datetime="2025-11-05">2025-11-05</time>
+            <p>Recruiters present internship and full-time opportunities.</p>
+          </div>
+        </article>
+
+        <!-- Kaden note:
+             To add a new event quickly, copy an <article class="event-item">,
+             update the image path, title, <time datetime="">, and description. -->
       </section>
     </div>
   </main>
 
+  <!-- ============================================================
+       FOOTER (unchanged structure)
+       ============================================================ -->
   <footer>
     <p>&copy; 2025 ADVANCE. All rights reserved.</p>
-    <div class="social-links">
-      <a href="https://facebook.com/advance" target="_blank">
-  <img src="images/Logos/facebook logo.jpg" alt="Facebook">
+    <div class="social-links" aria-label="ADVANCE social links">
+      <a href="https://facebook.com/advance" target="_blank" rel="noopener">
+        <img src="images/Logos/facebook logo.jpg" alt="Facebook" />
       </a>
-      <a href="https://www.tiktok.com/@advance" target="_blank">
-  <img src="images/Logos/tiktok logo.webp" alt="tiktok">
+      <a href="https://www.tiktok.com/@advance" target="_blank" rel="noopener">
+        <img src="images/Logos/tiktok logo.webp" alt="TikTok" />
       </a>
-      <a href="https://instagram.com/advance_uc" target="_blank">
-  <img src="images/Logos/instagram icon.png" alt="Instagram">
+      <a href="https://instagram.com/advance_uc" target="_blank" rel="noopener">
+        <img src="images/Logos/instagram icon.png" alt="Instagram" />
       </a>
     </div>
-
   </footer>
 </body>
 </html>
