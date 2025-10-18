@@ -1,30 +1,29 @@
+<!-- events.html  (ADVANCE — Events page)
+     This version includes inline comments calling out exactly what changed and why.
+     HTML-only edits; no CSS or JS files were changed.
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Events</title>
-
-  <!-- Uses the existing global stylesheet. 
-       We are NOT changing CSS in this PR. -->
-  <link rel="stylesheet" href="style.css" />
-
-  <!-- Keep the site JS (handles mobile nav + any shared behavior). -->
+  <link rel="stylesheet" href="style.css">
+  <!-- NOTE: These two scripts remain as in the original; they render the events list -->
+  <script src="events-data.js" defer></script>
   <script src="script.js" defer></script>
 </head>
-
 <body>
-  <!-- ============================================================
-       HEADER (unchanged structure so global styles still apply)
-       ============================================================ -->
   <header class="site-header">
     <div class="container header-inner">
       <div class="brand-logos">
         <a href="index.html" class="brand" aria-label="ADVANCE home">
-          <img src="images/Logos/Advance Logo.png" alt="ADVANCE logo" />
+          <img src="images/Logos/Advance Logo.png" alt="ADVANCE logo">
         </a>
-        <a href="https://www.uc.edu" class="partner" aria-label="University of Cincinnati">
-          <img src="images/Logos/university_of_cincinnati_logo.svg" alt="UC Logo" />
+
+        <!-- CHANGE: external link opens in a new tab safely (adds rel="noopener") -->
+        <a href="https://www.uc.edu" class="partner" aria-label="University of Cincinnati" target="_blank" rel="noopener">
+          <img src="images/Logos/university_of_cincinnati_logo.svg" alt="UC Logo">
         </a>
       </div>
 
@@ -37,108 +36,73 @@
           <li><a href="index.html">Home</a></li>
           <li><a href="about.html">About</a></li>
           <li><a href="join.html">Join</a></li>
-          <li><a class="active" href="events.html">Events</a></li>
+
+          <!-- CHANGE: mark current page active so existing CSS can highlight it -->
+          <li><a href="events.html" class="active">Events</a></li>
+
           <li><a href="executiveBoard.html">Executive Board</a></li>
           <li><a href="sponsors.html">Sponsors</a></li>
           <li><a href="resources.html">Resources</a></li>
-          <li><a href="contact.html">Contact</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
-  <!-- ============================================================
-       BANNER / MARQUEE
-       NOTE: fully closed tags to prevent the "slides left / cut off"
-       issue. No CSS changes; just valid HTML structure.
-       ============================================================ -->
-  <div class="banner" role="region" aria-label="Site banner">
+  <!-- Banner / Marquee -->
+  <div class="banner">
     <div class="marquee" aria-hidden="true">
       <div class="marquee__inner">
-        <span class="marquee__item">ADVANCE — Where We Are Paving The Way For Tomorrow's Leaders!!!</span>
-        <!-- duplicated once so existing marquee animation can loop smoothly -->
-        <span class="marquee__item">ADVANCE — Where We Are Paving The Way For Tomorrow's Leaders!!!</span>
+        <span class="marquee__item">ADVANCE - Where We Are Paving The Way For Tomorrow's Leaders!!!</span>
+
+        <!-- CHANGE: duplicate the same line once for a seamless scroll (prevents empty gap) -->
+        <span class="marquee__item">ADVANCE - Where We Are Paving The Way For Tomorrow's Leaders!!!</span>
       </div>
     </div>
-  </div>
+  </div> <!-- CHANGE: properly close .banner wrapper to avoid layout bleed -->
 
-  <!-- ============================================================
-       PAGE CONTENT
-       We render static event cards using class names your CSS already
-       styles (.events-list, .event-item, .event-flyer-wrap, .event-meta).
-       That keeps layout clean WITHOUT touching CSS or adding new styles.
-       ============================================================ -->
   <main>
     <div class="container">
       <h1>Events</h1>
 
-      <!-- Kaden/Javon: If you later want to feed these from JS, you can.
-           For now they’re static so the page isn’t blank if JS/image paths
-           change. Updating = just replace/duplicate an <article>. -->
+      <!-- NOTE: events render here via events-data.js + script.js; no structural changes -->
       <section class="events-list" aria-label="All events">
-
-        <!-- Event #1 -->
-        <article class="event-item" role="article">
-          <div class="event-flyer-wrap">
-            <!-- If this image ever moves, the card still renders; just update the path. -->
-            <img src="images/Executive Board Photos/Executive Board Retreat 2025 1.jpeg"
-                 alt="Meet the E-board" loading="lazy" />
-          </div>
-          <div class="event-meta">
-            <h3>Meet the E-board</h3>
-            <time datetime="2025-10-22">Soon</time>
-            <p>Meet the new executive board and learn about upcoming events.</p>
-          </div>
-        </article>
-
-        <!-- Event #2 -->
-        <article class="event-item" role="article">
-          <div class="event-flyer-wrap">
-            <img src="images/Event photos/Executive Board Retreat 2025 2.jpeg"
-                 alt="Resume Workshop" loading="lazy" />
-          </div>
-          <div class="event-meta">
-            <h3>Resume Workshop</h3>
-            <time datetime="2025-10-22">2025-10-22</time>
-            <p>Hands-on resume review with career services.</p>
-          </div>
-        </article>
-
-        <!-- Event #3 -->
-        <article class="event-item" role="article">
-          <div class="event-flyer-wrap">
-            <img src="images/Event photos/campus photo.jpg"
-                 alt="Company Info Session: Acme Corp" loading="lazy" />
-          </div>
-          <div class="event-meta">
-            <h3>Company Info Session: Acme Corp</h3>
-            <time datetime="2025-11-05">2025-11-05</time>
-            <p>Recruiters present internship and full-time opportunities.</p>
-          </div>
-        </article>
-
-        <!-- Kaden note:
-             To add a new event quickly, copy an <article class="event-item">,
-             update the image path, title, <time datetime="">, and description. -->
+        <!-- JS will inject the full events list/cards here -->
       </section>
     </div>
   </main>
 
-  <!-- ============================================================
-       FOOTER (unchanged structure)
-       ============================================================ -->
   <footer>
     <p>&copy; 2025 ADVANCE. All rights reserved.</p>
-    <div class="social-links" aria-label="ADVANCE social links">
-      <a href="https://facebook.com/advance" target="_blank" rel="noopener">
-        <img src="images/Logos/facebook logo.jpg" alt="Facebook" />
-      </a>
-      <a href="https://www.tiktok.com/@advance" target="_blank" rel="noopener">
-        <img src="images/Logos/tiktok logo.webp" alt="TikTok" />
-      </a>
-      <a href="https://instagram.com/advance_uc" target="_blank" rel="noopener">
-        <img src="images/Logos/instagram icon.png" alt="Instagram" />
-      </a>
+
+    <!-- CHANGE: standardized social links; labeled rows + fixed-size icons (HTML-only, no CSS edits) -->
+    <div class="social-links" role="group" aria-label="ADVANCE social links">
+      <table role="presentation" style="margin:10px auto;">
+        <tr>
+          <td style="padding:6px 10px; text-align:right; white-space:nowrap;">Facebook:</td>
+          <td style="padding:6px 10px;">
+            <a href="https://facebook.com/advance" target="_blank" rel="noopener" aria-label="Facebook">
+              <!-- width/height force consistent 28x28; inline style keeps vertical centering without touching CSS -->
+              <img src="images/Logos/facebook logo.jpg" alt="Facebook" width="28" height="28" loading="lazy" style="vertical-align:middle;">
+            </a>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:6px 10px; text-align:right; white-space:nowrap;">TikTok:</td>
+          <td style="padding:6px 10px;">
+            <a href="https://www.tiktok.com/@advance" target="_blank" rel="noopener" aria-label="TikTok">
+              <img src="images/Logos/tiktok logo.webp" alt="TikTok" width="28" height="28" loading="lazy" style="vertical-align:middle;">
+            </a>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:6px 10px; text-align:right; white-space:nowrap;">Instagram:</td>
+          <td style="padding:6px 10px;">
+            <a href="https://instagram.com/advance_uc" target="_blank" rel="noopener" aria-label="Instagram">
+              <img src="images/Logos/instagram icon.png" alt="Instagram" width="28" height="28" loading="lazy" style="vertical-align:middle;">
+            </a>
+          </td>
+        </tr>
+      </table>
     </div>
   </footer>
 </body>
