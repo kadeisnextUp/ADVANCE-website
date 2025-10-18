@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sponsors</title>
-  <!-- use existing site styles / js; no CSS changes -->
+  <!-- keep existing site styles / js; we are NOT editing style.css -->
   <link rel="stylesheet" href="style.css" />
   <script src="script.js" defer></script>
 </head>
@@ -33,7 +33,7 @@
           <li><a href="events.html">Events</a></li>
           <li><a href="executiveBoard.html">Executive Board</a></li>
           <!-- mark this page active -->
-        <li><a href="sponsors.html" class="active" aria-current="page">Sponsors</a></li>
+          <li><a href="sponsors.html" class="active" aria-current="page">Sponsors</a></li>
           <li><a href="resources.html">Resources</a></li>
           <li><a href="contact.html">Contact</a></li>
         </ul>
@@ -62,14 +62,13 @@
         <h2 id="corp-sponsors">Corporate Sponsors</h2>
         <ul>
           <li><em>Coming soon.</em></li>
-        </ul>
-        <!-- template:
-        <ul>
-          <li><strong>Company Name</strong> — short blurb
-            <br><a href="https://example.com" target="_blank" rel="noopener">Visit website</a>
+          <!-- example item:
+          <li>
+            <strong>Company Name</strong> — brief blurb
+            <br><a href="https://example.com" target="_blank" rel="noopener" style="color:#FFD400;">Visit website</a>
           </li>
+          -->
         </ul>
-        -->
       </section>
 
       <!-- educational sponsors (text placeholders only) -->
@@ -86,21 +85,19 @@
         <p><em>Details coming soon.</em></p>
       </section>
 
-      <!-- sponsor CTA -->
+      <!-- sponsor CTA (no PDF link; email tinted to site yellow) -->
       <section aria-labelledby="become-sponsor">
         <h2 id="become-sponsor">Interested in sponsoring ADVANCE?</h2>
-        <p>Email <a href="mailto:advance@uc.edu">advance@uc.edu</a> for information.</p>
-        <!-- optional deck link; remove if not used -->
         <p>
-          <a href="docs/ADVANCE_Sponsorship_Overview.pdf" target="_blank" rel="noopener">
-            Download the sponsorship overview (PDF)
-          </a>
+          Email
+          <a href="mailto:advance@uc.edu" style="color:#FFD400;">advance@uc.edu</a>
+          for information.
         </p>
       </section>
     </div>
   </main>
 
-  <!-- footer (label + fixed-size icons, no CSS edits) -->
+  <!-- footer (labels + fixed-size icons; no CSS edits) -->
   <footer>
     <p>&copy; 2025 ADVANCE. All rights reserved.</p>
 
