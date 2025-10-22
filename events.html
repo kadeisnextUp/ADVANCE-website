@@ -5,11 +5,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Events</title>
-  <link rel="stylesheet" href="style.css">
-  <!-- NOTE: These two scripts remain as in the original; they render the events list -->
+  <link rel="stylesheet" href="style.css" />
   <script src="events-data.js" defer></script>
   <script src="script.js" defer></script>
 </head>
@@ -18,12 +17,10 @@
     <div class="container header-inner">
       <div class="brand-logos">
         <a href="index.html" class="brand" aria-label="ADVANCE home">
-          <img src="images/Logos/Advance Logo.png" alt="ADVANCE logo">
+          <img src="images/Logos/Advance Logo.png" alt="ADVANCE logo" />
         </a>
-
-        <!-- CHANGE: external link opens in a new tab safely (adds rel="noopener") -->
-        <a href="https://www.uc.edu" class="partner" aria-label="University of Cincinnati" target="_blank" rel="noopener">
-          <img src="images/Logos/university_of_cincinnati_logo.svg" alt="UC Logo">
+        <a href="https://www.uc.edu" class="partner" aria-label="University of Cincinnati">
+          <img src="images/Logos/university_of_cincinnati_logo.svg" alt="UC Logo" />
         </a>
       </div>
 
@@ -36,10 +33,7 @@
           <li><a href="index.html">Home</a></li>
           <li><a href="about.html">About</a></li>
           <li><a href="join.html">Join</a></li>
-
-          <!-- CHANGE: mark current page active so existing CSS can highlight it -->
-          <li><a href="events.html" class="active">Events</a></li>
-
+          <li><a href="events.html" class="active" aria-current="page">Events</a></li>
           <li><a href="executiveBoard.html">Executive Board</a></li>
           <li><a href="sponsors.html">Sponsors</a></li>
           <li><a href="resources.html">Resources</a></li>
@@ -48,29 +42,62 @@
     </div>
   </header>
 
-  <!-- Banner / Marquee -->
-  <div class="banner">
+  <!-- Banner / marquee -->
+  <div class="banner" role="region" aria-label="Site banner">
     <div class="marquee" aria-hidden="true">
       <div class="marquee__inner">
-        <span class="marquee__item">ADVANCE - Where We Are Paving The Way For Tomorrow's Leaders!!!</span>
-
-        <!-- CHANGE: duplicate the same line once for a seamless scroll (prevents empty gap) -->
-        <span class="marquee__item">ADVANCE - Where We Are Paving The Way For Tomorrow's Leaders!!!</span>
+        <!-- Duplicate line to prevent “blank gap” during scroll -->
+        <span class="marquee__item">ADVANCE — Where We Are Paving The Way For Tomorrow's Leaders!!!</span>
+        <span class="marquee__item">ADVANCE — Where We Are Paving The Way For Tomorrow's Leaders!!!</span>
       </div>
     </div>
-  </div> <!-- CHANGE: properly close .banner wrapper to avoid layout bleed -->
+  </div>
 
+  <!-- Page content -->
   <main>
     <div class="container">
       <h1>Events</h1>
 
       <!-- NOTE: events render here via events-data.js + script.js; no structural changes -->
       <section class="events-list" aria-label="All events">
-        <!-- JS will inject the full events list/cards here -->
+        <!-- Example 1 -->
+        <article class="event-item" role="article">
+          <div class="event-flyer-wrap">
+            <img src="images/Event photos/Executive Board Retreat 2025 1.jpeg" alt="Meet the E-board" loading="lazy" />
+          </div>
+          <div class="event-meta">
+            <h3>Meet the E-board</h3>
+            <time datetime="2025-10-22">Soon</time>
+            <p>Meet the new executive board and learn about upcoming events.</p>
+          </div>
+        </article>
+
+        <!-- Example 2 -->
+        <article class="event-item" role="article">
+          <div class="event-flyer-wrap">
+            <img src="images/Event photos/Executive Board Retreat 2025 2.jpeg" alt="Resume Workshop" loading="lazy" />
+          </div>
+          <div class="event-meta">
+            <h3>Resume Workshop</h3>
+            <time datetime="2025-10-22">2025-10-22</time>
+            <p>Hands-on resume review with career services.</p>
+          </div>
+        </article>
+
+        <!-- Example 3 -->
+        <article class="event-item" role="article">
+          <div class="event-flyer-wrap">
+            <img src="images/Event photos/campus photo.jpeg" alt="Company Info Session: Acme Corp" loading="lazy" />
+          </div>
+          <div class="event-meta">
+            <h3>Company Info Session: Acme Corp</h3>
+            <time datetime="2025-11-05">2025-11-05</time>
+            <p>Recruiters present internship and full-time opportunities.</p>
+          </div>
+        </article>
       </section>
     </div>
   </main>
-
   <footer>
     <p>&copy; 2025 ADVANCE. All rights reserved.</p>
 

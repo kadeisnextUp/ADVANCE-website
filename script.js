@@ -225,7 +225,7 @@ function debounce(fn, wait) {
     overlay.setAttribute('role', 'dialog');
     overlay.setAttribute('aria-hidden', 'true');
 
-    overlay.innerHTML = '\n+      <div class="lightbox-content">\n+        <button class="lightbox-close" aria-label="Close">✕</button>\n+        <button class="lightbox-prev" aria-label="Previous">◀</button>\n+        <img class="lightbox-image" src="" alt="">\n+        <button class="lightbox-next" aria-label="Next">▶</button>\n+        <div class="lightbox-caption"></div>\n+      </div>\n+    ';
+    overlay.innerHTML = '\n      <div class="lightbox-content">\n        <button class="lightbox-close" aria-label="Close">✕</button>\n        <button class="lightbox-prev" aria-label="Previous">◀</button>\n        <img class="lightbox-image" src="" alt="">\n        <button class="lightbox-next" aria-label="Next">▶</button>\n        <div class="lightbox-caption"></div>\n      </div>\n    ';
 
     document.body.appendChild(overlay);
     return overlay;

@@ -3,11 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Resources</title>
+  <title>Resources | ADVANCE</title>
   <link rel="stylesheet" href="style.css">
   <script src="script.js" defer></script>
+  <script src="https://cdn.lordicon.com/lordicon.js"></script>
 </head>
-<body>
+
+<body class="resources">
   <header class="site-header">
     <div class="container header-inner">
       <div class="brand-logos">
@@ -18,9 +20,11 @@
           <img src="images/Logos/university_of_cincinnati_logo.svg" alt="UC Logo">
         </a>
       </div>
+
       <button class="nav-toggle" aria-expanded="false" aria-label="Toggle navigation">
         <span class="hamburger" aria-hidden="true"></span>
       </button>
+
       <nav class="site-nav" aria-label="Main Navigation">
         <ul>
           <li><a href="about.html">About</a></li>
@@ -28,39 +32,67 @@
           <li><a href="events.html">Events</a></li>
           <li><a href="executiveBoard.html">Executive Board</a></li>
           <li><a href="sponsors.html">Sponsors</a></li>
-          <li><a href="resources.html">Resources</a></li>
+          <li><a href="resources.html" class="active">Resources</a></li>
         </ul>
       </nav>
     </div>
   </header>
-  <!-- Banner  -->
+
+  <!-- Banner -->
   <div class="banner">
     <div class="marquee" aria-hidden="true">
       <div class="marquee__inner">
         <span class="marquee__item">ADVANCE - Where We Are Paving The Way For Tomorrow's Leaders!!!</span>
       </div>
     </div>
+  </div>
 
-  <main>
-    <h1>Resources</h1>
-    <ul>
-      <li><a href="#">Useful Link 1</a></li>
-      <li><a href="#">Useful Link 2</a></li>
-    </ul>
+  <!-- Main Content -->
+  <main class="container">
+    <section class="resources-section">
+      <h1>Resources</h1>
+      <p>
+        Welcome to the ADVANCE Resources page! Here, members and students can access materials to help them grow personally and professionally.
+        Whether you’re looking for resume tips, networking guidance, or career development tools — we’ve got you covered.
+      </p>
+
+      <div class="resource-links">
+        <h2>Helpful Links</h2>
+        <ul>
+          <li><a href="https://www.uc.edu/campus-life/career" target="_blank">UC Career Development Center</a></li>
+          <li><a href="https://www.linkedin.com/learning/" target="_blank">LinkedIn Learning</a></li>
+          <li><a href="https://www.naceweb.org/" target="_blank">National Association of Colleges and Employers (NACE)</a></li>
+          <li><a href="https://www.resume.io/" target="_blank">Resume Builder Tools</a></li>
+        </ul>
+      </div>
+
+      <div class="resource-docs">
+        <h2>ADVANCE Member Materials</h2>
+        <ul>
+          <li><a href="documents/Advance_Member_Guide.pdf" target="_blank">Member Guide (PDF)</a></li>
+          <li><a href="documents/Advance_Professional_Development_Checklist.pdf" target="_blank">Professional Development Checklist</a></li>
+        </ul>
+      </div>
+    </section>
   </main>
 
-  <footer> 
+  <!-- Footer -->
+  <footer>
     <p>&copy; 2025 ADVANCE. All rights reserved.</p>
     <div class="social-links">
       <a href="https://facebook.com/advance" target="_blank">
-  <img src="images/Logos/facebook logo.jpg" alt="Facebook">
+        <lord-icon src="https://cdn.lordicon.com/cxauoejw.json" trigger="hover"
+          colors="primary:#000000,secondary:#ffd700" style="width:40px;height:40px"></lord-icon>
       </a>
       <a href="https://www.tiktok.com/@advance" target="_blank">
-  <img src="images/Logos/tiktok logo.webp" alt="tiktok">
+        <lord-icon src="https://cdn.lordicon.com/opjtxtkg.json" trigger="hover"
+          colors="primary:#000000,secondary:#ffd700" style="width:40px;height:40px"></lord-icon>
       </a>
       <a href="https://instagram.com/advance_uc" target="_blank">
-  <img src="images/Logos/instagram icon.png" alt="Instagram">
+        <lord-icon src="https://cdn.lordicon.com/cuwcpyqc.json" trigger="hover"
+          colors="primary:#000000,secondary:#ffd700" style="width:40px;height:40px"></lord-icon>
       </a>
+    </div>
   </footer>
 </body>
 </html>

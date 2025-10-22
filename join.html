@@ -3,11 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Join ADVANCE</title>
+  <title>The Process | ADVANCE</title>
   <link rel="stylesheet" href="style.css">
   <script src="script.js" defer></script>
+  <script src="https://cdn.lordicon.com/lordicon.js"></script>
 </head>
-<body>
+
+<body class="process">
   <header class="site-header">
     <div class="container header-inner">
       <div class="brand-logos">
@@ -18,13 +20,15 @@
           <img src="images/Logos/university_of_cincinnati_logo.svg" alt="UC Logo">
         </a>
       </div>
+
       <button class="nav-toggle" aria-expanded="false" aria-label="Toggle navigation">
         <span class="hamburger" aria-hidden="true"></span>
       </button>
+
       <nav class="site-nav" aria-label="Main Navigation">
         <ul>
           <li><a href="about.html">About</a></li>
-          <li><a href="join.html">Join</a></li>
+          <li><a href="join.html" class="active">The Process</a></li>
           <li><a href="events.html">Events</a></li>
           <li><a href="executiveBoard.html">Executive Board</a></li>
           <li><a href="sponsors.html">Sponsors</a></li>
@@ -33,53 +37,50 @@
       </nav>
     </div>
   </header>
-    <!-- Banner  -->
-    <div class="banner">
-      <div class="marquee" aria-hidden="true">
-        <div class="marquee__inner">
-          <span class="marquee__item">ADVANCE - Where We Are Paving The Way For Tomorrow's Leaders!!!</span>
-        </div>
+
+  <!-- Banner -->
+  <div class="banner">
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__inner">
+        <span class="marquee__item">ADVANCE - Where We Are Paving The Way For Tomorrow's Leaders!!!</span>
       </div>
     </div>
+  </div>
 
-  <main>
-    <h1>Join ADVANCE</h1>
-    <section>
-      <h2>The Process</h2>
-      <p>Explain membership steps...</p>
-    </section>
-    <section>
-      <h2>Forms</h2>
-  <!-- Membership form wired to Google Sheets via Google Apps Script web app -->
-  <!-- Submits directly to the Apps Script web app using a hidden iframe (no CORS needed) -->
-  <form id="joinForm" action="https://script.google.com/macros/s/AKfycbw0AmxeIiGqoguXOqknIzJpb0dONIBtQrrPTbiSrq_eisMCeQR_C_F-D-tZC4MnFZo0/exec" method="post" target="hidden_iframe">
-        <fieldset>
-          <legend>Membership Form</legend>
-          <label> Name: <input name="name" type="text" required /></label>
-          <label> Major: <input name="major" type="text" /></label>
-          <label> Year: <input name="year" type="text" /></label>
-          <label> Email: <input name="email" type="email" required /></label>
-          <button type="submit">Submit</button>
-        </fieldset>
-        <div id="joinFormMsg" role="status" aria-live="polite" style="margin-top:8px"></div>
-      </form>
-      <!-- Hidden iframe to receive the form POST response without navigating the page -->
-      <iframe name="hidden_iframe" id="hidden_iframe" style="display:none" title="hidden-form-target"></iframe>
+  <!-- Main Content -->
+  <main class="container">
+    <section class="process-section">
+      <h1>The Process</h1>
+      <p>
+        The process of joining ADVANCE is simple. Click on the Google Form link below and a team member will reach out to you shortly. 
+        Another way to join or to see what a typical team meeting would look like is to join us on Wednesday evenings from 5–6 PM in Baldwin 540.
+      </p>
+
+      <p>
+        <a href="https://forms.office.com/r/Fqafzfigsj" target="_blank" class="button">
+          Complete the Google Form
+        </a>
+      </p>
     </section>
   </main>
 
-  <footer> 
+  <!-- Footer -->
+  <footer>
     <p>&copy; 2025 ADVANCE. All rights reserved.</p>
     <div class="social-links">
       <a href="https://facebook.com/advance" target="_blank">
-  <img src="images/Logos/facebook logo.jpg" alt="Facebook">
+        <lord-icon src="https://cdn.lordicon.com/cxauoejw.json" trigger="hover"
+          colors="primary:#000000,secondary:#ffd700" style="width:40px;height:40px"></lord-icon>
       </a>
       <a href="https://www.tiktok.com/@advance" target="_blank">
-  <img src="images/Logos/tiktok logo.webp" alt="tiktok">
+        <lord-icon src="https://cdn.lordicon.com/opjtxtkg.json" trigger="hover"
+          colors="primary:#000000,secondary:#ffd700" style="width:40px;height:40px"></lord-icon>
       </a>
       <a href="https://instagram.com/advance_uc" target="_blank">
-  <img src="images/Logos/instagram icon.png" alt="Instagram">
+        <lord-icon src="https://cdn.lordicon.com/cuwcpyqc.json" trigger="hover"
+          colors="primary:#000000,secondary:#ffd700" style="width:40px;height:40px"></lord-icon>
       </a>
+    </div>
   </footer>
 </body>
 </html>
