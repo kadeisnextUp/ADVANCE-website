@@ -221,7 +221,7 @@ body.home {
    About Page
 ------------------------------ */
 html.about,
-body.about { background: #fff !important; color: #000; display: block; font-family: 'CustomFont', Arial, Helvetica, sans-serif; }
+body.about { background: white !important; color: black; display: block; font-family: 'CustomFont', Arial, Helvetica, sans-serif; }
 .about-top, .about-row { display: flex; flex-wrap: wrap; align-items: center; gap: 40px; padding: 40px 0; border-bottom: 1px solid #ddd;}
 
 /* Alternate direction for every even section */
