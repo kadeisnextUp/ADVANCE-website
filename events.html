@@ -1,3 +1,7 @@
+<!-- events.html  (ADVANCE — Events page)
+     This version includes inline comments calling out exactly what changed and why.
+     HTML-only edits; no CSS or JS files were changed.
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -53,6 +57,8 @@
   <main>
     <div class="container">
       <h1>Events</h1>
+
+      <!-- NOTE: events render here via events-data.js + script.js; no structural changes -->
       <section class="events-list" aria-label="All events">
         <!-- Example 1 -->
         <article class="event-item" role="article">
@@ -94,31 +100,36 @@
   </main>
   <footer>
     <p>&copy; 2025 ADVANCE. All rights reserved.</p>
-    <div class="social-links">
-      <a href="https://facebook.com/advance" target="_blank">
-        <lord-icon
-            src="https://cdn.lordicon.com/cxauoejw.json"
-            trigger="hover"
-            colors="primary:#000000,secondary:#ffd700"
-            style="width:40px;height:40px">
-        </lord-icon>
-      </a>
-      <a href="https://www.tiktok.com/@advance" target="_blank">
-        <lord-icon
-            src="https://cdn.lordicon.com/opjtxtkg.json"
-            trigger="hover"
-            colors="primary:#000000,secondary:#ffd700"
-            style="width:40px;height:40px">
-        </lord-icon>
-      </a>
-      <a href="https://instagram.com/advance_uc" target="_blank">
-        <lord-icon
-            src="https://cdn.lordicon.com/cuwcpyqc.json"
-            trigger="hover"
-            colors="primary:#000000,secondary:#ffd700"
-            style="width:40px;height:40px">
-        </lord-icon>
-      </a>
+
+    <!-- CHANGE: standardized social links; labeled rows + fixed-size icons (HTML-only, no CSS edits) -->
+    <div class="social-links" role="group" aria-label="ADVANCE social links">
+      <table role="presentation" style="margin:10px auto;">
+        <tr>
+          <td style="padding:6px 10px; text-align:right; white-space:nowrap;">Facebook:</td>
+          <td style="padding:6px 10px;">
+            <a href="https://facebook.com/advance" target="_blank" rel="noopener" aria-label="Facebook">
+              <!-- width/height force consistent 28x28; inline style keeps vertical centering without touching CSS -->
+              <img src="images/Logos/facebook logo.jpg" alt="Facebook" width="28" height="28" loading="lazy" style="vertical-align:middle;">
+            </a>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:6px 10px; text-align:right; white-space:nowrap;">TikTok:</td>
+          <td style="padding:6px 10px;">
+            <a href="https://www.tiktok.com/@advance" target="_blank" rel="noopener" aria-label="TikTok">
+              <img src="images/Logos/tiktok logo.webp" alt="TikTok" width="28" height="28" loading="lazy" style="vertical-align:middle;">
+            </a>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:6px 10px; text-align:right; white-space:nowrap;">Instagram:</td>
+          <td style="padding:6px 10px;">
+            <a href="https://instagram.com/advance_uc" target="_blank" rel="noopener" aria-label="Instagram">
+              <img src="images/Logos/instagram icon.png" alt="Instagram" width="28" height="28" loading="lazy" style="vertical-align:middle;">
+            </a>
+          </td>
+        </tr>
+      </table>
     </div>
   </footer>
 </body>
