@@ -170,24 +170,6 @@ document.addEventListener('DOMContentLoaded', function () {
         if (e.key === 'ArrowRight') scrollNext();
         if (e.key === 'ArrowLeft') scrollPrev();
       });
-
-      // announce slide position when scrolling (basic)
-      var lastAnnounced = -1;
-      function announceVisible() {
-        var items = carousel.querySelectorAll('.event-item');
-        items.forEach(function (it, idx) {
-          var rect = it.getBoundingClientRect();
-          var cRect = carousel.getBoundingClientRect();
-          // item is considered visible if its left is within carousel viewport
-          if (rect.left >= cRect.left - 5 && rect.left < cRect.right - 5) {
-            if (lastAnnounced !== idx) {
-              lastAnnounced = idx;
-              var title = it.querySelector('.event-meta h3')?.textContent || '';
-              if (carouselAnnouncer) carouselAnnouncer.textContent = 'Slide ' + (idx + 1) + ' of ' + items.length + (title ? (': ' + title) : '');
-            }
-          }
-        });
-      }
       carousel.addEventListener('scroll', debounce(announceVisible, 150));
       // initial announce
       setTimeout(announceVisible, 300);
