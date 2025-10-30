@@ -60,6 +60,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
+
 /* Mobile Navigation */
 
 // Navbar mobile toggle and active-link highlighting + events carousel
@@ -205,7 +206,22 @@ document.addEventListener('DOMContentLoaded', function () {
       eventsListContainer.appendChild(section);
     });
   }
+
+  
 });
+
+function applyAccentToIcons() {
+  // detect color variables based on the active page or theme
+  const root = document.body || document.documentElement;
+  const background = getComputedStyle(root).getPropertyValue("--bg").trim();
+  const accent = getComputedStyle(root).getPropertyValue("--accent").trim();
+
+  document.querySelectorAll("lord-icon").forEach(icon => {
+    icon.setAttribute("colors", `primary:${background},secondary:${accent}`);
+  });
+}
+
+applyAccentToIcons();
 
 // small debounce helper
 function debounce(fn, wait) {

@@ -1,29 +1,38 @@
 // Shared events data for the site
-// Replace image paths and add real event objects as needed.
 window.EVENTS = [
   {
     id: 'evt-1',
     title: 'Meet the Eboard',
     date: '11-13-2025',
     flyer: 'images/Executive Board Photos/Executive Board Retreat 2025 1.jpeg',
-    // full: provide a higher-resolution version if available; fallback to `flyer` when not provided
     full: 'images/Executive Board Photos/Executive Board Retreat 2025 1.jpeg',
     description: 'Meet the new executive board and learn about upcoming events.'
   },
   {
     id: 'evt-2',
-    title: 'Resume Workshop',
-    date: '2025-10-22',
-    flyer: 'images/Event photos/Executive Board Retreat 2025 2.jpeg',
-    full: 'images/Event photos/Executive Board Retreat 2025 2.jpeg',
-    description: 'Hands-on resume review with career services.'
+    title: 'Walking on Business',
+    date: 'TBD ',
+    flyer: 'images/Logos/ADVANCE new logo.png',
+    full: 'images/Logos/ADVANCE new logo non transparent.png',
+    description: 'A community walk in Burnet Woods to enjoy nature and connect with members. This event is led by Jada!'
   },
   {
     id: 'evt-3',
-    title: 'Company Info Session: Acme Corp',
-    date: '2025-11-05',
-    flyer: 'images/Event photos/campus photo.jpg',
-    full: 'images/Event photos/campus photo.jpg',
-    description: 'Recruiters present internship and full-time opportunities.'
+    title: 'Stress relief event',
+    date: 'TBD Nov-Dec 2025',
+    flyer: 'images/Logos/ADVANCE new logo.png',
+    full: 'images/Logos/ADVANCE new logo non transparent.png',
+    description: 'More Details Coming Soon.'
+  },
+
+
+  {
+    id: 'evt-4',
+    title: 'Corporate Excursion',
+    date: 'March 14-21st, 2026',
+    flyer: 'images/Logos/ADVANCE new logo.png',
+    full: 'images/Logos/ADVANCE new logo non transparent.png',
+    description: 'Join us for a corporate excursion to explore new opportunities and network with professionals in New York City!'
   }
+
 ];
