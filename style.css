@@ -180,7 +180,14 @@ body.home {
 .title-text { margin-top: 20px; font-size: clamp(26px, 6vw, 36px); }
 .quote-text p, .slogan-text p { font-size: clamp(10px, 2.5vw, 26px); color: var(--accent); margin: 6px 0; }
 .quote-text p { font-style: italic; }
-.slogan-text p { word-wrap: normal; }
+.title-text p,
+.quote-text p,
+.slogan-text p {
+  white-space: normal; 
+  word-wrap: break-word;
+  overflow-wrap: anywhere;
+}
+
 /* ------------------------------
    Events Carousel 
 ------------------------------ */
