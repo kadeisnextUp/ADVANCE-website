@@ -1,25 +1,89 @@
-<!-- events.html  (ADVANCE — Events page)
-     This version includes inline comments calling out exactly what changed and why.
-     HTML-only edits; no CSS or JS files were changed.
--->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Events</title>
+
+  <!-- Global assets -->
   <link rel="stylesheet" href="style.css" />
   <script src="events-data.js" defer></script>
   <script src="script.js" defer></script>
+  <script src="https://cdn.lordicon.com/lordicon.js" defer></script>
+
+  <!-- Page-scoped styles (only affect this page) -->
+  <style>
+    /* Wrap */
+    body.page-events .events-wrap{
+      background:
+        radial-gradient(900px 520px at 20% -10%, rgba(255,215,0,.08), transparent 60%),
+        radial-gradient(700px 420px at 120% 10%, rgba(255,215,0,.06), transparent 60%),
+        linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.7));
+      padding:28px 0 40px;
+      color:#fff;
+    }
+    /* Title */
+    body.page-events .events-hero h1{
+      margin: 8px 0 4px;
+      font-size: clamp(32px,6vw,56px);
+      color:#FFD700;
+    }
+    body.page-events .events-sub{margin:0 0 18px;opacity:.9;}
+
+    /* Month heading */
+    body.page-events .ev-month{
+      margin:26px 0 14px;
+      font-size:1.1rem;
+      letter-spacing:.04em;
+      color:#FFD700;
+      border-left:3px solid rgba(255,215,0,.55);
+      padding-left:10px;
+    }
+
+    /* Grid */
+    body.page-events .ev-grid{
+      display:grid;
+      gap:18px;
+      grid-template-columns:repeat(auto-fill, minmax(260px,1fr));
+    }
+
+    /* Card */
+    body.page-events .ev-card{
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,215,0,.18);
+      border-radius:14px;
+      overflow:hidden;
+      box-shadow:0 10px 24px rgba(0,0,0,.4);
+      transition:transform .18s ease, box-shadow .18s ease;
+    }
+    body.page-events .ev-card:hover{transform:translateY(-3px);box-shadow:0 16px 36px rgba(0,0,0,.55);}
+    body.page-events .ev-card img{display:block;width:100%;height:340px;object-fit:cover;cursor:zoom-in;}
+    body.page-events .ev-meta{padding:12px 14px 14px;background:rgba(0,0,0,.45);border-top:1px solid rgba(255,215,0,.15);}
+    body.page-events .ev-title{margin:0 0 4px;color:#FFD700;font-weight:700;}
+    body.page-events .ev-date{display:block;font-size:.94rem;opacity:.9;margin-bottom:6px;}
+    body.page-events .ev-desc{margin:0;opacity:.95;}
+
+    /* Lightbox */
+    body.page-events .ev-lightbox{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.88);z-index:9999;}
+    body.page-events .ev-lightbox.open{display:flex;}
+    body.page-events .ev-lightbox-img{max-width:92vw;max-height:88vh;display:block;border-radius:10px;box-shadow:0 16px 60px rgba(0,0,0,.9);}
+    body.page-events .ev-lightbox-cap{color:#fff;text-align:center;margin-top:8px;opacity:.9;}
+    body.page-events .ev-lightbox-close{position:absolute;top:12px;right:16px;font-size:28px;line-height:1;background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.2);color:#fff;border-radius:8px;padding:6px 10px;cursor:pointer;}
+
+    /* Footer icons on this page */
+    body.page-events footer .social-links img{vertical-align:middle;margin:0 6px;}
+  </style>
 </head>
-<body>
+
+<body class="page-events">
+  <!-- Header -->
   <header class="site-header">
     <div class="container header-inner">
       <div class="brand-logos">
         <a href="index.html" class="brand" aria-label="ADVANCE home">
-          <img src="images/Logos/Advance Logo.png" alt="ADVANCE logo" />
+          <img src="images/Logos/ADVANCE new logo.png" alt="ADVANCE logo" />
         </a>
-        <a href="https://www.uc.edu" class="partner" aria-label="University of Cincinnati">
+        <a href="https://www.uc.edu" class="partner" aria-label="University of Cincinnati" target="_blank" rel="noopener">
           <img src="images/Logos/university_of_cincinnati_logo.svg" alt="UC Logo" />
         </a>
       </div>
@@ -30,7 +94,6 @@
 
       <nav class="site-nav" aria-label="Main Navigation">
         <ul>
-          <li><a href="index.html">Home</a></li>
           <li><a href="about.html">About</a></li>
           <li><a href="join.html">Join</a></li>
           <li><a href="events.html" class="active" aria-current="page">Events</a></li>
@@ -42,95 +105,153 @@
     </div>
   </header>
 
-  <!-- Banner / marquee -->
+  <!-- Banner -->
   <div class="banner" role="region" aria-label="Site banner">
     <div class="marquee" aria-hidden="true">
       <div class="marquee__inner">
-        <!-- Duplicate line to prevent “blank gap” during scroll -->
         <span class="marquee__item">ADVANCE — Where We Are Paving The Way For Tomorrow's Leaders!!!</span>
         <span class="marquee__item">ADVANCE — Where We Are Paving The Way For Tomorrow's Leaders!!!</span>
       </div>
     </div>
   </div>
 
-  <!-- Page content -->
-  <main>
+  <!-- Content -->
+  <main class="events-wrap">
     <div class="container">
-      <h1>Events</h1>
+      <header class="events-hero">
+        <h1>Events</h1>
+        <p class="events-sub">Upcoming and recent happenings — grouped by month</p>
+      </header>
 
-      <!-- NOTE: events render here via events-data.js + script.js; no structural changes -->
-      <section class="events-list" aria-label="All events">
-        <!-- Example 1 -->
-        <article class="event-item" role="article">
-          <div class="event-flyer-wrap">
-            <img src="images/Event photos/Executive Board Retreat 2025 1.jpeg" alt="Meet the E-board" loading="lazy" />
-          </div>
-          <div class="event-meta">
-            <h3>Meet the E-board</h3>
-            <time datetime="2025-10-22">Soon</time>
-            <p>Meet the new executive board and learn about upcoming events.</p>
-          </div>
-        </article>
-
-        <!-- Example 2 -->
-        <article class="event-item" role="article">
-          <div class="event-flyer-wrap">
-            <img src="images/Event photos/Executive Board Retreat 2025 2.jpeg" alt="Resume Workshop" loading="lazy" />
-          </div>
-          <div class="event-meta">
-            <h3>Resume Workshop</h3>
-            <time datetime="2025-10-22">2025-10-22</time>
-            <p>Hands-on resume review with career services.</p>
-          </div>
-        </article>
-
-        <!-- Example 3 -->
-        <article class="event-item" role="article">
-          <div class="event-flyer-wrap">
-            <img src="images/Event photos/campus photo.jpeg" alt="Company Info Session: Acme Corp" loading="lazy" />
-          </div>
-          <div class="event-meta">
-            <h3>Company Info Session: Acme Corp</h3>
-            <time datetime="2025-11-05">2025-11-05</time>
-            <p>Recruiters present internship and full-time opportunities.</p>
-          </div>
-        </article>
+      <section class="events-groups" aria-label="Events grouped by month">
+        <noscript>Enable JavaScript to view events.</noscript>
       </section>
     </div>
   </main>
+
+  <!-- Lightbox -->
+  <div class="ev-lightbox" id="evLightbox" aria-hidden="true">
+    <button class="ev-lightbox-close" aria-label="Close" data-ev-close>&times;</button>
+    <img class="ev-lightbox-img" alt="" />
+    <p class="ev-lightbox-cap"></p>
+  </div>
+
+  <!-- Footer -->
   <footer>
     <p>&copy; 2025 ADVANCE. All rights reserved.</p>
-
-    <!-- CHANGE: standardized social links; labeled rows + fixed-size icons (HTML-only, no CSS edits) -->
-    <div class="social-links" role="group" aria-label="ADVANCE social links">
-      <table role="presentation" style="margin:10px auto;">
-        <tr>
-          <td style="padding:6px 10px; text-align:right; white-space:nowrap;">Facebook:</td>
-          <td style="padding:6px 10px;">
-            <a href="https://facebook.com/advance" target="_blank" rel="noopener" aria-label="Facebook">
-              <!-- width/height force consistent 28x28; inline style keeps vertical centering without touching CSS -->
-              <img src="images/Logos/facebook logo.jpg" alt="Facebook" width="28" height="28" loading="lazy" style="vertical-align:middle;">
-            </a>
-          </td>
-        </tr>
-        <tr>
-          <td style="padding:6px 10px; text-align:right; white-space:nowrap;">TikTok:</td>
-          <td style="padding:6px 10px;">
-            <a href="https://www.tiktok.com/@advance" target="_blank" rel="noopener" aria-label="TikTok">
-              <img src="images/Logos/tiktok logo.webp" alt="TikTok" width="28" height="28" loading="lazy" style="vertical-align:middle;">
-            </a>
-          </td>
-        </tr>
-        <tr>
-          <td style="padding:6px 10px; text-align:right; white-space:nowrap;">Instagram:</td>
-          <td style="padding:6px 10px;">
-            <a href="https://instagram.com/advance_uc" target="_blank" rel="noopener" aria-label="Instagram">
-              <img src="images/Logos/instagram icon.png" alt="Instagram" width="28" height="28" loading="lazy" style="vertical-align:middle;">
-            </a>
-          </td>
-        </tr>
-      </table>
+    <div class="social-links">
+      <a href="https://facebook.com/advance" target="_blank" rel="noopener" aria-label="Facebook">
+        <lord-icon src="https://cdn.lordicon.com/cxauoejw.json" trigger="hover" colors="primary:#000000,secondary:#ffd700" style="width:40px;height:40px"></lord-icon>
+      </a>
+      <a href="https://www.tiktok.com/@advance" target="_blank" rel="noopener" aria-label="TikTok">
+        <lord-icon src="https://cdn.lordicon.com/opjtxtkg.json" trigger="hover" colors="primary:#000000,secondary:#ffd700" style="width:40px;height:40px"></lord-icon>
+      </a>
+      <a href="https://instagram.com/advance_uc" target="_blank" rel="noopener" aria-label="Instagram">
+        <lord-icon src="https://cdn.lordicon.com/cuwcpyqc.json" trigger="hover" colors="primary:#000000,secondary:#ffd700" style="width:40px;height:40px"></lord-icon>
+      </a>
     </div>
   </footer>
+
+  <!-- Page script: renders window.EVENTS if provided -->
+  <script>
+    (function () {
+      const mount = document.querySelector('.events-groups');
+      if (!mount) return;
+
+      const data = Array.isArray(window.EVENTS) ? window.EVENTS.slice() : [];
+
+      const toISO = (d)=>{
+        if(!d) return null;
+        if(/^\d{4}-\d{2}-\d{2}$/.test(d)) return d;
+        const t = new Date(d);
+        if(isNaN(t)) return null;
+        const y=t.getFullYear(), m=String(t.getMonth()+1).padStart(2,'0'), dd=String(t.getDate()).padStart(2,'0');
+        return `${y}-${m}-${dd}`;
+      };
+
+      data.forEach(e=>{ e._iso = toISO(e.date); e._month = e._iso ? e._iso.slice(0,7) : 'TBA'; });
+      data.sort((a,b)=>{ if(!a._iso && !b._iso) return 0; if(!a._iso) return 1; if(!b._iso) return -1; return a._iso.localeCompare(b._iso); });
+
+      const groups = {};
+      for(const e of data){ (groups[e._month] ||= []).push(e); }
+
+      mount.innerHTML = '';
+      const frag = document.createDocumentFragment();
+
+      const monthLabel = (key)=>{
+        if(key==='TBA') return 'TBA';
+        const [y,m]=key.split('-').map(Number);
+        const d = new Date(y, m-1, 1);
+        return d.toLocaleString(undefined, {month:'long', year:'numeric'});
+      };
+
+      Object.keys(groups).forEach((key)=>{
+        const h = document.createElement('h2');
+        h.className='ev-month';
+        h.textContent = monthLabel(key);
+        frag.appendChild(h);
+
+        const grid = document.createElement('div');
+        grid.className='ev-grid';
+
+        groups[key].forEach((evt, idx)=>{
+          const card = document.createElement('article');
+          card.className='ev-card';
+          card.setAttribute('role','article');
+
+          const img = document.createElement('img');
+          img.src = evt.flyer || evt.full || '';
+          img.alt = evt.title || 'Event flyer';
+          img.loading='lazy';
+          img.addEventListener('click', ()=>openLightbox(evt));
+
+          const meta = document.createElement('div'); meta.className='ev-meta';
+          const t = document.createElement('h3'); t.className='ev-title'; t.textContent = evt.title || 'Event';
+          const time = document.createElement('time'); time.className='ev-date'; if(evt._iso) time.setAttribute('datetime', evt._iso); time.textContent = evt._iso || (evt.date || 'TBA');
+          const p = document.createElement('p'); p.className='ev-desc'; p.textContent = evt.description || '';
+
+          meta.append(t, time, p);
+          card.append(img, meta);
+
+          card.style.opacity='0'; card.style.transform='translateY(8px)'; card.style.transition='opacity .3s ease, transform .3s ease';
+          setTimeout(()=>{ card.style.opacity='1'; card.style.transform='none'; }, 70*idx);
+
+          grid.appendChild(card);
+        });
+
+        frag.appendChild(grid);
+      });
+
+      if(!data.length){
+        const p = document.createElement('p');
+        p.textContent = 'No events yet. Check back soon.';
+        frag.appendChild(p);
+      }
+
+      mount.appendChild(frag);
+
+      const lb = document.getElementById('evLightbox');
+      const lbImg = lb.querySelector('.ev-lightbox-img');
+      const lbCap = lb.querySelector('.ev-lightbox-cap');
+      const closeBtn = lb.querySelector('[data-ev-close]');
+
+      function openLightbox(evt){
+        lbImg.src = evt.full || evt.flyer || '';
+        lbImg.alt = evt.title || '';
+        lbCap.textContent = evt.title || '';
+        lb.classList.add('open');
+        lb.setAttribute('aria-hidden','false');
+      }
+      function closeLightbox(){
+        lb.classList.remove('open');
+        lb.setAttribute('aria-hidden','true');
+        lbImg.src = ''; lbImg.alt=''; lbCap.textContent='';
+      }
+
+      closeBtn.addEventListener('click', closeLightbox);
+      lb.addEventListener('click', (e)=>{ if(e.target===lb) closeLightbox(); });
+      document.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && lb.classList.contains('open')) closeLightbox(); });
+    })();
+  </script>
 </body>
 </html>
