@@ -2,86 +2,49 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Sponsors</title>
 
   <link rel="stylesheet" href="style.css" />
-  <script src="script.js" defer></script>
   <script src="https://cdn.lordicon.com/lordicon.js" defer></script>
+  <script src="script.js" defer></script>
 
-  <!-- Page-scoped styles (ONLY affect this page) -->
   <style>
-    /* Hero */
-    body.page-sponsors .sponsors-hero h1{
-      margin: 8px 0 4px;
-      font-size: clamp(32px,6vw,56px);
-      color:#FFD700;
-    }
-    body.page-sponsors .sponsors-sub{ margin:0 0 18px; opacity:.9; }
-
-    /* Section background */
-    body.page-sponsors .sponsors-wrap{
+    .sp-wrap{
       background:
-        radial-gradient(800px 480px at 0% 0%, rgba(255,215,0,.07), transparent 60%),
-        linear-gradient(180deg, rgba(0,0,0,.25), rgba(0,0,0,.7));
+        radial-gradient(900px 520px at 20% -10%, rgba(255,215,0,.08), transparent 60%),
+        radial-gradient(700px 420px at 120% 10%, rgba(255,215,0,.06), transparent 60%),
+        linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.7));
       padding:28px 0 40px;
     }
+    .sp-hero h1{margin:8px 0 4px; font-size:clamp(32px,6vw,56px); color:#FFD700;}
+    .sp-sub{margin:0 0 18px; opacity:.9;}
+    .sp-grid{display:grid; gap:18px; grid-template-columns:repeat(auto-fill, minmax(260px,1fr));}
+    .sp-card{background:rgba(255,255,255,.04); border:1px solid rgba(255,215,0,.18); border-radius:14px; overflow:hidden; box-shadow:0 10px 24px rgba(0,0,0,.4); transition:transform .18s ease, box-shadow .18s ease;}
+    .sp-card:hover{transform:translateY(-3px); box-shadow:0 16px 36px rgba(0,0,0,.55);}
+    .sp-body{padding:14px 16px; background:rgba(0,0,0,.45); border-top:1px solid rgba(255,215,0,.15);}
+    .sp-title{margin:0 0 6px; color:#FFD700; font-weight:700;}
+    .sp-desc{margin:0; opacity:.95;}
 
-    /* Tabs (simple buttons, no JS frameworks) */
-    body.page-sponsors .tablist{ display:flex; flex-wrap:wrap; gap:10px; margin:12px 0 20px; }
-    body.page-sponsors .tablist button{
-      background:rgba(255,255,255,.06);
-      border:1px solid rgba(255,215,0,.18);
-      color:#fff; padding:8px 12px; border-radius:10px; cursor:pointer;
-      transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
-    }
-    body.page-sponsors .tablist button[aria-selected="true"]{
-      background:rgba(255,215,0,.14);
-      box-shadow:0 6px 18px rgba(0,0,0,.3);
-    }
-    body.page-sponsors .tablist button:hover{ transform:translateY(-2px); }
-
-    /* Cards */
-    body.page-sponsors .cards{
-      display:grid; gap:18px;
-      grid-template-columns:repeat(auto-fill, minmax(260px,1fr));
-    }
-    body.page-sponsors .card{
-      background:rgba(255,255,255,.04);
-      border:1px solid rgba(255,215,0,.18);
-      border-radius:14px; padding:16px;
-      box-shadow:0 10px 24px rgba(0,0,0,.4);
-      transition:transform .18s ease, box-shadow .18s ease;
-      min-height: 120px;
-    }
-    body.page-sponsors .card:hover{ transform:translateY(-3px); box-shadow:0 16px 36px rgba(0,0,0,.55); }
-    body.page-sponsors .card h3{ margin:0 0 6px; color:#FFD700; font-size:1.1rem; }
-    body.page-sponsors .card p{ margin:0; opacity:.95; }
-
-    /* CTA */
-    body.page-sponsors .cta{
-      margin-top:24px; padding:16px;
-      background:rgba(255,255,255,.05);
-      border:1px solid rgba(255,215,0,.2);
-      border-radius:12px;
-    }
-    body.page-sponsors .cta a{ color:#FFD700; font-weight:700; }
-
-    /* footer icons spacing */
-    body.page-sponsors footer .social-links lord-icon{margin:0 6px; vertical-align:middle;}
+    .faq{margin-top:28px; background:rgba(255,255,255,.05); border:1px solid rgba(255,215,0,.18); border-radius:14px; padding:10px; box-shadow:0 10px 24px rgba(0,0,0,.35);}
+    .faq h2{margin:6px 10px 12px; color:#FFD700; font-size:1.4rem;}
+    .faq details{background:rgba(0,0,0,.35); border:1px solid rgba(255,215,0,.12); border-radius:10px; margin:10px; overflow:hidden;}
+    .faq summary{cursor:pointer; padding:12px 14px; font-weight:600; list-style:none; color:#fff;}
+    .faq summary::-webkit-details-marker{display:none;}
+    .faq .faq-a{padding:0 14px 12px 14px; opacity:.95;}
+    .cta-box{margin:20px 10px 6px; border:1px dashed rgba(255,215,0,.35); border-radius:12px; padding:14px; background:rgba(0,0,0,.3);}
+    .cta-box a{color:#FFD700; font-weight:700;}
   </style>
 </head>
-
-<body class="page-sponsors">
-  <!-- Header (logo not a link here either) -->
+<body>
   <header class="site-header">
     <div class="container header-inner">
       <div class="brand-logos">
-        <div class="brand" aria-label="ADVANCE">
-          <img src="images/Logos/ADVANCE new logo.png" alt="ADVANCE logo" />
-        </div>
+        <a href="index.html" class="brand" aria-label="ADVANCE home">
+          <img src="images/Logos/ADVANCE new logo.png" alt="ADVANCE logo"/>
+        </a>
         <a href="https://www.uc.edu" class="partner" aria-label="University of Cincinnati" target="_blank" rel="noopener">
-          <img src="images/Logos/university_of_cincinnati_logo.svg" alt="UC Logo" />
+          <img src="images/Logos/university_of_cincinnati_logo.svg" alt="UC Logo"/>
         </a>
       </div>
 
@@ -102,103 +65,79 @@
     </div>
   </header>
 
-  <!-- Banner / marquee -->
   <div class="banner" role="region" aria-label="Site banner">
     <div class="marquee" aria-hidden="true">
       <div class="marquee__inner">
-        <span class="marquee__item">ADVANCE — Where We Are Paving The Way For Tomorrow's Leaders!!!</span>
-        <span class="marquee__item">ADVANCE — Where We Are Paving The Way For Tomorrow's Leaders!!!</span>
+        <span class="marquee__item">ADVANCE — Supporting future leaders through partnership</span>
+        <span class="marquee__item">ADVANCE — Supporting future leaders through partnership</span>
       </div>
     </div>
   </div>
 
-  <main class="sponsors-wrap">
+  <main class="sp-wrap">
     <div class="container">
-      <header class="sponsors-hero">
-        <h1>Sponsors</h1>
-        <p class="sponsors-sub">Thank you to our partners who help ADVANCE build community, leadership, and opportunity.</p>
+      <header class="sp-hero">
+        <h1>Our Sponsors</h1>
+        <p class="sp-sub">We’re grateful to the partners who invest in student success, leadership, and opportunity.</p>
       </header>
 
-      <!-- Simple tab buttons that filter the visible cards (no arrows) -->
-      <div class="tablist" role="tablist" aria-label="Sponsor categories">
-        <button role="tab" aria-selected="true" data-filter="all">All</button>
-        <button role="tab" aria-selected="false" data-filter="corp">Corporate</button>
-        <button role="tab" aria-selected="false" data-filter="edu">Educational</button>
-        <button role="tab" aria-selected="false" data-filter="cab">Advisory Board</button>
-      </div>
+      <section aria-label="Sponsors">
+        <div class="sp-grid">
+          <article class="sp-card"><div class="sp-body">
+            <h3 class="sp-title">Sponsor — Coming Soon</h3>
+            <p class="sp-desc">We’ll announce partners here as they’re confirmed.</p>
+          </div></article>
 
-      <!-- Placeholder cards (text only for now) -->
-      <section class="cards" aria-label="Sponsors list">
-        <!-- Example placeholders; add / edit freely when sponsors are confirmed -->
-        <article class="card" data-type="corp">
-          <h3>Corporate Sponsor — Coming Soon</h3>
-          <p>We’ll announce partners here as they’re confirmed.</p>
-        </article>
+          <article class="sp-card"><div class="sp-body">
+            <h3 class="sp-title">Sponsor — Coming Soon</h3>
+            <p class="sp-desc">We’ll announce partners here as they’re confirmed.</p>
+          </div></article>
 
-        <article class="card" data-type="corp">
-          <h3>Corporate Sponsor — Coming Soon</h3>
-          <p>We’ll announce partners here as they’re confirmed.</p>
-        </article>
-
-        <article class="card" data-type="edu">
-          <h3>Educational Sponsor — Coming Soon</h3>
-          <p>We’ll list university / department supporters here.</p>
-        </article>
-
-        <article class="card" data-type="cab">
-          <h3>Corporate Advisory Board — Coming Soon</h3>
-          <p>Advisors and mentors that champion ADVANCE.</p>
-        </article>
+          <article class="sp-card"><div class="sp-body">
+            <h3 class="sp-title">Advisory Board — Coming Soon</h3>
+            <p class="sp-desc">Advisors and mentors who champion ADVANCE.</p>
+          </div></article>
+        </div>
       </section>
 
-      <section class="cta" aria-label="Become a sponsor">
-        <p>
-          Interested in sponsoring ADVANCE? Email
-          <a href="mailto:advanceboard@gmail.com">advanceboard@gmail.com</a>
-          for information.
-        </p>
+      <section class="faq" aria-label="Sponsorship FAQ">
+        <h2>Sponsorship FAQ</h2>
+
+        <details>
+          <summary>What benefits do sponsors receive?</summary>
+          <div class="faq-a">Visibility on our site and materials, access to student talent pipelines, and opportunities to speak at events or host workshops.</div>
+        </details>
+
+        <details>
+          <summary>How long does a sponsorship term last?</summary>
+          <div class="faq-a">Most partnerships run for an academic year, with options to renew or expand involvement.</div>
+        </details>
+
+        <details>
+          <summary>How do we get started?</summary>
+          <div class="faq-a">Email us and we’ll share our sponsorship kit and a quick call time to learn your goals.</div>
+        </details>
+
+        <div class="cta-box">
+          Interested in sponsoring ADVANCE? Email <a href="mailto:advanceboard@gmail.com">advanceboard@gmail.com</a> for details.
+        </div>
       </section>
     </div>
   </main>
 
   <footer>
     <p>&copy; 2025 ADVANCE. All rights reserved.</p>
-    <div class="social-links" role="group" aria-label="ADVANCE social links">
+    <div class="social-links">
       <a href="https://facebook.com/advance" target="_blank" rel="noopener" aria-label="Facebook">
-        <lord-icon src="https://cdn.lordicon.com/cxauoejw.json" trigger="hover" colors="primary:#000000,secondary:#ffd700" style="width:40px;height:40px"></lord-icon>
+        <lord-icon src="https://cdn.lordicon.com/cxauoejw.json" trigger="hover" colors="primary:#0b0b0b,secondary:#ffd700" style="width:40px;height:40px"></lord-icon>
       </a>
       <a href="https://www.tiktok.com/@advance" target="_blank" rel="noopener" aria-label="TikTok">
-        <lord-icon src="https://cdn.lordicon.com/opjtxtkg.json" trigger="hover" colors="primary:#000000,secondary:#ffd700" style="width:40px;height:40px"></lord-icon>
+        <lord-icon src="https://cdn.lordicon.com/opjtxtkg.json" trigger="hover" colors="primary:#0b0b0b,secondary:#ffd700" style="width:40px;height:40px"></lord-icon>
       </a>
       <a href="https://instagram.com/advance_uc" target="_blank" rel="noopener" aria-label="Instagram">
-        <lord-icon src="https://cdn.lordicon.com/cuwcpyqc.json" trigger="hover" colors="primary:#000000,secondary:#ffd700" style="width:40px;height:40px"></lord-icon>
+        <lord-icon src="https://cdn.lordicon.com/cuwcpyqc.json" trigger="hover" colors="primary:#0b0b0b,secondary:#ffd700" style="width:40px;height:40px"></lord-icon>
       </a>
     </div>
   </footer>
-
-  <!-- Tiny filter script (page-scoped, no arrows) -->
-  <script>
-    (function(){
-      const tabs = document.querySelectorAll('.tablist [role="tab"]');
-      const cards = document.querySelectorAll('.cards .card');
-
-      function setFilter(type){
-        cards.forEach(c=>{
-          const show = (type==='all') || (c.dataset.type===type);
-          c.style.display = show ? '' : 'none';
-        });
-      }
-      tabs.forEach(btn=>{
-        btn.addEventListener('click', ()=>{
-          tabs.forEach(b=>b.setAttribute('aria-selected','false'));
-          btn.setAttribute('aria-selected','true');
-          setFilter(btn.dataset.filter);
-        });
-      });
-
-      // default
-      setFilter('all');
-    })();
-  </script>
 </body>
 </html>
