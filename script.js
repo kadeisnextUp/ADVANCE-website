@@ -1,134 +1,351 @@
-/* ---------- Typewriter for home ---------- */
-function typeWriterEffect(id, text, speed = 50, done) {
-  const el = document.getElementById(id);
-  if (!el) return;
-  el.textContent = '';
+// typewriter function
+function typeWriterEffect(elementId, text, speed = 50, callback) {
+  const target = document.getElementById(elementId);
   let i = 0;
-  (function type() {
+
+  function type() {
     if (i < text.length) {
-      el.textContent += text.charAt(i++);
+      target.textContent += text.charAt(i);
+      i++;
       setTimeout(type, speed);
-    } else if (done) done();
-  })();
-}
-function stagedTypewriter(list) {
-  let k = 0;
-  (function next() {
-    if (k >= list.length) return;
-    const { id, text, speed } = list[k++];
-    typeWriterEffect(id, text, speed || 50, next);
-  })();
-}
-
-/* ---------- Marquee speed ---------- */
-function debounce(fn, wait) {
-  let t; return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), wait); };
-}
-function initMarquee() {
-  const inner = document.querySelector('.marquee__inner');
-  if (!inner || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  function setDur() {
-    const total = inner.scrollWidth / 2; // duplicated content
-    const pxPerSec = 160;
-    const dur = Math.max(6, Math.ceil(total / pxPerSec));
-    inner.style.animationDuration = dur + 's';
+    } else if (callback) {
+      callback(); // start the next one
+    }
   }
-  setDur();
-  window.addEventListener('resize', debounce(setDur, 150));
+
+  target.textContent = ""; // reset text if reused
+  type();
 }
 
-/* ---------- Mobile nav + active link ---------- */
-function normalizePath(path) {
-  if (!path) return 'index.html';
-  path = path.split('?')[0].split('#')[0].replace(/\/$/, '');
-  const base = path.split('/').pop();
-  return base || 'index.html';
+// typewriter reveal
+function stagedTypewriter(elements) {
+  let index = 0;
+
+  function next() {
+    if (index < elements.length) {
+      const { id, text, speed } = elements[index];
+      typeWriterEffect(id, text, speed, next);
+      index++;
+    }
+  }
+
+  next(); 
 }
-function initNav() {
-  const toggle = document.querySelector('.nav-toggle');
-  const nav = document.querySelector('.site-nav');
-  if (toggle && nav) {
-    toggle.addEventListener('click', () => {
-      const exp = toggle.getAttribute('aria-expanded') === 'true';
-      toggle.setAttribute('aria-expanded', String(!exp));
-      nav.classList.toggle('open');
-      if (!exp) {
-        const first = nav.querySelector('a');
+
+// Run on homepage load
+document.addEventListener("DOMContentLoaded", function () {
+  stagedTypewriter([
+    { id: "typewriter", text: "Advance" , speed: 400 },
+    { id: "quote", text: "The mark of a leader." },
+    { id: "welcome", text: "Welcome to the revived site!" },
+    { id: "mission", text: "Advance is where we are paving the way for tomorrow's leaders!" }
+  ]);
+  //banner motion
+  // initialize marquee duration if present
+  var marqueeInner = document.querySelector('.marquee__inner');
+  if (marqueeInner && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    // compute width and set duration so speed is approx 80px/sec
+    var container = marqueeInner.parentElement;
+    function setMarqueeDuration() {
+      var totalWidth = marqueeInner.scrollWidth / 2; // content duplicates
+      var speed = 160; // pixels per second
+      var duration = Math.max(6, Math.ceil(totalWidth / speed));
+      marqueeInner.style.animationDuration = duration + 's';
+    }
+    setMarqueeDuration();
+    window.addEventListener('resize', debounce(setMarqueeDuration, 150));
+  }
+});
+
+
+
+
+
+/* Mobile Navigation */
+
+// Navbar mobile toggle and active-link highlighting + events carousel
+document.addEventListener('DOMContentLoaded', function () {
+  var navToggle = document.querySelector('.nav-toggle');
+  var siteNav = document.querySelector('.site-nav');
+
+  function normalizePath(path) {
+    if (!path) return 'index.html';
+    // remove query and hash, strip trailing slash
+    path = path.split('?')[0].split('#')[0].replace(/\/$/, '');
+    var base = path.split('/').pop();
+    return base || 'index.html';
+  }
+
+  if (navToggle && siteNav) {
+    navToggle.addEventListener('click', function (e) {
+      var expanded = navToggle.getAttribute('aria-expanded') === 'true';
+      navToggle.setAttribute('aria-expanded', String(!expanded));
+      siteNav.classList.toggle('open');
+      if (!expanded) {
+        // optionally move focus to first link for accessibility
+        var first = siteNav.querySelector('a');
         if (first) first.focus();
       }
     });
-    document.addEventListener('click', (e) => {
-      if (!nav.contains(e.target) && !toggle.contains(e.target)) {
-        nav.classList.remove('open');
-        toggle.setAttribute('aria-expanded', 'false');
+
+    // Close menu when clicking outside
+    document.addEventListener('click', function (e) {
+      if (!siteNav.contains(e.target) && !navToggle.contains(e.target)) {
+        siteNav.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
       }
     });
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && nav.classList.contains('open')) {
-        nav.classList.remove('open');
-        toggle.setAttribute('aria-expanded', 'false');
-        toggle.focus();
+
+    // Close on Escape
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && siteNav.classList.contains('open')) {
+        siteNav.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+        navToggle.focus();
       }
     });
   }
-  const links = document.querySelectorAll('.site-nav a');
-  const current = normalizePath(window.location.pathname);
-  links.forEach((a) => {
+
+  // Highlight active link based on current path (more robust)
+  var links = document.querySelectorAll('.site-nav a');
+  var current = normalizePath(window.location.pathname);
+  links.forEach(function (a) {
+    var href = a.getAttribute('href');
     try {
-      const p = new URL(a.getAttribute('href'), window.location.href).pathname;
-      if (normalizePath(p) === current) a.classList.add('active');
-    } catch (_) {}
-    a.addEventListener('click', () => {
-      if (nav && toggle) {
-        nav.classList.remove('open');
-        toggle.setAttribute('aria-expanded', 'false');
+      var hrefPath = new URL(href, window.location.href).pathname;
+      if (normalizePath(hrefPath) === current) {
+        a.classList.add('active');
+      }
+    } catch (err) {
+      // ignore malformed hrefs
+    }
+    // close menu when any nav link is clicked (mobile UX)
+    a.addEventListener('click', function () {
+      if (siteNav) {
+        siteNav.classList.remove('open');
+        if (navToggle) navToggle.setAttribute('aria-expanded', 'false');
       }
     });
   });
-}
 
-/* ---------- Home: render simple event cards (no arrows/lightbox) ---------- */
-function initHomeCarousel() {
-  const wrap = document.querySelector('.events-carousel');
-  if (!wrap || !Array.isArray(window.EVENTS)) return;
-  window.EVENTS.forEach((ev) => {
-    const art = document.createElement('article');
-    art.className = 'event-item';
-    const flyer = (ev.flyer || '').replace(/\\/g, '/');
-    art.innerHTML = `
-      <div class="event-flyer-wrap"><img src="${flyer}" alt="${ev.title || 'Event flyer'}"></div>
-      <div class="event-meta">
-        <h3>${ev.title || ''}</h3>
-        <time>${ev.date || ''}</time>
-        <p>${ev.description || ''}</p>
-      </div>
-    `;
-    wrap.appendChild(art);
-  });
-}
+  // Events carousel rendering (if events-data.js provided window.EVENTS)
+  if (window.EVENTS && Array.isArray(window.EVENTS) && window.EVENTS.length) {
+    var carousel = document.querySelector('.events-carousel');
+    var prevBtn = document.querySelector('.carousel-prev');
+    var nextBtn = document.querySelector('.carousel-next');
+    // aria-live region for carousel announcements (screen readers)
+    var carouselAnnouncer = document.createElement('div');
+    carouselAnnouncer.className = 'sr-only carousel-announcer';
+    carouselAnnouncer.setAttribute('aria-live', 'polite');
+    carouselAnnouncer.setAttribute('aria-atomic', 'true');
+    if (carousel) carousel.appendChild(carouselAnnouncer);
+    if (carousel) {
+      // render items
+      window.EVENTS.forEach(function (ev, idx) {
+        var item = document.createElement('article');
+        item.className = 'event-item';
+        item.setAttribute('role', 'listitem');
+        // normalize path separators to forward slashes (in case data used Windows paths)
+        var flyerSrc = (ev.flyer || '').replace(/\\\\/g, '/');
+        // include a clear, focusable button to open the lightbox (accessibility)
+        item.innerHTML = '\n          <div class="event-flyer-wrap">\n            <img src="' + flyerSrc + '" alt="' + (ev.title || 'Event flyer') + '">\n          </div>\n          <div class="event-meta">\n            <h3>' + (ev.title || '') + '</h3>\n            <time>' + (ev.date || '') + '</time>\n            <p>' + (ev.description || '') + '</p>\n            <button class="view-flyer-btn" type="button" data-index="' + idx + '" aria-label="View flyer for ' + (ev.title || '') + '">View flyer</button>\n          </div>\n        ';
+        carousel.appendChild(item);
+      });
 
-/* ---------- Lordicon accent colors ---------- */
-function applyAccentToIcons() {
-  const root = document.body || document.documentElement;
-  const bg = getComputedStyle(root).getPropertyValue('--bg').trim();
-  const accent = getComputedStyle(root).getPropertyValue('--accent').trim();
-  document.querySelectorAll('lord-icon').forEach(icon => {
-    icon.setAttribute('colors', `primary:${bg},secondary:${accent}`);
-  });
-}
+      // basic navigation helpers
+      function scrollNext() {
+        var w = carousel.clientWidth;
+        carousel.scrollBy({ left: w * 0.9, behavior: 'smooth' });
+      }
+      function scrollPrev() {
+        var w = carousel.clientWidth;
+        carousel.scrollBy({ left: -w * 0.9, behavior: 'smooth' });
+      }
 
-/* ---------- Init on DOM ready ---------- */
-document.addEventListener('DOMContentLoaded', () => {
-  // homepage typewriter (safe if IDs aren’t present)
-  stagedTypewriter([
-    { id: 'typewriter', text: 'Advance', speed: 400 },
-    { id: 'quote', text: 'The mark of a leader.' },
-    { id: 'welcome', text: 'Welcome to the revived site!' },
-    { id: 'mission', text: "Advance is where we are paving the way for tomorrow's leaders!" }
-  ]);
+      if (nextBtn) nextBtn.addEventListener('click', scrollNext);
+      if (prevBtn) prevBtn.addEventListener('click', scrollPrev);
 
-  initMarquee();
-  initNav();
-  initHomeCarousel();
-  applyAccentToIcons();
+      // keyboard nav for carousel
+      carousel.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowRight') scrollNext();
+        if (e.key === 'ArrowLeft') scrollPrev();
+      });
+      carousel.addEventListener('scroll', debounce(announceVisible, 150));
+      // initial announce
+      setTimeout(announceVisible, 300);
+    }
+  }
+
+  // Render full events list on Events page (if present)
+  var eventsListContainer = document.querySelector('.events-list');
+  if (eventsListContainer && window.EVENTS && Array.isArray(window.EVENTS)) {
+    // clear any placeholder content
+    eventsListContainer.innerHTML = '';
+    window.EVENTS.forEach(function (ev, idx) {
+      var section = document.createElement('section');
+      section.className = 'event-full';
+      section.innerHTML = '\n        <div class="event-full-inner container">\n          <div class="event-flyer-wrap">\n            <img src="' + ev.flyer + '" alt="' + (ev.title || 'Event flyer') + '">\n          </div>\n          <div class="event-meta">\n            <h3>' + (ev.title || '') + '</h3>\n            <time>' + (ev.date || '') + '</time>\n            <p>' + (ev.description || '') + '</p>\n          </div>\n        </div>\n      ';
+      eventsListContainer.appendChild(section);
+    });
+  }
+
+  
 });
+
+function applyAccentToIcons() {
+  // detect color variables based on the active page or theme
+  const root = document.body || document.documentElement;
+  const background = getComputedStyle(root).getPropertyValue("--bg").trim();
+  const accent = getComputedStyle(root).getPropertyValue("--accent").trim();
+
+  document.querySelectorAll("lord-icon").forEach(icon => {
+    icon.setAttribute("colors", `primary:${background},secondary:${accent}`);
+  });
+}
+
+applyAccentToIcons();
+
+// small debounce helper
+function debounce(fn, wait) {
+  var t;
+  return function () {
+    var args = arguments;
+    clearTimeout(t);
+    t = setTimeout(function () { fn.apply(null, args); }, wait);
+  };
+}
+
+/* Lightbox for full-size flyers */
+(function () {
+  function createLightbox() {
+    var overlay = document.createElement('div');
+    overlay.className = 'lightbox-overlay';
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-hidden', 'true');
+
+    overlay.innerHTML = '\n      <div class="lightbox-content">\n        <button class="lightbox-close" aria-label="Close">✕</button>\n        <button class="lightbox-prev" aria-label="Previous">◀</button>\n        <img class="lightbox-image" src="" alt="">\n        <button class="lightbox-next" aria-label="Next">▶</button>\n        <div class="lightbox-caption"></div>\n      </div>\n    ';
+
+    document.body.appendChild(overlay);
+    return overlay;
+  }
+
+  var overlay = createLightbox();
+  var imgEl = overlay.querySelector('.lightbox-image');
+  var captionEl = overlay.querySelector('.lightbox-caption');
+  var closeBtn = overlay.querySelector('.lightbox-close');
+  var prevBtn = overlay.querySelector('.lightbox-prev');
+  var nextBtn = overlay.querySelector('.lightbox-next');
+
+  var items = []; // {src, alt, caption}
+  var current = 0;
+  var lastOpener = null;
+
+  function openAt(index) {
+    if (!items.length) return;
+    current = (index + items.length) % items.length;
+    var it = items[current];
+    // prefer full-size source for the lightbox when available
+    imgEl.src = it.full || it.src;
+    imgEl.alt = it.alt || '';
+    captionEl.textContent = it.caption || '';
+    overlay.setAttribute('aria-hidden', 'false');
+    overlay.classList.add('open');
+    overlay.dataset.count = items.length;
+    // focus management: save last opener and move focus into lightbox
+    try { lastOpener = document.activeElement; } catch (e) { lastOpener = null; }
+    closeBtn.focus();
+    trapFocus(overlay);
+  }
+
+  function closeLightbox() {
+    overlay.setAttribute('aria-hidden', 'true');
+    overlay.classList.remove('open');
+    imgEl.src = '';
+    releaseFocusTrap();
+    // restore focus to the element that opened the lightbox
+    if (lastOpener && typeof lastOpener.focus === 'function') {
+      lastOpener.focus();
+      lastOpener = null;
+    }
+  }
+
+  function prev() { openAt(current - 1); }
+  function next() { openAt(current + 1); }
+
+  closeBtn.addEventListener('click', closeLightbox);
+  prevBtn.addEventListener('click', prev);
+  nextBtn.addEventListener('click', next);
+
+  overlay.addEventListener('click', function (e) {
+    if (e.target === overlay) closeLightbox();
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (overlay.classList.contains('open')) {
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') prev();
+      if (e.key === 'ArrowRight') next();
+    }
+  });
+
+  // gather images on page: flyers inside .events-carousel and .events-list
+  function registerGallery() {
+    items = [];
+    // Use the View Flyer buttons to open the lightbox (buttons are rendered with data-index)
+    var buttons = document.querySelectorAll('.view-flyer-btn');
+    buttons.forEach(function (btn, i) {
+      // derive related image info
+      var itemEl = btn.closest('.event-item') || btn.closest('.event-full');
+      var img = itemEl ? itemEl.querySelector('.event-flyer-wrap img') : null;
+      var src = img ? (img.getAttribute('src') || '') : '';
+      var alt = img ? img.alt || '' : '';
+      var caption = itemEl ? itemEl.querySelector('.event-meta h3')?.textContent : '';
+      var full = img && img.dataset.full ? img.dataset.full : null;
+      if (!full && window.EVENTS) {
+        var norm = src.replace(/\\\\/g, '/');
+        var found = window.EVENTS.find(function (e) { return (e.flyer || '').replace(/\\\\/g, '/') === norm || (e.full || '').replace(/\\\\/g, '/') === norm; });
+        if (found) full = (found.full || found.flyer || '').replace(/\\\\/g, '/');
+      }
+      items.push({ src: src, alt: alt, caption: caption, full: full });
+      btn.addEventListener('click', function () { openAt(i); });
+      // ensure button accessible state
+      btn.setAttribute('type', 'button');
+    });
+  }
+
+  // initialize after DOM ready and also after dynamic render
+  document.addEventListener('DOMContentLoaded', registerGallery);
+  // also expose a small API for re-registering if images change
+  window.LIGHTBOX = { register: registerGallery, openAt: openAt };
+})();
+
+
+// Focus trap helpers used by the lightbox
+var _focusTrap = null;
+function trapFocus(container) {
+  releaseFocusTrap();
+  if (!container) return;
+  var focusable = container.querySelectorAll('a[href], button, textarea, input, select, [tabindex]:not([tabindex="-1"])');
+  focusable = Array.prototype.slice.call(focusable).filter(function (el) { return !el.hasAttribute('disabled'); });
+  if (!focusable.length) return;
+  var first = focusable[0];
+  var last = focusable[focusable.length - 1];
+  function keyHandler(e) {
+    if (e.key === 'Tab') {
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault(); last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault(); first.focus();
+      }
+    }
+  }
+  _focusTrap = keyHandler;
+  document.addEventListener('keydown', keyHandler);
+}
+
+function releaseFocusTrap() {
+  if (_focusTrap) {
+    document.removeEventListener('keydown', _focusTrap);
+    _focusTrap = null;
+  }
+}
