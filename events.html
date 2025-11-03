@@ -10,7 +10,7 @@
   <script src="https://cdn.lordicon.com/lordicon.js" defer></script>
   <script src="script.js" defer></script>
 
-  <!-- Page-scoped styles (only affect this page) -->
+  <!-- Page-scoped styles (only for Events) -->
   <style>
     body.page-events .events-hero h1{
       margin:8px 0 4px; font-size:clamp(32px,6vw,56px); color:#FFD700;
@@ -47,14 +47,16 @@
   </style>
 </head>
 
-<body class="page-events">
+<!-- NOTE: theme-light = light background on this page -->
+<body class="theme-light page-events">
   <!-- Header -->
   <header class="site-header">
     <div class="container header-inner">
       <div class="brand-logos">
-        <a href="index.html" class="brand" aria-label="ADVANCE home">
+        <!-- non-clickable logo per your preference -->
+        <span class="brand" aria-label="ADVANCE">
           <img src="images/Logos/ADVANCE new logo.png" alt="ADVANCE logo" />
-        </a>
+        </span>
         <a href="https://www.uc.edu" class="partner" aria-label="University of Cincinnati" target="_blank" rel="noopener">
           <img src="images/Logos/university_of_cincinnati_logo.svg" alt="UC Logo" />
         </a>
@@ -138,7 +140,7 @@
 
         const toISO = (d) => {
           if (!d) return null;
-          if (/^\d{4}-\d{2}-\d{2}$/.test(d)) return d;
+          if (/^\d{4}-\d{2}-\d{2}$/.test(d)) return d;        // already ISO
           const t = new Date(d);
           if (isNaN(t)) return null;
           const y=t.getFullYear(), m=String(t.getMonth()+1).padStart(2,'0'), dd=String(t.getDate()).padStart(2,'0');
@@ -146,12 +148,11 @@
         };
 
         data.forEach(e=>{
-          e._iso = toISO(e.date);
+          e._iso   = toISO(e.date);
           e._month = e._iso ? e._iso.slice(0,7) : 'TBA';
-          e._time = e._iso ? new Date(e._iso).getTime() : Number.POSITIVE_INFINITY; // TBA considered future
+          e._time  = e._iso ? new Date(e._iso).getTime() : Number.POSITIVE_INFINITY; // TBA => future bucket
         });
 
-        // split upcoming vs past
         const upcoming = data.filter(e => !e._iso || new Date(e._iso) >= today)
                              .sort((a,b)=> (a._time)-(b._time));
         const past     = data.filter(e =>  e._iso && new Date(e._iso) < today)
@@ -168,6 +169,16 @@
           const [y,m]=key.split('-').map(Number);
           const d = new Date(y, m-1, 1);
           return d.toLocaleString(undefined, {month:'long', year:'numeric'});
+        }
+
+        function openLightbox(evt){
+          const lb = document.getElementById('evLightbox');
+          const img = lb.querySelector('.ev-lightbox-img');
+          const cap = lb.querySelector('.ev-lightbox-cap');
+          img.src = (evt.full || evt.flyer || '').replace(/\\/g,'/');
+          img.alt = evt.title || '';
+          cap.textContent = evt.title || '';
+          lb.classList.add('open'); lb.setAttribute('aria-hidden','false');
         }
 
         function renderGroups(arr, mount){
@@ -202,7 +213,7 @@
               meta.append(t,time,p);
               card.append(img, meta);
 
-              // small staggered fade
+              // subtle stagger
               card.style.opacity='0'; card.style.transform='translateY(8px)';
               card.style.transition='opacity .3s ease, transform .3s ease';
               setTimeout(()=>{ card.style.opacity='1'; card.style.transform='none'; }, 70*idx);
@@ -219,26 +230,18 @@
           }
         }
 
-        // mounts
         const upMount = document.querySelector('#upcoming .ev-groups');
         const pastMount = document.querySelector('#past .ev-groups');
         if (upMount) renderGroups(upcoming, upMount);
         if (pastMount) renderGroups(past, pastMount);
 
-        // lightbox
+        // lightbox close
         const lb = document.getElementById('evLightbox');
-        const lbImg = lb.querySelector('.ev-lightbox-img');
-        const lbCap = lb.querySelector('.ev-lightbox-cap');
         const closeBtn = lb.querySelector('[data-ev-close]');
-        function openLightbox(evt){
-          lbImg.src = (evt.full || evt.flyer || '').replace(/\\/g,'/');
-          lbImg.alt = evt.title || '';
-          lbCap.textContent = evt.title || '';
-          lb.classList.add('open'); lb.setAttribute('aria-hidden','false');
-        }
         function closeLightbox(){
           lb.classList.remove('open'); lb.setAttribute('aria-hidden','true');
-          lbImg.src=''; lbImg.alt=''; lbCap.textContent='';
+          const img = lb.querySelector('.ev-lightbox-img'); const cap = lb.querySelector('.ev-lightbox-cap');
+          img.src=''; img.alt=''; cap.textContent='';
         }
         closeBtn.addEventListener('click', closeLightbox);
         lb.addEventListener('click', (e)=>{ if(e.target===lb) closeLightbox(); });
