@@ -35,4 +35,5 @@ window.EVENTS = [
     full:'images/Logos/ADVANCE new logo non transparent.png',
     description:'Join us for a corporate excursion to explore opportunities in New York City! (Mar 14–21, 2026)'
   }
+
 ];
