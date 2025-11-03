@@ -2,14 +2,134 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Events</title>
+
   <link rel="stylesheet" href="style.css" />
   <script src="events-data.js" defer></script>
+  <script src="https://cdn.lordicon.com/lordicon.js" defer></script>
   <script src="script.js" defer></script>
-  <script src="https://cdn.lordicon.com/lordicon.js"></script>
+
+  <!-- ===== Page-scoped styles (red/black + two-column layout) ===== -->
+  <style>
+    /* Red/Black theme only for Events page */
+    body.page-events{
+      --accent: #E00122; /* UC red */
+      --bg: #000000;
+      color:#fff;
+      background: var(--bg);
+    }
+
+    /* Banner and wrapper */
+    body.page-events .events-wrap{
+      background:
+        radial-gradient(900px 520px at 20% -10%, rgba(224,1,34,.10), transparent 60%),
+        radial-gradient(700px 420px at 120% 10%, rgba(224,1,34,.08), transparent 60%),
+        linear-gradient(180deg, rgba(0,0,0,.65), rgba(0,0,0,.9));
+      padding:28px 0 44px;
+    }
+
+    /* Two-column layout on desktop (Upcoming | Past) */
+    body.page-events .events-wrap .container{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+    }
+    body.page-events .events-hero{
+      grid-column: 1 / -1; /* hero spans both columns */
+    }
+
+    /* Headings */
+    body.page-events .events-hero h1{
+      margin:8px 0 4px;
+      font-size: clamp(32px,6vw,56px);
+      color: var(--accent);
+    }
+    body.page-events .events-sub{ margin:0 0 18px; opacity:.9; }
+
+    .ev-section-title{
+      margin:6px 0 10px;
+      color: var(--accent);
+      font-size:1.25rem;
+      letter-spacing:.02em;
+    }
+
+    /* Month label */
+    .ev-month{
+      margin:18px 0 10px;
+      font-size:1rem;
+      letter-spacing:.03em;
+      color: var(--accent);
+      border-left:3px solid rgba(224,1,34,.55);
+      padding-left:10px;
+    }
+
+    /* Grid + cards */
+    .ev-grid{
+      display:grid;
+      gap:16px;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    }
+    .ev-card{
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(224,1,34,.22);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 10px 24px rgba(0,0,0,.5);
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+    .ev-card:hover{
+      transform: translateY(-3px);
+      box-shadow: 0 16px 36px rgba(0,0,0,.6);
+      border-color: rgba(224,1,34,.35);
+    }
+    .ev-card img{
+      display:block; width:100%; height:320px; object-fit:cover; cursor:zoom-in;
+    }
+    .ev-meta{
+      padding:12px 14px 14px;
+      background: rgba(0,0,0,.5);
+      border-top: 1px solid rgba(224,1,34,.2);
+    }
+    .ev-title{ margin:0 0 4px; color: var(--accent); font-weight:700; }
+    .ev-date{ display:block; font-size:.93rem; opacity:.9; margin-bottom:6px; }
+    .ev-desc{ margin:0; opacity:.96; }
+
+    /* Slight fade for past section */
+    #past .ev-card{ opacity:.95; }
+
+    /* Lightbox (no arrows) */
+    .ev-lightbox{
+      position:fixed; inset:0; display:none; align-items:center; justify-content:center;
+      background: rgba(0,0,0,.88); z-index:9999;
+    }
+    .ev-lightbox.open{ display:flex; }
+    .ev-lightbox-img{
+      max-width:92vw; max-height:88vh; display:block; border-radius:10px;
+      box-shadow: 0 16px 60px rgba(0,0,0,.9);
+      outline: 3px solid rgba(224,1,34,.35);
+    }
+    .ev-lightbox-cap{ color:#fff; text-align:center; margin-top:8px; opacity:.9; }
+    .ev-lightbox-close{
+      position:absolute; top:12px; right:16px; font-size:28px; line-height:1;
+      background: rgba(224,1,34,.15);
+      border: 1px solid rgba(224,1,34,.35);
+      color:#fff; border-radius:8px; padding:6px 10px; cursor:pointer;
+    }
+    .ev-lightbox-close:hover{ background: rgba(224,1,34,.25); }
+
+    /* Responsive: stack columns on small screens */
+    @media (max-width: 960px){
+      body.page-events .events-wrap .container{
+        grid-template-columns: 1fr;
+      }
+      .ev-card img{ height:260px; }
+    }
+  </style>
 </head>
-<body>
+
+<body class="page-events">
+  <!-- Header -->
   <header class="site-header">
     <div class="container header-inner">
       <div class="brand-logos">
@@ -38,88 +158,179 @@
     </div>
   </header>
 
-  <!-- Banner / marquee -->
+  <!-- Banner -->
   <div class="banner" role="region" aria-label="Site banner">
     <div class="marquee" aria-hidden="true">
       <div class="marquee__inner">
-        <!-- Duplicate line to prevent “blank gap” during scroll -->
         <span class="marquee__item">ADVANCE — Where We Are Paving The Way For Tomorrow's Leaders!!!</span>
         <span class="marquee__item">ADVANCE — Where We Are Paving The Way For Tomorrow's Leaders!!!</span>
       </div>
     </div>
   </div>
 
-  <!-- Page content -->
-  <main>
+  <main class="events-wrap">
     <div class="container">
-      <h1>Events</h1>
-      <section class="events-list" aria-label="All events">
-        <!-- Example 1 -->
-        <article class="event-item" role="article">
-          <div class="event-flyer-wrap">
-            <img src="images/Event photos/Executive Board Retreat 2025 1.jpeg" alt="Meet the E-board" loading="lazy" />
-          </div>
-          <div class="event-meta">
-            <h3>Meet the E-board</h3>
-            <time datetime="2025-10-22">Soon</time>
-            <p>Meet the new executive board and learn about upcoming events.</p>
-          </div>
-        </article>
+      <header class="events-hero">
+        <h1>Events</h1>
+        <p class="events-sub">Upcoming and recent happenings — grouped by month</p>
+      </header>
 
-        <!-- Example 2 -->
-        <article class="event-item" role="article">
-          <div class="event-flyer-wrap">
-            <img src="images/Event photos/Executive Board Retreat 2025 2.jpeg" alt="Resume Workshop" loading="lazy" />
-          </div>
-          <div class="event-meta">
-            <h3>Resume Workshop</h3>
-            <time datetime="2025-10-22">2025-10-22</time>
-            <p>Hands-on resume review with career services.</p>
-          </div>
-        </article>
+      <!-- Column 1: Upcoming -->
+      <section id="upcoming" aria-label="Upcoming events">
+        <h2 class="ev-section-title">Upcoming</h2>
+        <div class="ev-groups"></div>
+      </section>
 
-        <!-- Example 3 -->
-        <article class="event-item" role="article">
-          <div class="event-flyer-wrap">
-            <img src="" alt="Company Info Session: Acme Corp" loading="lazy" />
-          </div>
-          <div class="event-meta">
-            <h3>Company Info Session: Acme Corp</h3>
-            <time datetime="2025-11-05">2025-11-05</time>
-            <p>Recruiters present internship and full-time opportunities.</p>
-          </div>
-        </article>
+      <!-- Column 2: Past -->
+      <section id="past" class="is-past" aria-label="Past events">
+        <h2 class="ev-section-title">Past</h2>
+        <div class="ev-groups"></div>
       </section>
     </div>
   </main>
+
+  <!-- Lightbox (no arrows) -->
+  <div class="ev-lightbox" id="evLightbox" aria-hidden="true">
+    <button class="ev-lightbox-close" aria-label="Close" data-ev-close>&times;</button>
+    <img class="ev-lightbox-img" alt="" />
+    <p class="ev-lightbox-cap"></p>
+  </div>
+
   <footer>
     <p>&copy; 2025 ADVANCE. All rights reserved.</p>
     <div class="social-links">
-      <a href="https://facebook.com/advance" target="_blank">
-        <lord-icon
-            src="https://cdn.lordicon.com/cxauoejw.json"
-            trigger="hover"
-            colors="primary:#000000,secondary:#ffd700"
-            style="width:40px;height:40px">
-        </lord-icon>
+      <a href="https://facebook.com/advance" target="_blank" rel="noopener" aria-label="Facebook">
+        <lord-icon src="https://cdn.lordicon.com/cxauoejw.json" trigger="hover" colors="primary:#0b0b0b,secondary:#e00122" style="width:40px;height:40px"></lord-icon>
       </a>
-      <a href="https://www.tiktok.com/@advance" target="_blank">
-        <lord-icon
-            src="https://cdn.lordicon.com/opjtxtkg.json"
-            trigger="hover"
-            colors="primary:#000000,secondary:#ffd700"
-            style="width:40px;height:40px">
-        </lord-icon>
+      <a href="https://www.tiktok.com/@advance" target="_blank" rel="noopener" aria-label="TikTok">
+        <lord-icon src="https://cdn.lordicon.com/opjtxtkg.json" trigger="hover" colors="primary:#0b0b0b,secondary:#e00122" style="width:40px;height:40px"></lord-icon>
       </a>
-      <a href="https://instagram.com/advance_uc" target="_blank">
-        <lord-icon
-            src="https://cdn.lordicon.com/cuwcpyqc.json"
-            trigger="hover"
-            colors="primary:#000000,secondary:#ffd700"
-            style="width:40px;height:40px">
-        </lord-icon>
+      <a href="https://instagram.com/advance_uc" target="_blank" rel="noopener" aria-label="Instagram">
+        <lord-icon src="https://cdn.lordicon.com/cuwcpyqc.json" trigger="hover" colors="primary:#0b0b0b,secondary:#e00122" style="width:40px;height:40px"></lord-icon>
       </a>
     </div>
   </footer>
+
+  <!-- Page-scoped JS to render Upcoming & Past (uses window.EVENTS from events-data.js) -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      (function () {
+        const data = Array.isArray(window.EVENTS) ? window.EVENTS.slice() : [];
+        const today = new Date(); today.setHours(0,0,0,0);
+
+        const toISO = (d) => {
+          if (!d) return null;
+          if (/^\d{4}-\d{2}-\d{2}$/.test(d)) return d;        // already ISO
+          const t = new Date(d);
+          if (isNaN(t)) return null;
+          const y=t.getFullYear(), m=String(t.getMonth()+1).padStart(2,'0'), dd=String(t.getDate()).padStart(2,'0');
+          return `${y}-${m}-${dd}`;
+        };
+
+        data.forEach(e=>{
+          e._iso   = toISO(e.date);
+          e._month = e._iso ? e._iso.slice(0,7) : 'TBA';
+          e._time  = e._iso ? new Date(e._iso).getTime() : Number.POSITIVE_INFINITY; // TBA => future bucket
+        });
+
+        const upcoming = data
+          .filter(e => !e._iso || new Date(e._iso) >= today)
+          .sort((a,b)=> (a._time)-(b._time));
+
+        const past = data
+          .filter(e =>  e._iso && new Date(e._iso) < today)
+          .sort((a,b)=> (new Date(b._iso))-(new Date(a._iso)));
+
+        function groupByMonth(arr){
+          const g = {};
+          for(const e of arr){ (g[e._month || 'TBA'] ||= []).push(e); }
+          return g;
+        }
+
+        function monthLabel(key){
+          if(key==='TBA') return 'TBA';
+          const [y,m]=key.split('-').map(Number);
+          const d = new Date(y, m-1, 1);
+          return d.toLocaleString(undefined, {month:'long', year:'numeric'});
+        }
+
+        function openLightbox(evt){
+          const lb = document.getElementById('evLightbox');
+          const img = lb.querySelector('.ev-lightbox-img');
+          const cap = lb.querySelector('.ev-lightbox-cap');
+          img.src = (evt.full || evt.flyer || '').replace(/\\/g,'/');
+          img.alt = evt.title || '';
+          cap.textContent = evt.title || '';
+          lb.classList.add('open'); lb.setAttribute('aria-hidden','false');
+        }
+
+        function renderGroups(arr, mount){
+          mount.innerHTML = '';
+          const groups = groupByMonth(arr);
+          Object.keys(groups).forEach(key=>{
+            const h = document.createElement('h3');
+            h.className = 'ev-month';
+            h.textContent = monthLabel(key);
+            mount.appendChild(h);
+
+            const grid = document.createElement('div');
+            grid.className = 'ev-grid';
+
+            groups[key].forEach((evt, idx)=>{
+              const card = document.createElement('article');
+              card.className = 'ev-card';
+
+              const img = document.createElement('img');
+              img.src = (evt.flyer||'').replace(/\\/g,'/');
+              img.alt = evt.title || 'Event flyer';
+              img.loading='lazy';
+              img.addEventListener('click', ()=>openLightbox(evt));
+
+              const meta = document.createElement('div'); meta.className='ev-meta';
+              const t = document.createElement('h4'); t.className='ev-title'; t.textContent = evt.title || 'Event';
+              const time = document.createElement('time'); time.className='ev-date';
+              if(evt._iso) time.setAttribute('datetime', evt._iso);
+              time.textContent = evt._iso || (evt.date || 'TBA');
+              const p = document.createElement('p'); p.className='ev-desc'; p.textContent = evt.description || '';
+
+              meta.append(t,time,p);
+              card.append(img, meta);
+
+              // subtle stagger
+              card.style.opacity='0'; card.style.transform='translateY(8px)';
+              card.style.transition='opacity .3s ease, transform .3s ease';
+              setTimeout(()=>{ card.style.opacity='1'; card.style.transform='none'; }, 70*idx);
+
+              grid.appendChild(card);
+            });
+
+            mount.appendChild(grid);
+          });
+
+          if(!arr.length){
+            const p = document.createElement('p'); p.textContent = 'No events yet. Check back soon.';
+            mount.appendChild(p);
+          }
+        }
+
+        const upMount = document.querySelector('#upcoming .ev-groups');
+        const pastMount = document.querySelector('#past .ev-groups');
+        if (upMount) renderGroups(upcoming, upMount);
+        if (pastMount) renderGroups(past, pastMount);
+
+        // lightbox close
+        const lb = document.getElementById('evLightbox');
+        const closeBtn = lb.querySelector('[data-ev-close]');
+        function closeLightbox(){
+          lb.classList.remove('open'); lb.setAttribute('aria-hidden','true');
+          const img = lb.querySelector('.ev-lightbox-img'); const cap = lb.querySelector('.ev-lightbox-cap');
+          img.src=''; img.alt=''; cap.textContent='';
+        }
+        closeBtn.addEventListener('click', closeLightbox);
+        lb.addEventListener('click', (e)=>{ if(e.target===lb) closeLightbox(); });
+        document.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && lb.classList.contains('open')) closeLightbox(); });
+      })();
+    });
+  </script>
 </body>
 </html>

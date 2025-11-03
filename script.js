@@ -352,6 +352,116 @@ function releaseFocusTrap() {
 
 
 
+/* =========================================================
+   EVENTS PAGE: render square cards into Upcoming & Past
+   Uses window.EVENTS provided by events-data.js (do not edit)
+   ========================================================= */
+(function () {
+  // --- helpers ---
+  function parseDate(raw) {
+    if (!raw) return null;
+    const s = String(raw).trim().toUpperCase();
+
+
+
+    // "TBD" (or contains TBD) => unknown date, treat as UPCOMING
+    if (s.includes('TBD')) return null;
+
+    // "Nov–Dec 2025" (or similar) => first day of first month
+    const m = s.match(/(JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)[A-Z\-\s]*?(\d{4})/i);
+    if (m) {
+      const months = 'JAN FEB MAR APR MAY JUN JUL AUG SEP OCT NOV DEC'.split(' ');
+      const mi = months.indexOf(m[1].toUpperCase());
+      if (mi >= 0) return new Date(Number(m[2]), mi, 1);
+    }
+
+    // ISO YYYY-MM-DD
+    if (/^\d{4}-\d{2}-\d{2}$/.test(s)) return new Date(s);
+
+    // US MM-DD-YYYY
+    if (/^\d{2}-\d{2}-\d{4}$/.test(s)) {
+      const [mm, dd, yyyy] = s.split('-').map(Number);
+      return new Date(yyyy, mm - 1, dd);
+    }
+
+    // anything else = unknown (keep as upcoming)
+    return null;
+  }
+
+  function formatDateObj(d, rawFallback) {
+    return d
+      ? d.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: '2-digit' })
+      : (rawFallback || 'TBD');
+  }
+
+  function byDateAsc(a, b) {
+    const da = parseDate(a.date), db = parseDate(b.date);
+    if (da && db) return da - db;
+    if (da && !db) return -1;   // known dates before unknown
+    if (!da && db) return 1;
+    return (a.title || '').localeCompare(b.title || '');
+  }
+
+  // --- square card markup (matches your “boxes”) ---
+  function eventCard(ev) {
+    const d = parseDate(ev.date);
+    const dateTxt = formatDateObj(d, ev.date);
+    const flyer = (ev.flyer || '').replace(/\\/g, '/'); // normalize windows paths
+
+    return `
+      <article class="ev-card" data-id="${ev.id || ''}">
+        <img src="${flyer}" alt="${(ev.title || 'Event')} flyer">
+        <div class="ev-meta">
+          <h3 class="ev-title">${ev.title || ''}</h3>
+          <time class="ev-date">${dateTxt}</time>
+          <p class="ev-desc">${ev.description || ''}</p>
+        </div>
+      </article>
+    `;
+  }
+
+  function renderEvents() {
+    if (!Array.isArray(window.EVENTS)) return;
+
+    const today = new Date(); today.setHours(0,0,0,0);
+
+    const upcoming = [];
+    const past = [];
+
+    window.EVENTS.forEach(ev => {
+      const d = parseDate(ev.date);
+      // null/unknown or future => UPCOMING
+      if (!d || d >= today) upcoming.push(ev);
+      else past.push(ev);
+    });
+
+    upcoming.sort(byDateAsc);
+    past.sort(byDateAsc).reverse(); // newest past first
+
+    const upGrid = document.getElementById('upcoming-grid');
+    const pGrid  = document.getElementById('past-grid');
+    const upEmpty = document.getElementById('upcoming-empty');
+    const pEmpty  = document.getElementById('past-empty');
+
+    if (upGrid) {
+      upGrid.innerHTML = upcoming.map(eventCard).join('');
+      if (upEmpty) upEmpty.style.display = upcoming.length ? 'none' : '';
+    }
+    if (pGrid) {
+      pGrid.innerHTML = past.map(eventCard).join('');
+      if (pEmpty) pEmpty.style.display = past.length ? 'none' : '';
+    }
+  }
+
+  // Run after the rest of Kaden's DOMContentLoaded logic
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', renderEvents);
+  } else {
+    renderEvents();
+  }
+})();
+
+
 // Executive board scroll reveal
 document.addEventListener('DOMContentLoaded', function () {
   const fadeElements = document.querySelectorAll('.fade-in');
@@ -365,5 +475,3 @@ document.addEventListener('DOMContentLoaded', function () {
 
   fadeElements.forEach(el => observer.observe(el));
 });
-
-
