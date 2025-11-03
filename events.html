@@ -10,45 +10,125 @@
   <script src="https://cdn.lordicon.com/lordicon.js" defer></script>
   <script src="script.js" defer></script>
 
-  <!-- Page-scoped styles (only for Events) -->
+  <!-- ===== Page-scoped styles (red/black + two-column layout) ===== -->
   <style>
-    body.page-events .events-hero h1{
-      margin:8px 0 4px; font-size:clamp(32px,6vw,56px); color:#FFD700;
+    /* Red/Black theme only for Events page */
+    body.page-events{
+      --accent: #E00122; /* UC red */
+      --bg: #000000;
+      color:#fff;
+      background: var(--bg);
     }
-    body.page-events .events-sub{margin:0 0 18px; opacity:.9;}
+
+    /* Banner and wrapper */
     body.page-events .events-wrap{
       background:
-        radial-gradient(900px 520px at 20% -10%, rgba(255,215,0,.08), transparent 60%),
-        radial-gradient(700px 420px at 120% 10%, rgba(255,215,0,.06), transparent 60%),
-        linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.7));
-      padding:28px 0 40px;
+        radial-gradient(900px 520px at 20% -10%, rgba(224,1,34,.10), transparent 60%),
+        radial-gradient(700px 420px at 120% 10%, rgba(224,1,34,.08), transparent 60%),
+        linear-gradient(180deg, rgba(0,0,0,.65), rgba(0,0,0,.9));
+      padding:28px 0 44px;
     }
-    /* section headers */
-    .ev-section-title{margin:26px 0 10px; color:#FFD700; font-size:1.4rem;}
-    /* month label */
-    .ev-month{margin:20px 0 12px; font-size:1.05rem; letter-spacing:.03em; color:#FFD700; border-left:3px solid rgba(255,215,0,.55); padding-left:10px;}
-    /* grid + card */
-    .ev-grid{display:grid; gap:18px; grid-template-columns:repeat(auto-fill, minmax(260px,1fr));}
-    .ev-card{background:rgba(255,255,255,.04); border:1px solid rgba(255,215,0,.18); border-radius:14px; overflow:hidden; box-shadow:0 10px 24px rgba(0,0,0,.4); transition:transform .18s ease, box-shadow .18s ease;}
-    .ev-card:hover{ transform:translateY(-3px); box-shadow:0 16px 36px rgba(0,0,0,.55);}
-    .ev-card img{display:block; width:100%; height:340px; object-fit:cover; cursor:zoom-in;}
-    .ev-meta{padding:12px 14px 14px; background:rgba(0,0,0,.45); border-top:1px solid rgba(255,215,0,.15);}
-    .ev-title{margin:0 0 4px; color:#FFD700; font-weight:700;}
-    .ev-date{display:block; font-size:.94rem; opacity:.9; margin-bottom:6px;}
-    .ev-desc{margin:0; opacity:.95;}
-    /* Past section slight fade */
-    .is-past .ev-card{opacity:.92;}
+
+    /* Two-column layout on desktop (Upcoming | Past) */
+    body.page-events .events-wrap .container{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+    }
+    body.page-events .events-hero{
+      grid-column: 1 / -1; /* hero spans both columns */
+    }
+
+    /* Headings */
+    body.page-events .events-hero h1{
+      margin:8px 0 4px;
+      font-size: clamp(32px,6vw,56px);
+      color: var(--accent);
+    }
+    body.page-events .events-sub{ margin:0 0 18px; opacity:.9; }
+
+    .ev-section-title{
+      margin:6px 0 10px;
+      color: var(--accent);
+      font-size:1.25rem;
+      letter-spacing:.02em;
+    }
+
+    /* Month label */
+    .ev-month{
+      margin:18px 0 10px;
+      font-size:1rem;
+      letter-spacing:.03em;
+      color: var(--accent);
+      border-left:3px solid rgba(224,1,34,.55);
+      padding-left:10px;
+    }
+
+    /* Grid + cards */
+    .ev-grid{
+      display:grid;
+      gap:16px;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    }
+    .ev-card{
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(224,1,34,.22);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 10px 24px rgba(0,0,0,.5);
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+    .ev-card:hover{
+      transform: translateY(-3px);
+      box-shadow: 0 16px 36px rgba(0,0,0,.6);
+      border-color: rgba(224,1,34,.35);
+    }
+    .ev-card img{
+      display:block; width:100%; height:320px; object-fit:cover; cursor:zoom-in;
+    }
+    .ev-meta{
+      padding:12px 14px 14px;
+      background: rgba(0,0,0,.5);
+      border-top: 1px solid rgba(224,1,34,.2);
+    }
+    .ev-title{ margin:0 0 4px; color: var(--accent); font-weight:700; }
+    .ev-date{ display:block; font-size:.93rem; opacity:.9; margin-bottom:6px; }
+    .ev-desc{ margin:0; opacity:.96; }
+
+    /* Slight fade for past section */
+    #past .ev-card{ opacity:.95; }
+
     /* Lightbox (no arrows) */
-    .ev-lightbox{position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(0,0,0,.88); z-index:9999;}
-    .ev-lightbox.open{display:flex;}
-    .ev-lightbox-img{max-width:92vw; max-height:88vh; display:block; border-radius:10px; box-shadow:0 16px 60px rgba(0,0,0,.9);}
-    .ev-lightbox-cap{color:#fff; text-align:center; margin-top:8px; opacity:.9;}
-    .ev-lightbox-close{position:absolute; top:12px; right:16px; font-size:28px; line-height:1; background:rgba(0,0,0,.5); border:1px solid rgba(255,255,255,.2); color:#fff; border-radius:8px; padding:6px 10px; cursor:pointer;}
+    .ev-lightbox{
+      position:fixed; inset:0; display:none; align-items:center; justify-content:center;
+      background: rgba(0,0,0,.88); z-index:9999;
+    }
+    .ev-lightbox.open{ display:flex; }
+    .ev-lightbox-img{
+      max-width:92vw; max-height:88vh; display:block; border-radius:10px;
+      box-shadow: 0 16px 60px rgba(0,0,0,.9);
+      outline: 3px solid rgba(224,1,34,.35);
+    }
+    .ev-lightbox-cap{ color:#fff; text-align:center; margin-top:8px; opacity:.9; }
+    .ev-lightbox-close{
+      position:absolute; top:12px; right:16px; font-size:28px; line-height:1;
+      background: rgba(224,1,34,.15);
+      border: 1px solid rgba(224,1,34,.35);
+      color:#fff; border-radius:8px; padding:6px 10px; cursor:pointer;
+    }
+    .ev-lightbox-close:hover{ background: rgba(224,1,34,.25); }
+
+    /* Responsive: stack columns on small screens */
+    @media (max-width: 960px){
+      body.page-events .events-wrap .container{
+        grid-template-columns: 1fr;
+      }
+      .ev-card img{ height:260px; }
+    }
   </style>
 </head>
 
-<!-- NOTE: theme-light = light background on this page -->
-<body class="theme-light page-events">
+<body class="page-events">
   <!-- Header -->
   <header class="site-header">
     <div class="container header-inner">
@@ -96,11 +176,13 @@
         <p class="events-sub">Upcoming and recent happenings — grouped by month</p>
       </header>
 
+      <!-- Column 1: Upcoming -->
       <section id="upcoming" aria-label="Upcoming events">
         <h2 class="ev-section-title">Upcoming</h2>
         <div class="ev-groups"></div>
       </section>
 
+      <!-- Column 2: Past -->
       <section id="past" class="is-past" aria-label="Past events">
         <h2 class="ev-section-title">Past</h2>
         <div class="ev-groups"></div>
@@ -119,20 +201,19 @@
     <p>&copy; 2025 ADVANCE. All rights reserved.</p>
     <div class="social-links">
       <a href="https://facebook.com/advance" target="_blank" rel="noopener" aria-label="Facebook">
-        <lord-icon src="https://cdn.lordicon.com/cxauoejw.json" trigger="hover" colors="primary:#0b0b0b,secondary:#ffd700" style="width:40px;height:40px"></lord-icon>
+        <lord-icon src="https://cdn.lordicon.com/cxauoejw.json" trigger="hover" colors="primary:#0b0b0b,secondary:#e00122" style="width:40px;height:40px"></lord-icon>
       </a>
       <a href="https://www.tiktok.com/@advance" target="_blank" rel="noopener" aria-label="TikTok">
-        <lord-icon src="https://cdn.lordicon.com/opjtxtkg.json" trigger="hover" colors="primary:#0b0b0b,secondary:#ffd700" style="width:40px;height:40px"></lord-icon>
+        <lord-icon src="https://cdn.lordicon.com/opjtxtkg.json" trigger="hover" colors="primary:#0b0b0b,secondary:#e00122" style="width:40px;height:40px"></lord-icon>
       </a>
       <a href="https://instagram.com/advance_uc" target="_blank" rel="noopener" aria-label="Instagram">
-        <lord-icon src="https://cdn.lordicon.com/cuwcpyqc.json" trigger="hover" colors="primary:#0b0b0b,secondary:#ffd700" style="width:40px;height:40px"></lord-icon>
+        <lord-icon src="https://cdn.lordicon.com/cuwcpyqc.json" trigger="hover" colors="primary:#0b0b0b,secondary:#e00122" style="width:40px;height:40px"></lord-icon>
       </a>
     </div>
   </footer>
 
-  <!-- Page-scoped JS to render Upcoming & Past -->
+  <!-- Page-scoped JS to render Upcoming & Past (uses window.EVENTS from events-data.js) -->
   <script>
-    // Run AFTER deferred scripts (events-data.js) have populated window.EVENTS
     document.addEventListener('DOMContentLoaded', function () {
       (function () {
         const data = Array.isArray(window.EVENTS) ? window.EVENTS.slice() : [];
@@ -153,10 +234,13 @@
           e._time  = e._iso ? new Date(e._iso).getTime() : Number.POSITIVE_INFINITY; // TBA => future bucket
         });
 
-        const upcoming = data.filter(e => !e._iso || new Date(e._iso) >= today)
-                             .sort((a,b)=> (a._time)-(b._time));
-        const past     = data.filter(e =>  e._iso && new Date(e._iso) < today)
-                             .sort((a,b)=> (new Date(b._iso))-(new Date(a._iso)));
+        const upcoming = data
+          .filter(e => !e._iso || new Date(e._iso) >= today)
+          .sort((a,b)=> (a._time)-(b._time));
+
+        const past = data
+          .filter(e =>  e._iso && new Date(e._iso) < today)
+          .sort((a,b)=> (new Date(b._iso))-(new Date(a._iso)));
 
         function groupByMonth(arr){
           const g = {};
