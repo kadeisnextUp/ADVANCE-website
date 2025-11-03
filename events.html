@@ -130,118 +130,121 @@
 
   <!-- Page-scoped JS to render Upcoming & Past -->
   <script>
-    (function () {
-      const data = Array.isArray(window.EVENTS) ? window.EVENTS.slice() : [];
-      const today = new Date(); today.setHours(0,0,0,0);
+    // Run AFTER deferred scripts (events-data.js) have populated window.EVENTS
+    document.addEventListener('DOMContentLoaded', function () {
+      (function () {
+        const data = Array.isArray(window.EVENTS) ? window.EVENTS.slice() : [];
+        const today = new Date(); today.setHours(0,0,0,0);
 
-      const toISO = (d) => {
-        if (!d) return null;
-        if (/^\d{4}-\d{2}-\d{2}$/.test(d)) return d;
-        const t = new Date(d);
-        if (isNaN(t)) return null;
-        const y=t.getFullYear(), m=String(t.getMonth()+1).padStart(2,'0'), dd=String(t.getDate()).padStart(2,'0');
-        return `${y}-${m}-${dd}`;
-      };
+        const toISO = (d) => {
+          if (!d) return null;
+          if (/^\d{4}-\d{2}-\d{2}$/.test(d)) return d;
+          const t = new Date(d);
+          if (isNaN(t)) return null;
+          const y=t.getFullYear(), m=String(t.getMonth()+1).padStart(2,'0'), dd=String(t.getDate()).padStart(2,'0');
+          return `${y}-${m}-${dd}`;
+        };
 
-      data.forEach(e=>{
-        e._iso = toISO(e.date);
-        e._month = e._iso ? e._iso.slice(0,7) : 'TBA';
-        e._time = e._iso ? new Date(e._iso).getTime() : Number.POSITIVE_INFINITY; // TBA considered future
-      });
-
-      // split upcoming vs past
-      const upcoming = data.filter(e => !e._iso || new Date(e._iso) >= today)
-                           .sort((a,b)=> (a._time)-(b._time));
-      const past     = data.filter(e =>  e._iso && new Date(e._iso) < today)
-                           .sort((a,b)=> (new Date(b._iso))-(new Date(a._iso)));
-
-      function groupByMonth(arr){
-        const g = {};
-        for(const e of arr){ (g[e._month || 'TBA'] ||= []).push(e); }
-        return g;
-      }
-
-      function monthLabel(key){
-        if(key==='TBA') return 'TBA';
-        const [y,m]=key.split('-').map(Number);
-        const d = new Date(y, m-1, 1);
-        return d.toLocaleString(undefined, {month:'long', year:'numeric'});
-      }
-
-      function renderGroups(arr, mount){
-        mount.innerHTML = '';
-        const groups = groupByMonth(arr);
-        Object.keys(groups).forEach(key=>{
-          const h = document.createElement('h3');
-          h.className = 'ev-month';
-          h.textContent = monthLabel(key);
-          mount.appendChild(h);
-
-          const grid = document.createElement('div');
-          grid.className = 'ev-grid';
-
-          groups[key].forEach((evt, idx)=>{
-            const card = document.createElement('article');
-            card.className = 'ev-card';
-
-            const img = document.createElement('img');
-            img.src = (evt.flyer||'').replace(/\\/g,'/');
-            img.alt = evt.title || 'Event flyer';
-            img.loading='lazy';
-            img.addEventListener('click', ()=>openLightbox(evt));
-
-            const meta = document.createElement('div'); meta.className='ev-meta';
-            const t = document.createElement('h4'); t.className='ev-title'; t.textContent = evt.title || 'Event';
-            const time = document.createElement('time'); time.className='ev-date';
-            if(evt._iso) time.setAttribute('datetime', evt._iso);
-            time.textContent = evt._iso || (evt.date || 'TBA');
-            const p = document.createElement('p'); p.className='ev-desc'; p.textContent = evt.description || '';
-
-            meta.append(t,time,p);
-            card.append(img, meta);
-
-            // small staggered fade
-            card.style.opacity='0'; card.style.transform='translateY(8px)';
-            card.style.transition='opacity .3s ease, transform .3s ease';
-            setTimeout(()=>{ card.style.opacity='1'; card.style.transform='none'; }, 70*idx);
-
-            grid.appendChild(card);
-          });
-
-          mount.appendChild(grid);
+        data.forEach(e=>{
+          e._iso = toISO(e.date);
+          e._month = e._iso ? e._iso.slice(0,7) : 'TBA';
+          e._time = e._iso ? new Date(e._iso).getTime() : Number.POSITIVE_INFINITY; // TBA considered future
         });
 
-        if(!arr.length){
-          const p = document.createElement('p'); p.textContent = 'No events yet. Check back soon.';
-          mount.appendChild(p);
+        // split upcoming vs past
+        const upcoming = data.filter(e => !e._iso || new Date(e._iso) >= today)
+                             .sort((a,b)=> (a._time)-(b._time));
+        const past     = data.filter(e =>  e._iso && new Date(e._iso) < today)
+                             .sort((a,b)=> (new Date(b._iso))-(new Date(a._iso)));
+
+        function groupByMonth(arr){
+          const g = {};
+          for(const e of arr){ (g[e._month || 'TBA'] ||= []).push(e); }
+          return g;
         }
-      }
 
-      // mounts
-      const upMount = document.querySelector('#upcoming .ev-groups');
-      const pastMount = document.querySelector('#past .ev-groups');
-      if (upMount) renderGroups(upcoming, upMount);
-      if (pastMount) renderGroups(past, pastMount);
+        function monthLabel(key){
+          if(key==='TBA') return 'TBA';
+          const [y,m]=key.split('-').map(Number);
+          const d = new Date(y, m-1, 1);
+          return d.toLocaleString(undefined, {month:'long', year:'numeric'});
+        }
 
-      // lightbox
-      const lb = document.getElementById('evLightbox');
-      const lbImg = lb.querySelector('.ev-lightbox-img');
-      const lbCap = lb.querySelector('.ev-lightbox-cap');
-      const closeBtn = lb.querySelector('[data-ev-close]');
-      function openLightbox(evt){
-        lbImg.src = (evt.full || evt.flyer || '').replace(/\\/g,'/');
-        lbImg.alt = evt.title || '';
-        lbCap.textContent = evt.title || '';
-        lb.classList.add('open'); lb.setAttribute('aria-hidden','false');
-      }
-      function closeLightbox(){
-        lb.classList.remove('open'); lb.setAttribute('aria-hidden','true');
-        lbImg.src=''; lbImg.alt=''; lbCap.textContent='';
-      }
-      closeBtn.addEventListener('click', closeLightbox);
-      lb.addEventListener('click', (e)=>{ if(e.target===lb) closeLightbox(); });
-      document.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && lb.classList.contains('open')) closeLightbox(); });
-    })();
+        function renderGroups(arr, mount){
+          mount.innerHTML = '';
+          const groups = groupByMonth(arr);
+          Object.keys(groups).forEach(key=>{
+            const h = document.createElement('h3');
+            h.className = 'ev-month';
+            h.textContent = monthLabel(key);
+            mount.appendChild(h);
+
+            const grid = document.createElement('div');
+            grid.className = 'ev-grid';
+
+            groups[key].forEach((evt, idx)=>{
+              const card = document.createElement('article');
+              card.className = 'ev-card';
+
+              const img = document.createElement('img');
+              img.src = (evt.flyer||'').replace(/\\/g,'/');
+              img.alt = evt.title || 'Event flyer';
+              img.loading='lazy';
+              img.addEventListener('click', ()=>openLightbox(evt));
+
+              const meta = document.createElement('div'); meta.className='ev-meta';
+              const t = document.createElement('h4'); t.className='ev-title'; t.textContent = evt.title || 'Event';
+              const time = document.createElement('time'); time.className='ev-date';
+              if(evt._iso) time.setAttribute('datetime', evt._iso);
+              time.textContent = evt._iso || (evt.date || 'TBA');
+              const p = document.createElement('p'); p.className='ev-desc'; p.textContent = evt.description || '';
+
+              meta.append(t,time,p);
+              card.append(img, meta);
+
+              // small staggered fade
+              card.style.opacity='0'; card.style.transform='translateY(8px)';
+              card.style.transition='opacity .3s ease, transform .3s ease';
+              setTimeout(()=>{ card.style.opacity='1'; card.style.transform='none'; }, 70*idx);
+
+              grid.appendChild(card);
+            });
+
+            mount.appendChild(grid);
+          });
+
+          if(!arr.length){
+            const p = document.createElement('p'); p.textContent = 'No events yet. Check back soon.';
+            mount.appendChild(p);
+          }
+        }
+
+        // mounts
+        const upMount = document.querySelector('#upcoming .ev-groups');
+        const pastMount = document.querySelector('#past .ev-groups');
+        if (upMount) renderGroups(upcoming, upMount);
+        if (pastMount) renderGroups(past, pastMount);
+
+        // lightbox
+        const lb = document.getElementById('evLightbox');
+        const lbImg = lb.querySelector('.ev-lightbox-img');
+        const lbCap = lb.querySelector('.ev-lightbox-cap');
+        const closeBtn = lb.querySelector('[data-ev-close]');
+        function openLightbox(evt){
+          lbImg.src = (evt.full || evt.flyer || '').replace(/\\/g,'/');
+          lbImg.alt = evt.title || '';
+          lbCap.textContent = evt.title || '';
+          lb.classList.add('open'); lb.setAttribute('aria-hidden','false');
+        }
+        function closeLightbox(){
+          lb.classList.remove('open'); lb.setAttribute('aria-hidden','true');
+          lbImg.src=''; lbImg.alt=''; lbCap.textContent='';
+        }
+        closeBtn.addEventListener('click', closeLightbox);
+        lb.addEventListener('click', (e)=>{ if(e.target===lb) closeLightbox(); });
+        document.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && lb.classList.contains('open')) closeLightbox(); });
+      })();
+    });
   </script>
 </body>
 </html>
