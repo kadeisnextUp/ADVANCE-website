@@ -2,25 +2,20 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Events</title>
 
-  <!-- keep global files -->
   <link rel="stylesheet" href="style.css" />
   <script src="events-data.js" defer></script>
-  <script src="script.js" defer></script>
   <script src="https://cdn.lordicon.com/lordicon.js" defer></script>
+  <script src="script.js" defer></script>
 
-  <!-- Page-scoped styles (ONLY affect this page) -->
+  <!-- Page-scoped styles (only affect this page) -->
   <style>
-    /* Scope everything to this page only */
     body.page-events .events-hero h1{
-      margin: 8px 0 4px;
-      font-size: clamp(32px,6vw,56px);
-      color:#FFD700;
+      margin:8px 0 4px; font-size:clamp(32px,6vw,56px); color:#FFD700;
     }
-    body.page-events .events-sub{ margin:0 0 18px; opacity:.9; }
-
+    body.page-events .events-sub{margin:0 0 18px; opacity:.9;}
     body.page-events .events-wrap{
       background:
         radial-gradient(900px 520px at 20% -10%, rgba(255,215,0,.08), transparent 60%),
@@ -28,78 +23,38 @@
         linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.7));
       padding:28px 0 40px;
     }
-
+    /* section headers */
+    .ev-section-title{margin:26px 0 10px; color:#FFD700; font-size:1.4rem;}
     /* month label */
-    body.page-events .ev-month{
-      margin:26px 0 14px;
-      font-size:1.1rem;
-      letter-spacing:.04em;
-      color:#FFD700;
-      border-left:3px solid rgba(255,215,0,.55);
-      padding-left:10px;
-    }
-
-    /* poster grid */
-    body.page-events .ev-grid{
-      display:grid;
-      gap:18px;
-      grid-template-columns:repeat(auto-fill, minmax(260px,1fr));
-    }
-
-    /* poster card */
-    body.page-events .ev-card{
-      background:rgba(255,255,255,.04);
-      border:1px solid rgba(255,215,0,.18);
-      border-radius:14px;
-      overflow:hidden;
-      box-shadow:0 10px 24px rgba(0,0,0,.4);
-      transition:transform .18s ease, box-shadow .18s ease;
-    }
-    body.page-events .ev-card:hover{ transform:translateY(-3px); box-shadow:0 16px 36px rgba(0,0,0,.55); }
-
-    body.page-events .ev-card img{
-      display:block; width:100%; height:340px; object-fit:cover; cursor:zoom-in;
-    }
-    body.page-events .ev-meta{
-      padding:12px 14px 14px;
-      background:rgba(0,0,0,.45);
-      border-top:1px solid rgba(255,215,0,.15);
-    }
-    body.page-events .ev-title{ margin:0 0 4px; color:#FFD700; font-weight:700; }
-    body.page-events .ev-date{ display:block; font-size:.94rem; opacity:.9; margin-bottom:6px; }
-    body.page-events .ev-desc{ margin:0; opacity:.95; }
-
-    /* Lightbox (NO ARROWS) */
-    body.page-events .ev-lightbox{
-      position:fixed; inset:0; display:none; align-items:center; justify-content:center;
-      background:rgba(0,0,0,.88); z-index:9999;
-    }
-    body.page-events .ev-lightbox.open{ display:flex; }
-    body.page-events .ev-lightbox-img{
-      max-width:92vw; max-height:88vh; display:block; border-radius:10px;
-      box-shadow:0 16px 60px rgba(0,0,0,.9);
-    }
-    body.page-events .ev-lightbox-cap{ color:#fff; text-align:center; margin-top:8px; opacity:.9; }
-    body.page-events .ev-lightbox-close{
-      position:absolute; top:12px; right:16px; font-size:28px; line-height:1;
-      background:rgba(0,0,0,.5); border:1px solid rgba(255,255,255,.2); color:#fff;
-      border-radius:8px; padding:6px 10px; cursor:pointer;
-    }
-
-    /* footer icons spacing */
-    body.page-events footer .social-links lord-icon{margin:0 6px; vertical-align:middle;}
+    .ev-month{margin:20px 0 12px; font-size:1.05rem; letter-spacing:.03em; color:#FFD700; border-left:3px solid rgba(255,215,0,.55); padding-left:10px;}
+    /* grid + card */
+    .ev-grid{display:grid; gap:18px; grid-template-columns:repeat(auto-fill, minmax(260px,1fr));}
+    .ev-card{background:rgba(255,255,255,.04); border:1px solid rgba(255,215,0,.18); border-radius:14px; overflow:hidden; box-shadow:0 10px 24px rgba(0,0,0,.4); transition:transform .18s ease, box-shadow .18s ease;}
+    .ev-card:hover{ transform:translateY(-3px); box-shadow:0 16px 36px rgba(0,0,0,.55);}
+    .ev-card img{display:block; width:100%; height:340px; object-fit:cover; cursor:zoom-in;}
+    .ev-meta{padding:12px 14px 14px; background:rgba(0,0,0,.45); border-top:1px solid rgba(255,215,0,.15);}
+    .ev-title{margin:0 0 4px; color:#FFD700; font-weight:700;}
+    .ev-date{display:block; font-size:.94rem; opacity:.9; margin-bottom:6px;}
+    .ev-desc{margin:0; opacity:.95;}
+    /* Past section slight fade */
+    .is-past .ev-card{opacity:.92;}
+    /* Lightbox (no arrows) */
+    .ev-lightbox{position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(0,0,0,.88); z-index:9999;}
+    .ev-lightbox.open{display:flex;}
+    .ev-lightbox-img{max-width:92vw; max-height:88vh; display:block; border-radius:10px; box-shadow:0 16px 60px rgba(0,0,0,.9);}
+    .ev-lightbox-cap{color:#fff; text-align:center; margin-top:8px; opacity:.9;}
+    .ev-lightbox-close{position:absolute; top:12px; right:16px; font-size:28px; line-height:1; background:rgba(0,0,0,.5); border:1px solid rgba(255,255,255,.2); color:#fff; border-radius:8px; padding:6px 10px; cursor:pointer;}
   </style>
 </head>
 
 <body class="page-events">
-  <!-- Header (unchanged layout, BUT logo is no longer a link) -->
+  <!-- Header -->
   <header class="site-header">
     <div class="container header-inner">
       <div class="brand-logos">
-        <!-- NOT A LINK anymore -->
-        <div class="brand" aria-label="ADVANCE">
+        <a href="index.html" class="brand" aria-label="ADVANCE home">
           <img src="images/Logos/ADVANCE new logo.png" alt="ADVANCE logo" />
-        </div>
+        </a>
         <a href="https://www.uc.edu" class="partner" aria-label="University of Cincinnati" target="_blank" rel="noopener">
           <img src="images/Logos/university_of_cincinnati_logo.svg" alt="UC Logo" />
         </a>
@@ -122,7 +77,7 @@
     </div>
   </header>
 
-  <!-- Banner / marquee (duplicated to avoid blank gap) -->
+  <!-- Banner -->
   <div class="banner" role="region" aria-label="Site banner">
     <div class="marquee" aria-hidden="true">
       <div class="marquee__inner">
@@ -139,14 +94,19 @@
         <p class="events-sub">Upcoming and recent happenings — grouped by month</p>
       </header>
 
-      <!-- JS renders groups here; graceful fallback if no JS -->
-      <section class="events-groups" aria-label="Events grouped by month">
-        <noscript>Enable JavaScript to view events.</noscript>
+      <section id="upcoming" aria-label="Upcoming events">
+        <h2 class="ev-section-title">Upcoming</h2>
+        <div class="ev-groups"></div>
+      </section>
+
+      <section id="past" class="is-past" aria-label="Past events">
+        <h2 class="ev-section-title">Past</h2>
+        <div class="ev-groups"></div>
       </section>
     </div>
   </main>
 
-  <!-- Lightweight Lightbox (no arrows) -->
+  <!-- Lightbox (no arrows) -->
   <div class="ev-lightbox" id="evLightbox" aria-hidden="true">
     <button class="ev-lightbox-close" aria-label="Close" data-ev-close>&times;</button>
     <img class="ev-lightbox-img" alt="" />
@@ -155,153 +115,129 @@
 
   <footer>
     <p>&copy; 2025 ADVANCE. All rights reserved.</p>
-    <div class="social-links" role="group" aria-label="ADVANCE social links">
+    <div class="social-links">
       <a href="https://facebook.com/advance" target="_blank" rel="noopener" aria-label="Facebook">
-        <lord-icon src="https://cdn.lordicon.com/cxauoejw.json" trigger="hover" colors="primary:#000000,secondary:#ffd700" style="width:40px;height:40px"></lord-icon>
+        <lord-icon src="https://cdn.lordicon.com/cxauoejw.json" trigger="hover" colors="primary:#0b0b0b,secondary:#ffd700" style="width:40px;height:40px"></lord-icon>
       </a>
       <a href="https://www.tiktok.com/@advance" target="_blank" rel="noopener" aria-label="TikTok">
-        <lord-icon src="https://cdn.lordicon.com/opjtxtkg.json" trigger="hover" colors="primary:#000000,secondary:#ffd700" style="width:40px;height:40px"></lord-icon>
+        <lord-icon src="https://cdn.lordicon.com/opjtxtkg.json" trigger="hover" colors="primary:#0b0b0b,secondary:#ffd700" style="width:40px;height:40px"></lord-icon>
       </a>
       <a href="https://instagram.com/advance_uc" target="_blank" rel="noopener" aria-label="Instagram">
-        <lord-icon src="https://cdn.lordicon.com/cuwcpyqc.json" trigger="hover" colors="primary:#000000,secondary:#ffd700" style="width:40px;height:40px"></lord-icon>
+        <lord-icon src="https://cdn.lordicon.com/cuwcpyqc.json" trigger="hover" colors="primary:#0b0b0b,secondary:#ffd700" style="width:40px;height:40px"></lord-icon>
       </a>
     </div>
   </footer>
 
-  <!-- Page JS: render EVENTS; no arrows, no logo link, shake kept via lord-icon -->
+  <!-- Page-scoped JS to render Upcoming & Past -->
   <script>
     (function () {
-      const mount = document.querySelector('.events-groups');
-      if (!mount) return;
-
-      // Pull from events-data.js; fallback if missing
       const data = Array.isArray(window.EVENTS) ? window.EVENTS.slice() : [];
+      const today = new Date(); today.setHours(0,0,0,0);
 
-      // Normalize common date shapes to YYYY-MM-DD so we can group by month
       const toISO = (d) => {
         if (!d) return null;
-        // already ISO
         if (/^\d{4}-\d{2}-\d{2}$/.test(d)) return d;
-        // try Date parser (handles "Nov 5, 2025" & "11/05/2025")
         const t = new Date(d);
-        if (!isNaN(t)) {
-          const y = t.getFullYear();
-          const m = String(t.getMonth() + 1).padStart(2,'0');
-          const day = String(t.getDate()).padStart(2,'0');
-          return `${y}-${m}-${day}`;
-        }
-        // otherwise treat as TBA
-        return null;
+        if (isNaN(t)) return null;
+        const y=t.getFullYear(), m=String(t.getMonth()+1).padStart(2,'0'), dd=String(t.getDate()).padStart(2,'0');
+        return `${y}-${m}-${dd}`;
       };
 
-      data.forEach(e => {
+      data.forEach(e=>{
         e._iso = toISO(e.date);
         e._month = e._iso ? e._iso.slice(0,7) : 'TBA';
+        e._time = e._iso ? new Date(e._iso).getTime() : Number.POSITIVE_INFINITY; // TBA considered future
       });
 
-      // Sort by date; TBAs last
-      data.sort((a,b) => {
-        if(!a._iso && !b._iso) return 0;
-        if(!a._iso) return 1;
-        if(!b._iso) return -1;
-        return a._iso.localeCompare(b._iso);
-      });
+      // split upcoming vs past
+      const upcoming = data.filter(e => !e._iso || new Date(e._iso) >= today)
+                           .sort((a,b)=> (a._time)-(b._time));
+      const past     = data.filter(e =>  e._iso && new Date(e._iso) < today)
+                           .sort((a,b)=> (new Date(b._iso))-(new Date(a._iso)));
 
-      // Group by month
-      const groups = {};
-      for (const e of data) {
-        const key = e._month;
-        (groups[key] ||= []).push(e);
+      function groupByMonth(arr){
+        const g = {};
+        for(const e of arr){ (g[e._month || 'TBA'] ||= []).push(e); }
+        return g;
       }
 
-      // Render
-      mount.innerHTML = '';
-      const frag = document.createDocumentFragment();
-
-      const monthLabel = (key) => {
-        if (key === 'TBA') return 'TBA';
-        const [y,m] = key.split('-').map(Number);
+      function monthLabel(key){
+        if(key==='TBA') return 'TBA';
+        const [y,m]=key.split('-').map(Number);
         const d = new Date(y, m-1, 1);
-        return d.toLocaleString(undefined, { month:'long', year:'numeric' });
-      };
+        return d.toLocaleString(undefined, {month:'long', year:'numeric'});
+      }
 
-      Object.keys(groups).forEach((key) => {
-        const h = document.createElement('h2');
-        h.className = 'ev-month';
-        h.textContent = monthLabel(key);
-        frag.appendChild(h);
+      function renderGroups(arr, mount){
+        mount.innerHTML = '';
+        const groups = groupByMonth(arr);
+        Object.keys(groups).forEach(key=>{
+          const h = document.createElement('h3');
+          h.className = 'ev-month';
+          h.textContent = monthLabel(key);
+          mount.appendChild(h);
 
-        const grid = document.createElement('div');
-        grid.className = 'ev-grid';
+          const grid = document.createElement('div');
+          grid.className = 'ev-grid';
 
-        groups[key].forEach((evt, idx) => {
-          const card = document.createElement('article');
-          card.className = 'ev-card';
-          card.setAttribute('role','article');
+          groups[key].forEach((evt, idx)=>{
+            const card = document.createElement('article');
+            card.className = 'ev-card';
 
-          const img = document.createElement('img');
-          img.src = (evt.flyer || evt.full || '').replace(/\\\\/g,'/'); // normalize slashes
-          img.alt = evt.title || 'Event flyer';
-          img.loading = 'lazy';
-          img.addEventListener('click', () => openLightbox(evt)); // open on click
+            const img = document.createElement('img');
+            img.src = (evt.flyer||'').replace(/\\/g,'/');
+            img.alt = evt.title || 'Event flyer';
+            img.loading='lazy';
+            img.addEventListener('click', ()=>openLightbox(evt));
 
-          const meta = document.createElement('div');
-          meta.className = 'ev-meta';
+            const meta = document.createElement('div'); meta.className='ev-meta';
+            const t = document.createElement('h4'); t.className='ev-title'; t.textContent = evt.title || 'Event';
+            const time = document.createElement('time'); time.className='ev-date';
+            if(evt._iso) time.setAttribute('datetime', evt._iso);
+            time.textContent = evt._iso || (evt.date || 'TBA');
+            const p = document.createElement('p'); p.className='ev-desc'; p.textContent = evt.description || '';
 
-          const t = document.createElement('h3');
-          t.className = 'ev-title';
-          t.textContent = evt.title || 'Event';
+            meta.append(t,time,p);
+            card.append(img, meta);
 
-          const time = document.createElement('time');
-          time.className = 'ev-date';
-          if (evt._iso) time.setAttribute('datetime', evt._iso);
-          time.textContent = evt._iso || (evt.date || 'TBA');
+            // small staggered fade
+            card.style.opacity='0'; card.style.transform='translateY(8px)';
+            card.style.transition='opacity .3s ease, transform .3s ease';
+            setTimeout(()=>{ card.style.opacity='1'; card.style.transform='none'; }, 70*idx);
 
-          const p = document.createElement('p');
-          p.className = 'ev-desc';
-          p.textContent = evt.description || '';
+            grid.appendChild(card);
+          });
 
-          meta.append(t, time, p);
-          card.append(img, meta);
-
-          // subtle stagger
-          card.style.opacity = '0'; card.style.transform = 'translateY(8px)';
-          card.style.transition = 'opacity .3s ease, transform .3s ease';
-          setTimeout(() => { card.style.opacity = '1'; card.style.transform = 'none'; }, 70*idx);
-
-          grid.appendChild(card);
+          mount.appendChild(grid);
         });
 
-        frag.appendChild(grid);
-      });
-
-      if (!data.length) {
-        const p = document.createElement('p');
-        p.textContent = 'No events yet. Check back soon.';
-        frag.appendChild(p);
+        if(!arr.length){
+          const p = document.createElement('p'); p.textContent = 'No events yet. Check back soon.';
+          mount.appendChild(p);
+        }
       }
 
-      mount.appendChild(frag);
+      // mounts
+      const upMount = document.querySelector('#upcoming .ev-groups');
+      const pastMount = document.querySelector('#past .ev-groups');
+      if (upMount) renderGroups(upcoming, upMount);
+      if (pastMount) renderGroups(past, pastMount);
 
-      // Lightbox (no arrows)
+      // lightbox
       const lb = document.getElementById('evLightbox');
       const lbImg = lb.querySelector('.ev-lightbox-img');
       const lbCap = lb.querySelector('.ev-lightbox-cap');
       const closeBtn = lb.querySelector('[data-ev-close]');
-
       function openLightbox(evt){
-        lbImg.src = (evt.full || evt.flyer || '').replace(/\\\\/g,'/');
+        lbImg.src = (evt.full || evt.flyer || '').replace(/\\/g,'/');
         lbImg.alt = evt.title || '';
         lbCap.textContent = evt.title || '';
-        lb.classList.add('open');
-        lb.setAttribute('aria-hidden','false');
+        lb.classList.add('open'); lb.setAttribute('aria-hidden','false');
       }
       function closeLightbox(){
-        lb.classList.remove('open');
-        lb.setAttribute('aria-hidden','true');
-        lbImg.src = ''; lbImg.alt=''; lbCap.textContent='';
+        lb.classList.remove('open'); lb.setAttribute('aria-hidden','true');
+        lbImg.src=''; lbImg.alt=''; lbCap.textContent='';
       }
-
       closeBtn.addEventListener('click', closeLightbox);
       lb.addEventListener('click', (e)=>{ if(e.target===lb) closeLightbox(); });
       document.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && lb.classList.contains('open')) closeLightbox(); });
