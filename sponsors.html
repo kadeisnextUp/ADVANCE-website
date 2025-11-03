@@ -4,20 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sponsors</title>
-
   <link rel="stylesheet" href="style.css" />
   <script src="script.js" defer></script>
   <script src="https://cdn.lordicon.com/lordicon.js" defer></script>
-
-  <!-- Page-scoped styles -->
-  <style>
-    body.page-sponsors main{padding:28px 0 48px;}
-    body.page-sponsors h1{font-size:clamp(28px,4.6vw,44px);margin:8px 0 12px;}
-    body.page-sponsors section{margin:22px 0;}
-    body.page-sponsors .sponsor-email a{color:#FFD700;}
-  </style>
 </head>
-<body class="page-sponsors">
+
+<!-- NOTE: this page class scopes the sponsors-only styles -->
+<body class="sponsors">
   <!-- Header -->
   <header class="site-header">
     <div class="container header-inner">
@@ -47,7 +40,7 @@
     </div>
   </header>
 
-  <!-- Banner -->
+  <!-- Banner / marquee -->
   <div class="banner" role="region" aria-label="Site banner">
     <div class="marquee" aria-hidden="true">
       <div class="marquee__inner">
@@ -63,28 +56,36 @@
       <h1>Sponsors</h1>
       <p>We appreciate our partners who help ADVANCE build community, grow leadership, and expand opportunities for students.</p>
 
+      <!-- Corporate Sponsors -->
       <section aria-labelledby="corp-sponsors">
         <h2 id="corp-sponsors">Corporate Sponsors</h2>
-        <ul>
-          <li><em>Coming soon.</em></li>
+        <ul class="s-list">
+          <li class="s-item"><span class="s-label">Coming soon.</span></li>
         </ul>
       </section>
 
+      <!-- Educational Sponsors -->
       <section aria-labelledby="edu-sponsors">
         <h2 id="edu-sponsors">Educational Sponsors</h2>
-        <ul>
-          <li><em>Coming soon.</em></li>
+        <ul class="s-list">
+          <li class="s-item"><span class="s-label">Coming soon.</span></li>
         </ul>
       </section>
 
+      <!-- Corporate Advisory Board -->
       <section aria-labelledby="cab">
         <h2 id="cab">Corporate Advisory Board</h2>
         <p><em>Details coming soon.</em></p>
       </section>
 
-      <section aria-labelledby="become-sponsor" class="sponsor-email">
+      <!-- Sponsor CTA -->
+      <section aria-labelledby="become-sponsor">
         <h2 id="become-sponsor">Interested in sponsoring ADVANCE?</h2>
-        <p>Email <a href="mailto:advanceboard@gmail.com">advanceboard@gmail.com</a> for information.</p>
+        <p>
+          Email
+          <a href="mailto:advanceboard@gmail.com" class="s-cta">advanceboard@gmail.com</a>
+          for information.
+        </p>
       </section>
     </div>
   </main>
