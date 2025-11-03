@@ -379,3 +379,23 @@ body.page-events .ev-featured-card.fade-in .ev-featured-meta{
 /* Utility: hide accidental stray buttons dropped at body root */
 body.page-events > button,
 body.sponsors > button { display: none !important; }
+
+/* ===== Light Theme (all pages except Exec Board) ===== */
+body.theme-light{
+  --bg:#fafafa; --accent:#cfa800; color:#111; background:var(--bg);
+}
+body.theme-light .site-header{
+  background:linear-gradient(180deg,rgba(255,255,255,.85),rgba(255,255,255,.70));
+}
+body.theme-light .site-nav a{ color:#111; }
+body.theme-light .site-nav a:hover,
+body.theme-light .site-nav a:focus,
+body.theme-light .site-nav a.active{ background:rgba(0,0,0,.06); color:#000; }
+body.theme-light .marquee{ background:linear-gradient(180deg,rgba(0,0,0,.04),rgba(0,0,0,.04)); }
+body.theme-light .marquee__item{ color:#333; }
+body.theme-light .ev-card,.theme-light .s-item{
+  background:#fff; border:1px solid rgba(0,0,0,.10); box-shadow:0 8px 20px rgba(0,0,0,.06);
+}
+body.theme-light .ev-meta{ background:#fff; border-top:1px solid rgba(0,0,0,.08); }
+body.theme-light .ev-title,.theme-light .ev-month,.theme-light .ev-section-title,.theme-light .sponsors h1{ color:#222; }
+body.theme-light footer{ color:#222; }
