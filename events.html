@@ -5,74 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Events</title>
 
-  <!-- Global assets -->
+  <!-- Keep global files -->
   <link rel="stylesheet" href="style.css" />
   <script src="events-data.js" defer></script>
   <script src="script.js" defer></script>
   <script src="https://cdn.lordicon.com/lordicon.js" defer></script>
 
-  <!-- Page-scoped styles (only affect this page) -->
-  <style>
-    /* Wrap */
-    body.page-events .events-wrap{
-      background:
-        radial-gradient(900px 520px at 20% -10%, rgba(255,215,0,.08), transparent 60%),
-        radial-gradient(700px 420px at 120% 10%, rgba(255,215,0,.06), transparent 60%),
-        linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.7));
-      padding:28px 0 40px;
-      color:#fff;
-    }
-    /* Title */
-    body.page-events .events-hero h1{
-      margin: 8px 0 4px;
-      font-size: clamp(32px,6vw,56px);
-      color:#FFD700;
-    }
-    body.page-events .events-sub{margin:0 0 18px;opacity:.9;}
-
-    /* Month heading */
-    body.page-events .ev-month{
-      margin:26px 0 14px;
-      font-size:1.1rem;
-      letter-spacing:.04em;
-      color:#FFD700;
-      border-left:3px solid rgba(255,215,0,.55);
-      padding-left:10px;
-    }
-
-    /* Grid */
-    body.page-events .ev-grid{
-      display:grid;
-      gap:18px;
-      grid-template-columns:repeat(auto-fill, minmax(260px,1fr));
-    }
-
-    /* Card */
-    body.page-events .ev-card{
-      background:rgba(255,255,255,.04);
-      border:1px solid rgba(255,215,0,.18);
-      border-radius:14px;
-      overflow:hidden;
-      box-shadow:0 10px 24px rgba(0,0,0,.4);
-      transition:transform .18s ease, box-shadow .18s ease;
-    }
-    body.page-events .ev-card:hover{transform:translateY(-3px);box-shadow:0 16px 36px rgba(0,0,0,.55);}
-    body.page-events .ev-card img{display:block;width:100%;height:340px;object-fit:cover;cursor:zoom-in;}
-    body.page-events .ev-meta{padding:12px 14px 14px;background:rgba(0,0,0,.45);border-top:1px solid rgba(255,215,0,.15);}
-    body.page-events .ev-title{margin:0 0 4px;color:#FFD700;font-weight:700;}
-    body.page-events .ev-date{display:block;font-size:.94rem;opacity:.9;margin-bottom:6px;}
-    body.page-events .ev-desc{margin:0;opacity:.95;}
-
-    /* Lightbox */
-    body.page-events .ev-lightbox{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.88);z-index:9999;}
-    body.page-events .ev-lightbox.open{display:flex;}
-    body.page-events .ev-lightbox-img{max-width:92vw;max-height:88vh;display:block;border-radius:10px;box-shadow:0 16px 60px rgba(0,0,0,.9);}
-    body.page-events .ev-lightbox-cap{color:#fff;text-align:center;margin-top:8px;opacity:.9;}
-    body.page-events .ev-lightbox-close{position:absolute;top:12px;right:16px;font-size:28px;line-height:1;background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.2);color:#fff;border-radius:8px;padding:6px 10px;cursor:pointer;}
-
-    /* Footer icons on this page */
-    body.page-events footer .social-links img{vertical-align:middle;margin:0 6px;}
-  </style>
+  <!-- Page-scope styles live in style.css (at the end).
+       Nothing else needed here. -->
 </head>
 
 <body class="page-events">
@@ -105,7 +45,7 @@
     </div>
   </header>
 
-  <!-- Banner -->
+  <!-- Banner / marquee -->
   <div class="banner" role="region" aria-label="Site banner">
     <div class="marquee" aria-hidden="true">
       <div class="marquee__inner">
@@ -115,7 +55,7 @@
     </div>
   </div>
 
-  <!-- Content -->
+  <!-- CONTENT -->
   <main class="events-wrap">
     <div class="container">
       <header class="events-hero">
@@ -123,13 +63,33 @@
         <p class="events-sub">Upcoming and recent happenings — grouped by month</p>
       </header>
 
-      <section class="events-groups" aria-label="Events grouped by month">
+      <!-- Featured “Next Up” mini-carousel -->
+      <section class="ev-featured" aria-label="Next up">
+        <div class="ev-featured-card" id="evFeaturedCard">
+          <div class="ev-featured-media">
+            <img alt="" />
+          </div>
+          <div class="ev-featured-meta">
+            <span class="ev-pill" id="evFeaturedDate">TBA</span>
+            <h3 id="evFeaturedTitle">Event</h3>
+            <p id="evFeaturedDesc">Details coming soon.</p>
+            <div class="ev-featured-actions">
+              <button class="ev-btn" id="evPrev" aria-label="Previous event">‹</button>
+              <button class="ev-btn" id="evNext" aria-label="Next event">›</button>
+              <a class="ev-btn ev-btn-link" href="#ev-groups">More events</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Month groups (rendered by JS) -->
+      <section id="ev-groups" class="events-groups" aria-label="Events grouped by month">
         <noscript>Enable JavaScript to view events.</noscript>
       </section>
     </div>
   </main>
 
-  <!-- Lightbox -->
+  <!-- Lightbox (reuses your existing styles) -->
   <div class="ev-lightbox" id="evLightbox" aria-hidden="true">
     <button class="ev-lightbox-close" aria-label="Close" data-ev-close>&times;</button>
     <img class="ev-lightbox-img" alt="" />
@@ -152,7 +112,7 @@
     </div>
   </footer>
 
-  <!-- Page script: renders window.EVENTS if provided -->
+  <!-- ===== Events grid renderer (same logic as you had, compact) ===== -->
   <script>
     (function () {
       const mount = document.querySelector('.events-groups');
@@ -175,15 +135,15 @@
       const groups = {};
       for(const e of data){ (groups[e._month] ||= []).push(e); }
 
-      mount.innerHTML = '';
-      const frag = document.createDocumentFragment();
-
       const monthLabel = (key)=>{
         if(key==='TBA') return 'TBA';
         const [y,m]=key.split('-').map(Number);
         const d = new Date(y, m-1, 1);
         return d.toLocaleString(undefined, {month:'long', year:'numeric'});
       };
+
+      mount.innerHTML = '';
+      const frag = document.createDocumentFragment();
 
       Object.keys(groups).forEach((key)=>{
         const h = document.createElement('h2');
@@ -196,8 +156,7 @@
 
         groups[key].forEach((evt, idx)=>{
           const card = document.createElement('article');
-          card.className='ev-card';
-          card.setAttribute('role','article');
+          card.className='ev-card'; card.setAttribute('role','article');
 
           const img = document.createElement('img');
           img.src = evt.flyer || evt.full || '';
@@ -205,7 +164,9 @@
           img.loading='lazy';
           img.addEventListener('click', ()=>openLightbox(evt));
 
-          const meta = document.createElement('div'); meta.className='ev-meta';
+          const meta = document.createElement('div');
+          meta.className='ev-meta';
+
           const t = document.createElement('h3'); t.className='ev-title'; t.textContent = evt.title || 'Event';
           const time = document.createElement('time'); time.className='ev-date'; if(evt._iso) time.setAttribute('datetime', evt._iso); time.textContent = evt._iso || (evt.date || 'TBA');
           const p = document.createElement('p'); p.className='ev-desc'; p.textContent = evt.description || '';
@@ -230,6 +191,7 @@
 
       mount.appendChild(frag);
 
+      // Lightbox
       const lb = document.getElementById('evLightbox');
       const lbImg = lb.querySelector('.ev-lightbox-img');
       const lbCap = lb.querySelector('.ev-lightbox-cap');
@@ -239,18 +201,85 @@
         lbImg.src = evt.full || evt.flyer || '';
         lbImg.alt = evt.title || '';
         lbCap.textContent = evt.title || '';
-        lb.classList.add('open');
-        lb.setAttribute('aria-hidden','false');
+        lb.classList.add('open'); lb.setAttribute('aria-hidden','false');
       }
       function closeLightbox(){
-        lb.classList.remove('open');
-        lb.setAttribute('aria-hidden','true');
+        lb.classList.remove('open'); lb.setAttribute('aria-hidden','true');
         lbImg.src = ''; lbImg.alt=''; lbCap.textContent='';
       }
-
       closeBtn.addEventListener('click', closeLightbox);
       lb.addEventListener('click', (e)=>{ if(e.target===lb) closeLightbox(); });
       document.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && lb.classList.contains('open')) closeLightbox(); });
+    })();
+  </script>
+
+  <!-- ===== Featured mini-carousel ===== -->
+  <script>
+    (function () {
+      const wrap = document.getElementById('evFeaturedCard');
+      if (!wrap) return;
+
+      const imgEl   = wrap.querySelector('.ev-featured-media img');
+      const dateEl  = document.getElementById('evFeaturedDate');
+      const titleEl = document.getElementById('evFeaturedTitle');
+      const descEl  = document.getElementById('evFeaturedDesc');
+      const prevBtn = document.getElementById('evPrev');
+      const nextBtn = document.getElementById('evNext');
+
+      const toISO = d => {
+        if (!d) return null;
+        if (/^\d{4}-\d{2}-\d{2}$/.test(d)) return d;
+        const t = new Date(d); if (isNaN(t)) return null;
+        return [t.getFullYear(), String(t.getMonth()+1).padStart(2,'0'), String(t.getDate()).padStart(2,'0')].join('-');
+      };
+
+      const source = Array.isArray(window.EVENTS) && window.EVENTS.length ? window.EVENTS.map(e=>({ ...e, _iso: toISO(e.date) })) : [{
+        title:'Meet the E-board', date:'2025-10-22',
+        flyer:'images/Event photos/Executive Board Retreat 2025 1.jpeg',
+        full :'images/Event photos/Executive Board Retreat 2025 1.jpeg',
+        description:'Meet the new executive board and learn about upcoming events.', _iso:'2025-10-22'
+      }];
+
+      source.sort((a,b)=> (!a._iso) - (!b._iso) || a._iso?.localeCompare(b._iso));
+      const today = new Date().toISOString().slice(0,10);
+      let slides = source.filter(e => e._iso && e._iso >= today);
+      if (!slides.length) slides = source;
+
+      let i = 0;
+      function render(idx, fade=true){
+        const ev = slides[idx];
+        const iso = ev._iso || ev.date || 'TBA';
+        if (fade){
+          wrap.classList.remove('fade-in'); wrap.classList.add('fade-out');
+          setTimeout(()=>update(ev, iso), 140);
+        } else {
+          update(ev, iso);
+        }
+      }
+      function update(ev, iso){
+        imgEl.src = ev.full || ev.flyer || '';
+        imgEl.alt = ev.title || 'Event flyer';
+        dateEl.textContent = iso;
+        titleEl.textContent = ev.title || 'Event';
+        descEl.textContent  = ev.description || '';
+        requestAnimationFrame(()=>{
+          wrap.classList.remove('fade-out'); wrap.classList.add('fade-in');
+          setTimeout(()=>wrap.classList.remove('fade-in'), 350);
+        });
+      }
+
+      function next(){ i = (i + 1) % slides.length; render(i); }
+      function prev(){ i = (i - 1 + slides.length) % slides.length; render(i); }
+
+      nextBtn.addEventListener('click', next);
+      prevBtn.addEventListener('click', prev);
+      document.addEventListener('keydown', (e)=>{ if(e.key==='ArrowRight') next(); if(e.key==='ArrowLeft') prev(); });
+
+      let timer = setInterval(next, 6000);
+      wrap.addEventListener('mouseenter', ()=>clearInterval(timer));
+      wrap.addEventListener('mouseleave', ()=>timer=setInterval(next, 6000));
+
+      render(i, false);
     })();
   </script>
 </body>
