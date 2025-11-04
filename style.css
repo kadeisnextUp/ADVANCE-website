@@ -2,48 +2,33 @@
    ADVANCE Global Stylesheet
    ========================= */
 
+
+/* Fonts */
+
+@font-face {
+  font-family: 'the font';
+  src: url("Fonts/Sora-VariableFont_wght.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
 /* Root Variables (gold stays global; pages can override with their own themes) */
 :root {
   --accent: #FFD700;     /* global accent (gold) */
   --bg: #0b0b0b;        /* global bg (black) */
   --header-height: 84px;
   --footer-height: 88px;
+  --font: 'the font', Arial, Helvetica, sans-serif;
 }
 
 /* Base */
 * { box-sizing: border-box; }
-html, body { height: 100%; margin: 0; padding: 0;line-height: 1.5; display: flex; flex-direction: column; min-height: 100vh; overflow-x: hidden; }
+html, body { height: 100%; font-family: var(--font); margin: 0; padding: 0;line-height: 1.5; display: flex; flex-direction: column; min-height: 100vh; overflow-x: hidden; }
 a { text-decoration: none; }
 img { display: block; max-width: 100%; height: auto; }
 .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
 
-/* Fonts */
-@font-face {
-  font-family: 'CustomFont';
-  src: url("Fonts/Anta-Regular.ttf");
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'HomepageFont';
-  src: url("Fonts/SpaceGrotesk-VariableFont_wght.ttf");
-  font-weight: bold;
-  font-style: normal;
-}
 
-@font-face {
-  font-family: 'executiveBoardFont';
-  src: url("Fonts/Sora-VariableFont_wght.ttf");
-  font-weight: normal;
-  font-style: normal;
-}
 
-@font-face {
-  font-family: 'executiveBoardFont';
-  src: url("Fonts/Sora-VariableFont_wght.ttf");
-  font-weight: normal;
-  font-style: normal;
-}
 
 /* =========================
    Header / Navigation
@@ -181,7 +166,6 @@ body.home {
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  font-family: 'HomepageFont';
   color: var(--accent);
 }
 
@@ -347,7 +331,7 @@ body.home {
    About Page
 ------------------------------ */
 html.about,
-body.about { background: bisque !important; color: black;  --accent : #EBD375; display: block; font-family: 'CustomFont', Arial, Helvetica, sans-serif; }
+body.about { background: bisque !important; color: black;  --accent : #EBD375; display: block;}
 .about-top, .about-row { display: flex; flex-wrap: wrap; align-items: center; gap: 40px; padding: 40px 0; border-bottom: 1px solid transparent;}
 
 /* Alternate direction for every even section */
@@ -433,7 +417,6 @@ html.executiveBoard,
 body.executive {
   background: linear-gradient(180deg, #000000 0%, #1a1a1a 40%, #2b1b00 100%) !important;
   color: var(--accent);
-  font-family: 'executiveBoardFont', sans-serif;
 }
 
 /* Gold navbar links for Executive Board page */
@@ -493,7 +476,9 @@ body.executive .site-nav a {
   }
 }
 
-
+/* ------------------------------
+   Sponsors Page 
+*/  ------------------------------ */
 
 body.sponsors .btn{
   display:inline-flex; align-items:center; justify-content:center;
