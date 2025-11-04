@@ -7,32 +7,32 @@ window.EVENTS = [
     id:'evt-1',
     title:'Meet the Eboard',
     date:'2025-11-13',
-    flyer:'images/Executive Board Photos/Executive Board Retreat 2025 1.jpeg',
-    full:'images/Executive Board Photos/Executive Board Retreat 2025 1.jpeg',
+    flyer:'images/Executive Board Photos/Executive Board Retreat 2025 1.webp',
+    full:'images/Executive Board Photos/Executive Board Retreat 2025 1.webp',
     description:'Meet the new executive board and learn about upcoming events.'
   },
   {
     id:'evt-2',
     title:'Walking on Business',
     date:'TBA',
-    flyer:'images/Logos/ADVANCE new logo non transparent.png',
-    full:'images/Logos/ADVANCE new logo non transparent.png',
+    flyer:'images/Logos/ADVANCE new logo non transparent.webp',
+    full:'images/Logos/ADVANCE new logo non transparent.webp',
     description:'A community walk in Burnet Woods to enjoy nature and connect with members. This event is led by Jada!'
   },
   {
     id:'evt-3',
     title:'Stress relief event',
     date:'TBA',
-    flyer:'images/Logos/ADVANCE new logo non transparent.png',
-    full:'images/Logos/ADVANCE new logo non transparent.png',
+    flyer:'images/Logos/ADVANCE new logo non transparent.webp',
+    full:'images/Logos/ADVANCE new logo non transparent.webp',
     description:'More Details Coming Soon.'
   },
   {
     id:'evt-4',
     title:'Corporate Excursion',
     date:'2026-03-14',
-    flyer:'images/Logos/ADVANCE new logo non transparent.png',
-    full:'images/Logos/ADVANCE new logo non transparent.png',
+    flyer:'images/Logos/ADVANCE new logo non transparent.webp',
+    full:'images/Logos/ADVANCE new logo non transparent.webp',
     description:'Join us for a corporate excursion to explore opportunities in New York City! (Mar 14–21, 2026)'
   }
 

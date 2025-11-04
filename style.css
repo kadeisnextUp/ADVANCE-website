@@ -176,7 +176,7 @@ img { display: block; max-width: 100%; height: auto; }
 
 /* Homepage background: explicit properties to avoid rendering artifacts */
 body.home {
-  background-image: url('images/campus sky.jpeg');
+  background-image: url('images/campus sky.webp');
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
