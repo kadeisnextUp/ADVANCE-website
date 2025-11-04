@@ -15,15 +15,15 @@ window.EVENTS = [
     id:'evt-2',
     title:'Walking on Business',
     date:'TBA',
-    flyer:'images/Logos/ADVANCE new logo.png',
+    flyer:'images/Logos/ADVANCE new logo non transparent.png',
     full:'images/Logos/ADVANCE new logo non transparent.png',
     description:'A community walk in Burnet Woods to enjoy nature and connect with members. This event is led by Jada!'
   },
   {
     id:'evt-3',
     title:'Stress relief event',
-    date:'TBA Nov–Dec 2025',
-    flyer:'images/Logos/ADVANCE new logo.png',
+    date:'TBA',
+    flyer:'images/Logos/ADVANCE new logo non transparent.png',
     full:'images/Logos/ADVANCE new logo non transparent.png',
     description:'More Details Coming Soon.'
   },
@@ -31,7 +31,7 @@ window.EVENTS = [
     id:'evt-4',
     title:'Corporate Excursion',
     date:'2026-03-14',
-    flyer:'images/Logos/ADVANCE new logo.png',
+    flyer:'images/Logos/ADVANCE new logo non transparent.png',
     full:'images/Logos/ADVANCE new logo non transparent.png',
     description:'Join us for a corporate excursion to explore opportunities in New York City! (Mar 14–21, 2026)'
   }

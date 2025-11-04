@@ -11,13 +11,28 @@
 
   <!-- Page-scoped styles (Sponsors only) -->
   <style>
-    /* Red/Black theme just for this page */
+    /* Red/Black theme */
     body.sponsors {
       --accent: #E00122;   /* UC red */
-      --bg: #000000;       /* black */
-      color: #fff;
-      background: var(--bg);
+      color: var(--accent);
+      background: linear-gradient(180deg, #0d0d0d, #400000, #0a0a0a);
     }
+    body.sponsors .site-nav a {
+      color: #E00122 !important; /* UC Red */
+    }
+
+    body.sponsors .site-nav a:hover,
+    body.sponsors .site-nav a:focus {
+      color: #FFD700 !important; /* gold highlight */
+      background: rgba(224,1,34,0.15);
+      transform: translateY(-1px);
+    }
+
+    body.sponsors .site-nav a.active {
+      color: #FFD700;
+      background: rgba(224,1,34,0.25);
+    }
+    
 
     /* make the sliding marquee message red on this page */
     body.sponsors .marquee__item { color: var(--accent) !important; }
@@ -164,17 +179,26 @@
   <footer>
     <p>&copy; 2025 ADVANCE. All rights reserved.</p>
     <div class="social-links">
-      <a href="https://facebook.com/advance" target="_blank" rel="noopener" aria-label="Facebook">
-        <lord-icon src="https://cdn.lordicon.com/cxauoejw.json" trigger="hover"
-          colors="primary:#000000,secondary:#e00122" style="width:40px;height:40px"></lord-icon>
+      <a href="https://www.linkedin.com/in/advance-organization-59726937" target="_blank">
+        <lord-icon
+          src="https://cdn.lordicon.com/euybrknk.json"
+          trigger="hover"
+          style="width:40px;height:40px">
+        </lord-icon>
       </a>
-      <a href="https://www.tiktok.com/@advance" target="_blank" rel="noopener" aria-label="TikTok">
-        <lord-icon src="https://cdn.lordicon.com/opjtxtkg.json" trigger="hover"
-          colors="primary:#000000,secondary:#e00122" style="width:40px;height:40px"></lord-icon>
+      <a href="mailto:advanceboard@gmail.com" target="_blank">
+        <lord-icon
+          src="https://cdn.lordicon.com/ozlkyfxg.json"
+          trigger="hover"
+          style="width:40px;height:40px">
+        </lord-icon>
       </a>
-      <a href="https://instagram.com/advance_uc" target="_blank" rel="noopener" aria-label="Instagram">
-        <lord-icon src="https://cdn.lordicon.com/cuwcpyqc.json" trigger="hover"
-          colors="primary:#000000,secondary:#e00122" style="width:40px;height:40px"></lord-icon>
+      <a href="https://instagram.com/advance_uc" target="_blank">
+        <lord-icon
+            src="https://cdn.lordicon.com/cuwcpyqc.json"
+            trigger="hover"
+            style="width:40px;height:40px">
+        </lord-icon>
       </a>
     </div>
   </footer>
