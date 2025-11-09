@@ -2,7 +2,7 @@
    ADVANCE Global Stylesheet
    ========================= */
 
-
+/* spam protection */
 /* Fonts */
 
 @font-face {
@@ -412,18 +412,17 @@ body.page-events .is-past .ev-card{ opacity:.92; }
 ------------------------------ */ 
 
 
-
 html.executiveBoard,
 body.executive {
-  background: linear-gradient(180deg, #000000 0%, #1a1a1a 40%, #2b1b00 100%) !important;
+  background: linear-gradient(180deg, #000000 0%, #1a1a1a 40%, #2b1b00 100%);
   color: var(--accent);
 }
 
 /* Gold navbar links for Executive Board page */
 body.executive .site-nav a {
   color: var(--accent) !important;
-  background: rgba(255, 165, 0, 0.25);
 }
+
 
 .executive-container {
   display: flex;
@@ -469,12 +468,63 @@ body.executive .site-nav a {
   flex-direction: row-reverse;
 }
 
+/* background transitions */
+#bg-transition {
+  position: fixed;
+  inset: 0;
+  z-index: -1; /* sit behind page content */
+  pointer-events: none;
+  background: linear-gradient(135deg, #0B0B0B 0%, #1E3C72 100%);
+  opacity: 1;
+  transition: opacity 700ms ease;
+  will-change: opacity;
+}
+
+/* alternate layer used for smooth crossfade between gradients */
+#bg-transition-alt {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(135deg, #0B0B0B 0%, #1E3C72 100%);
+  opacity: 0;
+  transition: opacity 700ms ease;
+  will-change: opacity;
+}
+
+/* Executive page: allow JS to control text color via CSS variable */
+body.executive {
+  --exec-text: #FFD700;
+  color: var(--exec-text);
+  background: none; /* page background is handled by #bg-transition */
+}
+
+.exec-text { color: var(--exec-text); }
+
+body.executive {
+  font-family: 'CustomFont', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+  transition: color 1.5s ease;
+}
+
+/* Smooth color transition for text */
+body.executive,
+body.executive .exec-text h2,
+body.executive .exec-text p,
+body.executive .site-nav a,
+body.executive footer {
+  transition: color 1.5s ease;
+}
+
 @media (max-width: 768px) {
   .exec-row, .exec-row-reverse {
     flex-direction: column;
     text-align: center;
   }
 }
+
+
 
 /* ------------------------------
    Sponsors Page 
@@ -538,3 +588,4 @@ footer {
   color: var(--accent);
   width: 100%;
 }
+

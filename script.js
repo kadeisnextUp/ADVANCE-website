@@ -482,3 +482,79 @@ document.addEventListener('DOMContentLoaded', function () {
 
   fadeElements.forEach(el => observer.observe(el));
 });
+
+/* Executive Board: background gradient on scroll
+   Observes sections with class `.exec-row` and reads their
+   `data-bg` (comma-separated colors) and `data-text` (text color)
+   to update the fixed `#bg-transition` element and the page text color.
+*/
+(function () {
+  function initExecutiveBg() {
+    var container = document.querySelector('.executive-container');
+    var bgEl = document.getElementById('bg-transition');
+    if (!container || !bgEl) return;
+
+    var sections = Array.prototype.slice.call(container.querySelectorAll('.exec-row'));
+    if (!sections.length) return;
+
+    // IntersectionObserver to detect the most visible section
+    var options = { root: null, rootMargin: '0px', threshold: [0.25, 0.5, 0.75] };
+    var currentIndex = -1;
+
+    // Crossfade between two background layers for a smooth transition.
+    // Uses #bg-transition and #bg-transition-alt. If the alt element
+    // doesn't exist in the DOM it will be created dynamically.
+    var bgAlt = document.getElementById('bg-transition-alt');
+    if (!bgAlt) {
+      bgAlt = document.createElement('div');
+      bgAlt.id = 'bg-transition-alt';
+      document.body.appendChild(bgAlt);
+    }
+    var bgLayers = [bgEl, bgAlt];
+    var activeLayer = 0; // index of currently visible layer (0 or 1)
+
+    function applyForSection(sec) {
+      var bg = sec.dataset.bg || ''; // expected like: "#0B0B0B, #1E3C72"
+      var text = sec.dataset.text || '';
+      if (bg) {
+        var grad = 'linear-gradient(135deg, ' + bg + ')';
+        var next = 1 - activeLayer;
+        // set new background on the hidden layer
+        bgLayers[next].style.background = grad;
+        // force style flush
+        /* eslint-disable no-unused-expressions */
+        bgLayers[next].offsetHeight;
+        /* eslint-enable no-unused-expressions */
+        // fade in the next layer and fade out the current
+        bgLayers[next].style.opacity = '1';
+        bgLayers[activeLayer].style.opacity = '0';
+        // swap active index
+        activeLayer = next;
+      }
+      if (text) {
+        document.body.style.setProperty('--exec-text', text);
+      }
+    }
+
+    var io = new IntersectionObserver(function (entries) {
+      // pick the entry with the largest intersectionRatio
+      var visible = entries.filter(function (e) { return e.isIntersecting; });
+      if (!visible.length) return;
+      visible.sort(function (a, b) { return b.intersectionRatio - a.intersectionRatio; });
+      var top = visible[0];
+      var idx = sections.indexOf(top.target);
+      if (idx !== currentIndex) {
+        currentIndex = idx;
+        applyForSection(top.target);
+      }
+    }, options);
+
+    sections.forEach(function (s) { io.observe(s); });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initExecutiveBg);
+  } else {
+    initExecutiveBg();
+  }
+})();
