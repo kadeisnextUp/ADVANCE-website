@@ -488,73 +488,75 @@ document.addEventListener('DOMContentLoaded', function () {
    `data-bg` (comma-separated colors) and `data-text` (text color)
    to update the fixed `#bg-transition` element and the page text color.
 */
-(function () {
-  function initExecutiveBg() {
-    var container = document.querySelector('.executive-container');
-    var bgEl = document.getElementById('bg-transition');
-    if (!container || !bgEl) return;
+// Executive Board cinematic crossfade background + text transition
+document.addEventListener("DOMContentLoaded", () => {
+  const sections = document.querySelectorAll(".exec-row");
+  const bgA = document.getElementById("bg-transition");
+  const bgB = document.getElementById("bg-transition-alt");
+  const body = document.body;
 
-    var sections = Array.prototype.slice.call(container.querySelectorAll('.exec-row'));
-    if (!sections.length) return;
+  let currentIndex = -1;
+  let useA = true;
 
-    // IntersectionObserver to detect the most visible section
-    var options = { root: null, rootMargin: '0px', threshold: [0.25, 0.5, 0.75] };
-    var currentIndex = -1;
+  function getSectionProgress() {
+    const scrollY = window.scrollY + window.innerHeight / 2;
+    for (let i = 0; i < sections.length - 1; i++) {
+      const rect1 = sections[i].getBoundingClientRect();
+      const rect2 = sections[i + 1].getBoundingClientRect();
+      const mid1 = rect1.top + window.scrollY;
+      const mid2 = rect2.top + window.scrollY;
 
-    // Crossfade between two background layers for a smooth transition.
-    // Uses #bg-transition and #bg-transition-alt. If the alt element
-    // doesn't exist in the DOM it will be created dynamically.
-    var bgAlt = document.getElementById('bg-transition-alt');
-    if (!bgAlt) {
-      bgAlt = document.createElement('div');
-      bgAlt.id = 'bg-transition-alt';
-      document.body.appendChild(bgAlt);
-    }
-    var bgLayers = [bgEl, bgAlt];
-    var activeLayer = 0; // index of currently visible layer (0 or 1)
-
-    function applyForSection(sec) {
-      var bg = sec.dataset.bg || ''; // expected like: "#0B0B0B, #1E3C72"
-      var text = sec.dataset.text || '';
-      if (bg) {
-        var grad = 'linear-gradient(135deg, ' + bg + ')';
-        var next = 1 - activeLayer;
-        // set new background on the hidden layer
-        bgLayers[next].style.background = grad;
-        // force style flush
-        /* eslint-disable no-unused-expressions */
-        bgLayers[next].offsetHeight;
-        /* eslint-enable no-unused-expressions */
-        // fade in the next layer and fade out the current
-        bgLayers[next].style.opacity = '1';
-        bgLayers[activeLayer].style.opacity = '0';
-        // swap active index
-        activeLayer = next;
-      }
-      if (text) {
-        document.body.style.setProperty('--exec-text', text);
+      if (scrollY >= mid1 && scrollY <= mid2) {
+        const ratio = (scrollY - mid1) / (mid2 - mid1);
+        return { index: i, ratio };
       }
     }
-
-    var io = new IntersectionObserver(function (entries) {
-      // pick the entry with the largest intersectionRatio
-      var visible = entries.filter(function (e) { return e.isIntersecting; });
-      if (!visible.length) return;
-      visible.sort(function (a, b) { return b.intersectionRatio - a.intersectionRatio; });
-      var top = visible[0];
-      var idx = sections.indexOf(top.target);
-      if (idx !== currentIndex) {
-        currentIndex = idx;
-        applyForSection(top.target);
-      }
-    }, options);
-
-    sections.forEach(function (s) { io.observe(s); });
+    return { index: sections.length - 1, ratio: 1 };
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initExecutiveBg);
-  } else {
-    initExecutiveBg();
+  function lerpColor(c1, c2, t) {
+    const a = c1.match(/\w\w/g).map(x => parseInt(x, 16));
+    const b = c2.match(/\w\w/g).map(x => parseInt(x, 16));
+    const m = a.map((v, i) => Math.round(v + (b[i] - v) * t));
+    return `#${m.map(x => x.toString(16).padStart(2, "0")).join("")}`;
   }
-})();
+
+  function updateBackground() {
+    const { index, ratio } = getSectionProgress();
+    const current = sections[index];
+    const next = sections[index + 1] || current;
+
+    const [bg1Start, bg1End] = current.dataset.bg.split(",");
+    const [bg2Start, bg2End] = next.dataset.bg.split(",");
+
+    const text1 = current.dataset.text.trim();
+    const text2 = next.dataset.text.trim();
+
+    const blendedStart = lerpColor(bg1Start.trim().replace("#", ""), bg2Start.trim().replace("#", ""), ratio);
+    const blendedEnd = lerpColor(bg1End.trim().replace("#", ""), bg2End.trim().replace("#", ""), ratio);
+    const blendedText = lerpColor(text1.replace("#", ""), text2.replace("#", ""), ratio);
+
+    // Alternate between layers for smooth crossfade
+    const activeLayer = useA ? bgA : bgB;
+    const inactiveLayer = useA ? bgB : bgA;
+
+    activeLayer.style.background = `linear-gradient(180deg, ${blendedStart}, ${blendedEnd})`;
+    activeLayer.style.opacity = 1;
+    inactiveLayer.style.opacity = 0;
+
+    // When section changes, swap which layer is active
+    if (index !== currentIndex) {
+      useA = !useA;
+      currentIndex = index;
+    }
+
+    // Apply blended text color
+    document.documentElement.style.setProperty("--exec-text", blendedText);
+    document.querySelectorAll(".exec-text h2, .exec-text p, .site-nav a, footer, footer p")
+      .forEach(el => el.style.color = blendedText);
+
+    requestAnimationFrame(updateBackground);
+  }
+
+  requestAnimationFrame(updateBackground);
+});

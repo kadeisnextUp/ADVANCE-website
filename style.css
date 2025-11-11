@@ -95,7 +95,7 @@ img { display: block; max-width: 100%; height: auto; }
   display: block;
   width: 26px;
   height: 2px;
-  background: #000;
+  background: #fff;
   position: relative;
 }
 
@@ -106,7 +106,7 @@ img { display: block; max-width: 100%; height: auto; }
   left: 0;
   width: 26px;
   height: 2px;
-  background: #000;
+  background: #fff;
 }
 .hamburger::before { top: -8px; }
 .hamburger::after { top: 8px; }
@@ -136,7 +136,7 @@ img { display: block; max-width: 100%; height: auto; }
   animation: marquee-scroll linear infinite; animation-duration: 10s;
 }
 .marquee__item { display: inline-block; padding: 12px 0; color: var(--accent); font-weight: 700; }
-@keyframes marquee-scroll { from { transform: translateX(0%); } to { transform: translateX(-50%); } }
+@keyframes marquee-scroll { from { transform: translateX(300%); } to { transform: translateX(-100%); } }
 .marquee:hover .marquee__inner, .marquee:focus-within .marquee__inner { animation-play-state: paused; }
 .marquee:focus { outline: 2px dashed rgba(255,215,0,0.25); outline-offset: 4px; }
 @media (prefers-reduced-motion: reduce) { .marquee__inner { animation: none; } }
@@ -469,53 +469,43 @@ body.executive .site-nav a {
 }
 
 /* background transitions */
-#bg-transition {
-  position: fixed;
-  inset: 0;
-  z-index: -1; /* sit behind page content */
-  pointer-events: none;
-  background: linear-gradient(135deg, #0B0B0B 0%, #1E3C72 100%);
-  opacity: 1;
-  transition: opacity 700ms ease;
-  will-change: opacity;
-}
-
-/* alternate layer used for smooth crossfade between gradients */
+#bg-transition,
 #bg-transition-alt {
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   z-index: -1;
-  pointer-events: none;
-  background: linear-gradient(135deg, #0B0B0B 0%, #1E3C72 100%);
+  transition: opacity 1s ease, background 1s ease;
   opacity: 0;
-  transition: opacity 700ms ease;
-  will-change: opacity;
+  background: linear-gradient(135deg, #000, #111);
 }
 
-/* Executive page: allow JS to control text color via CSS variable */
+#bg-transition {
+  opacity: 1; /* start visible */
+}
+
+#bg-transition-alt {
+  opacity: 0;
+}
+
+/* Text color variable applied globally */
 body.executive {
-  --exec-text: #FFD700;
-  color: var(--exec-text);
-  background: none; /* page background is handled by #bg-transition */
+  transition: color 1.2s ease;
 }
 
-.exec-text { color: var(--exec-text); }
-
-body.executive {
-  font-family: 'CustomFont', sans-serif;
-  min-height: 100vh;
-  overflow-x: hidden;
-  transition: color 1.5s ease;
-}
-
-/* Smooth color transition for text */
 body.executive,
-body.executive .exec-text h2,
-body.executive .exec-text p,
-body.executive .site-nav a,
-body.executive footer {
-  transition: color 1.5s ease;
+.exec-text h2,
+.exec-text p,
+.site-nav a,
+footer,
+footer p {
+  color: var(--exec-text, #FFD700);
+  transition: color 0.8s ease;
 }
+
+
 
 @media (max-width: 768px) {
   .exec-row, .exec-row-reverse {
