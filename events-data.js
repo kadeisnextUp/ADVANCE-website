@@ -7,16 +7,16 @@ window.EVENTS = [
     id:'evt-1',
     title:'Meet the Eboard',
     date:'2025-11-13',
-    flyer:'images/Executive Board Photos/Executive Board Retreat 2025 1.webp',
-    full:'images/Executive Board Photos/Executive Board Retreat 2025 1.webp',
+    flyer:'images/Executive Board Photos/Group photos/Executive Board Retreat 2025 1.webp',
+    full:'images/Executive Board Photos/Group photos/Executive Board Retreat 2025 1.webp',
     description:'Meet the new executive board and learn more about what we have planned this year!.'
   },
   {
     id:'evt-2',
     title:'Corporate Excursion Informational Session',
     date:'2025-11-20',
-    flyer:'images/Logos/ADVANCE new logo non transparent.webp',
-    full:'images/Logos/ADVANCE new logo non transparent.webp',
+    flyer:'images/Event photos/Coporate Excursion Info 1.webp',
+    full:'images/Event photos/Coporate Excursion Info 1.webp',
     description:'Join us in Clifton Court RM 2130 to learn more about the trip and how you can be part of this exclusive porfessional development experience.'
   },
   {
