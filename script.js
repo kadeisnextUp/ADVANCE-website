@@ -47,21 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
     { id: "welcome", text: "Welcome to the revived site!" },
     { id: "mission", text: "Advance is where we are paving the way for tomorrow's leaders!" }
   ]);
-  //banner motion
-  // initialize marquee duration if present
-  var marqueeInner = document.querySelector('.marquee__inner');
-  if (marqueeInner && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    // compute width and set duration so speed is approx 80px/sec
-    var container = marqueeInner.parentElement;
-    function setMarqueeDuration() {
-      var totalWidth = marqueeInner.scrollWidth / 2; // content duplicates
-      var speed = 160; // pixels per second
-      var duration = Math.max(6, Math.ceil(totalWidth / speed));
-      marqueeInner.style.animationDuration = duration + 's';
-    }
-    setMarqueeDuration();
-    window.addEventListener('resize', debounce(setMarqueeDuration, 150));
-  }
+  
 });
 
 
@@ -209,8 +195,11 @@ function applyAccentToIcons() {
     icon.setAttribute("colors", `primary:${background},secondary:${accent}`);
   });
 }
+  // when page loads update color
+window.addEventListener("DOMContentLoaded", () => {
+  applyAccentToIcons();
+});
 
-applyAccentToIcons();
 
 // small debounce helper
 function debounce(fn, wait) {

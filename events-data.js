@@ -9,23 +9,23 @@ window.EVENTS = [
     date:'2025-11-13',
     flyer:'images/Executive Board Photos/Executive Board Retreat 2025 1.webp',
     full:'images/Executive Board Photos/Executive Board Retreat 2025 1.webp',
-    description:'Meet the new executive board and learn about upcoming events.'
+    description:'Meet the new executive board and learn more about what we have planned this year!.'
   },
   {
     id:'evt-2',
+    title:'Corporate Excursion Informational Session',
+    date:'2025-11-20',
+    flyer:'images/Logos/ADVANCE new logo non transparent.webp',
+    full:'images/Logos/ADVANCE new logo non transparent.webp',
+    description:'Join us in Clifton Court RM 2130 to learn more about the trip and how you can be part of this exclusive porfessional development experience.'
+  },
+  {
+    id:'evt-3',
     title:'Walking on Business',
     date:'TBA',
     flyer:'images/Logos/ADVANCE new logo non transparent.webp',
     full:'images/Logos/ADVANCE new logo non transparent.webp',
     description:'A community walk in Burnet Woods to enjoy nature and connect with members. This event is led by Jada!'
-  },
-  {
-    id:'evt-3',
-    title:'Stress relief event',
-    date:'TBA',
-    flyer:'images/Logos/ADVANCE new logo non transparent.webp',
-    full:'images/Logos/ADVANCE new logo non transparent.webp',
-    description:'More Details Coming Soon.'
   },
   {
     id:'evt-4',

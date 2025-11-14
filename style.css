@@ -14,7 +14,7 @@
 /* Root Variables (gold stays global; pages can override with their own themes) */
 :root {
   --accent: #FFD700;     /* global accent (gold) */
-  --bg: #0b0b0b;        /* global bg (black) */
+  --bg: transparent;        /* global bg (black) */
   --header-height: 84px;
   --footer-height: 88px;
   --font: 'the font', Arial, Helvetica, sans-serif;
@@ -133,10 +133,10 @@ img { display: block; max-width: 100%; height: auto; }
 .marquee { overflow: hidden; width: 100%; background: linear-gradient(180deg, rgba(0,0,0,0.2), rgba(0,0,0,0.2)); }
 .marquee__inner {
   display: inline-flex; white-space: nowrap; gap: 48px; align-items: center;
-  animation: marquee-scroll linear infinite; animation-duration: 10s;
+  animation: marquee-scroll linear infinite; animation-duration: 8s;
 }
 .marquee__item { display: inline-block; padding: 12px 0; color: var(--accent); font-weight: 700; }
-@keyframes marquee-scroll { from { transform: translateX(300%); } to { transform: translateX(-100%); } }
+@keyframes marquee-scroll { from { transform: translateX(200%); } to { transform: translateX(-100%); } }
 .marquee:hover .marquee__inner, .marquee:focus-within .marquee__inner { animation-play-state: paused; }
 .marquee:focus { outline: 2px dashed rgba(255,215,0,0.25); outline-offset: 4px; }
 @media (prefers-reduced-motion: reduce) { .marquee__inner { animation: none; } }
@@ -362,6 +362,8 @@ body.about { background: bisque !important; color: black;  --accent : #EBD375; d
   
 }
 
+
+
 /* ------------------------------
    Events Page (red/black theme)
 ------------------------------ */
@@ -499,10 +501,11 @@ body.executive,
 .exec-text h2,
 .exec-text p,
 .site-nav a,
-footer,
-footer p {
+body.executive footer,
+body.executive footer p {
   color: var(--exec-text, #FFD700);
   transition: color 0.8s ease;
+  background: transparent;
 }
 
 
@@ -548,25 +551,6 @@ body.sponsors .btn:hover{
 /* Utility: hide accidental stray buttons dropped at body root */
 body.page-events > button, body.sponsors > button { display: none !important; }
 
-/* ===== Optional Light Theme for other pages ===== */
-body.theme-light{
-  --bg:#fafafa; --accent:#cfa800; color:#111; background:var(--bg);
-}
-body.theme-light .site-header{
-  background:linear-gradient(180deg,rgba(255,255,255,.85),rgba(255,255,255,.70));
-}
-body.theme-light .site-nav a{ color:#111; }
-body.theme-light .site-nav a:hover,
-body.theme-light .site-nav a:focus,
-body.theme-light .site-nav a.active{ background:rgba(0,0,0,.06); color:#000; }
-body.theme-light .marquee{ background:linear-gradient(180deg,rgba(0,0,0,.04),rgba(0,0,0,.04)); }
-body.theme-light .marquee__item{ color:#333; }
-body.theme-light .ev-card,.theme-light .s-item{
-  background:#fff; border:1px solid rgba(0,0,0,.10); box-shadow:0 8px 20px rgba(0,0,0,.06);
-}
-body.theme-light .ev-meta{ background:#fff; border-top:1px solid rgba(0,0,0,.08); }
-body.theme-light .ev-title,.theme-light .ev-month,.theme-light .ev-section-title,.theme-light .sponsors h1{ color:#222; }
-body.theme-light footer{ color:#222; }
 
 /* ------------------------------
    Footer
@@ -574,8 +558,8 @@ body.theme-light footer{ color:#222; }
 footer {
   text-align: center;
   padding: 18px 12px;
-  background: transparent;
   color: var(--accent);
+  background: transparent;
   width: 100%;
 }
 
