@@ -362,6 +362,39 @@ body.about { background: bisque !important; color: black;  --accent : #EBD375; d
   
 }
 
+/* ----------------------------------------
+   JOIN + RESOURCES PAGES
+   (Light to crimson gradient background with black text)
+---------------------------------------- */
+
+body.page-join,
+body.page-resources {
+  --accent: rgb(220, 20, 60);
+  background: linear-gradient(
+    180deg,
+    rgb(225, 228, 215) 0%,
+    rgb(220, 20, 60) 100%
+  );
+  color: #000; /* black text */
+  min-height: 100vh;
+  font-family: inherit;
+}
+
+/* Headings in black for consistency */
+body.page-join h1,
+body.page-resources h1,
+body.page-join h2,
+body.page-resources h2 {
+  color: #000;
+}
+
+/* Links can remain a contrasting color, e.g., crimson or dark red */
+body.page-join a,
+body.page-resources a {
+  color: rgb(150, 0, 20); /* darker red for contrast on light areas */
+  text-decoration: underline;
+}
+
 
 
 /* ------------------------------
