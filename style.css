@@ -384,7 +384,9 @@ body.page-resources {
 body.page-join h1,
 body.page-resources h1,
 body.page-join h2,
-body.page-resources h2 {
+body.page-resources h2,
+body.page-join footer, 
+body.page-resources footer {
   color: #000;
 }
 
@@ -392,7 +394,6 @@ body.page-resources h2 {
 body.page-join a,
 body.page-resources a {
   color: rgb(150, 0, 20); /* darker red for contrast on light areas */
-  text-decoration: underline;
 }
 
 
