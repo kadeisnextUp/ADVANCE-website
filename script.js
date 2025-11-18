@@ -133,8 +133,16 @@ document.addEventListener('DOMContentLoaded', function () {
     carouselAnnouncer.setAttribute('aria-atomic', 'true');
     if (carousel) carousel.appendChild(carouselAnnouncer);
     if (carousel) {
+      // filter upcoming events
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const upcomingEvents = window.EVENTS.filter(ev => {
+        const eventDate = new Date(ev.date);
+        return !isNaN(eventDate) && eventDate >= today;
+      });
+
       // render items
-      window.EVENTS.forEach(function (ev, idx) {
+      upcomingEvents.forEach(function (ev, idx) {
         var item = document.createElement('article');
         item.className = 'event-item';
         item.setAttribute('role', 'listitem');
@@ -350,7 +358,7 @@ function releaseFocusTrap() {
 
 /* =========================================================
    EVENTS PAGE: render square cards into Upcoming & Past
-   Uses window.EVENTS provided by events-data.js (do not edit)
+   Uses window.EVENTS provided by events-data.js
    ========================================================= */
 (function () {
   // --- helpers ---
