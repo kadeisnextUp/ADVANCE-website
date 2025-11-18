@@ -18,6 +18,7 @@
   --header-height: 84px;
   --footer-height: 88px;
   --font: 'the font', Arial, Helvetica, sans-serif;
+   --vh: 1vh;    /*  mobile view bug fixer*/
 }
 
 /* Base */
@@ -40,6 +41,12 @@ html, body {
 a { text-decoration: none; }
 img { display: block; max-width: 100%; height: auto; }
 .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+/* mobile view*/
+@media (max-width: 820px) {
+  body {
+    min-height: calc(var(--vh) * 100);
+  }
+}
 
 
 
