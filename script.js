@@ -4,17 +4,6 @@
   * instead, edit the min file and rebuild.
  */
 
-// Fix mobile 100vh bug across all devices
-function fixVH() {
-  document.documentElement.style.setProperty(
-    '--vh',
-    (window.innerHeight * 0.01) + 'px'
-  );
-}
-window.addEventListener('resize', fixVH);
-fixVH();
-
-
 
 // typewriter function
 function typeWriterEffect(elementId, text, speed = 50, callback) {
