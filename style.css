@@ -161,7 +161,7 @@ img { display: block; max-width: 100%; height: auto; }
 
 /* Homepage background: explicit properties to avoid rendering artifacts */
 body.home {
-  background-image: url('images/campus sky.webp');
+  background-image: url('images/campus_sky.webp');
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -332,7 +332,7 @@ body.home {
 ------------------------------ */
 html.about,
 body.about { background: bisque !important; color: black;  --accent : #EBD375; display: block;}
-.about-top, .about-row { display: flex; flex-wrap: wrap; align-items: center; gap: 40px; padding: 40px 0; border-bottom: 1px solid transparent;}
+.about-top, .about-row { display: flex; flex-wrap: wrap; align-items: center; gap: 40px; padding: 80px 30px 30px; border-bottom: 1px solid transparent;}
 
 /* Alternate direction for every even section */
 .about-row-image-right {

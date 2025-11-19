@@ -1,6 +1,0 @@
-command to convert all types of photos recursively into webp photos:
-
-Get-ChildItem -Recurse -Include *.jpg, *.jpeg, *.png, *.svg -File | ForEach-Object {
-    $output = [System.IO.Path]::ChangeExtension($_.FullName, "webp")
-    magick $_.FullName -auto-orient -quality 80 "$output"
-}
