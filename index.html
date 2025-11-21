@@ -1,48 +1,30 @@
 <!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+  <!-- Security Headers-->
+<meta http-equiv="Content-Security-Policy" 
+      content="default-src 'self'; 
+               script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.lordicon.com; 
+               connect-src 'self' https://cdn.lordicon.com; 
+               img-src 'self' data: blob: https:;
+               worker-src 'self' blob:;
+               child-src 'self' blob:;
+               style-src 'self' 'unsafe-inline';
+               object-src 'none';
+               base-uri 'self';">
+  <!-- normal stuff -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ADVANCE - Main Page</title>
   <link rel="stylesheet" href="style.css">
   <!-- Load the icon library -->
-  <script src="https://cdn.lordicon.com/lordicon.js"></script>
-
-  <script>
-    // Clock
-    var clockID = 0;
-
-    function UpdateClock() {
-      if(clockID) {
-        clearTimeout(clockID);
-        clockID  = 0;
-      }
-
-      var tDate = new Date();
-      document.getElementById("theTime").textContent = 
-        tDate.getHours().toString().padStart(2,'0') + ":" +
-        tDate.getMinutes().toString().padStart(2,'0') + ":" +
-        tDate.getSeconds().toString().padStart(2,'0');
-      
-      clockID = setTimeout("UpdateClock()", 1000);
-    }
-
-    function StartClock() {
-      clockID = setTimeout("UpdateClock()", 500);
-    }
-
-    function KillClock() {
-      if(clockID) {
-        clearTimeout(clockID);
-        clockID  = 0;
-      }
-    }
-  </script>
+  <script src="https://cdn.lordicon.com/lordicon.js" defer></script>
   <script src="events-data.js" defer></script>
   <script src="script.js" defer></script>
 </head>
-<body class="home" onload="StartClock()" onunload="KillClock()">
+<body class="home"></body>
 
 <!-- hyperlink the logos -->
   <header class="site-header">
@@ -51,7 +33,7 @@
         <a href="index.html" class="brand" aria-label="ADVANCE home">
           <img src="images/Logos/Advance_logo_new.webp" alt="ADVANCE logo">
         </a>
-        <a href="https://www.uc.edu" class="partner" aria-label="University of Cincinnati" loading="lazy">
+        <a href="https://www.uc.edu" class="partner" aria-label="University of Cincinnati">
           <img src="images/Logos/university_of_cincinnati_logo.svg" alt="UC Logo" loading="lazy">
         </a>
       </div>

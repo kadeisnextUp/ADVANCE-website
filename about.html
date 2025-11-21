@@ -1,6 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Security Headers-->
+<meta http-equiv="Content-Security-Policy" 
+      content="default-src 'self'; 
+               script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.lordicon.com; 
+               connect-src 'self' https://cdn.lordicon.com; 
+               img-src 'self' data: blob: https:;
+               worker-src 'self' blob:;
+               child-src 'self' blob:;
+               style-src 'self' 'unsafe-inline';
+               object-src 'none';
+               base-uri 'self';">
+  <!--normal stuff-->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About ADVANCE</title>
@@ -39,6 +51,7 @@
     <div class="marquee" aria-hidden="true">
       <div class="marquee__inner">
         <span class="marquee__item">ADVANCE - Where We Are Building Leaders and Shaping Legacies!!!</span>
+      </div>
     </div>
   </div>
   <main>

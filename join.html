@@ -1,12 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+ <!-- Security Headers-->
+<meta http-equiv="Content-Security-Policy" 
+      content="default-src 'self'; 
+               script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.lordicon.com; 
+               connect-src 'self' https://cdn.lordicon.com; 
+               img-src 'self' data: blob: https:;
+               worker-src 'self' blob:;
+               child-src 'self' blob:;
+               frame-src https://*.office.com https://*.microsoft.com;
+               style-src 'self' 'unsafe-inline';
+               object-src 'none';
+               base-uri 'self';
+               form-action 'self' https://*.office.com;">
+  <!--normal stuff-->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The Process | ADVANCE</title>
   <link rel="stylesheet" href="style.css">
   <script src="script.js" defer></script>
-  <script src="https://cdn.lordicon.com/lordicon.js"></script>
+  <script src="https://cdn.lordicon.com/lordicon.js" defer></script>
 </head>
 
 <body class="page-join">
@@ -56,41 +70,12 @@
         <a href="https://campuslink.uc.edu/organization/advance1986" target="_blank" class="button">link</a>. Second,
         click the button below to fill out our informational form and a team member will reach out to you shortly!
       </p>
-
-      <!-- Lazy-load Form -->
-      <div id="form-container" style="min-height: 400px; text-align:center; margin-top:20px;">
-        <button id="load-form" style="
-          padding:12px 24px;
-          font-size:16px;
-          font-weight:700;
-          background:rgb(220, 20, 60);
-          color:#000;
-          border:none;
-          border-radius:8px;
-          cursor:pointer;
-        ">
-          Open Form
-        </button>
+      <div id="form-container">
+        <button id="load-form">Open Form</button>
       </div>
 
-      <script>
-        document.getElementById('load-form').addEventListener('click', function() {
-          // Remove the button
-          this.remove();
-
-          // Create iframe
-          const iframe = document.createElement('iframe');
-          iframe.src = "https://forms.office.com/Pages/ResponsePage.aspx?id=bC4i9cZf60iPA3PbGCA7Y2YHfGb-G5NHpb26fqm2uHlUOFMzRjZCS1RWTzRXRDUyOFlWVVZYMFJMRi4u&embed=true";
-          iframe.width = "100%";
-          iframe.height = "700";
-          iframe.style.border = "none";
-          iframe.loading = "lazy"; // extra safety
-          iframe.allowFullscreen = true;
-
-          // Add iframe to container
-          document.getElementById('form-container').appendChild(iframe);
-        });
-      </script>
+      
+      
     </section>
   </main>
 

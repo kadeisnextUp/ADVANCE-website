@@ -4,6 +4,37 @@
   * instead, edit the min file and rebuild.
  */
 
+//clock on homepage
+// Clock
+    var clockID = 0;
+
+    function UpdateClock() {
+      if(clockID) {
+        clearTimeout(clockID);
+        clockID  = 0;
+      }
+
+      var tDate = new Date();
+      document.getElementById("theTime").textContent = 
+        tDate.getHours().toString().padStart(2,'0') + ":" +
+        tDate.getMinutes().toString().padStart(2,'0') + ":" +
+        tDate.getSeconds().toString().padStart(2,'0');
+      
+      clockID = setTimeout(UpdateClock, 1000);
+    }
+
+    function StartClock() {
+      clockID = setTimeout(UpdateClock, 500);
+    }
+
+    function KillClock() {
+      if(clockID) {
+        clearTimeout(clockID);
+        clockID  = 0;
+      }
+    }
+window.addEventListener('load', StartClock);
+window.addEventListener('unload', KillClock);
 
 // typewriter function
 function typeWriterEffect(elementId, text, speed = 50, callback) {
@@ -354,6 +385,31 @@ function releaseFocusTrap() {
   }
 }
 
+/* =========================================================
+   Join PAGE: script to load the form 
+   ========================================================= */
+  document.addEventListener('DOMContentLoaded', function() {
+  const loadFormBtn = document.getElementById('load-form');
+  
+  if (loadFormBtn) {  // Only run if button exists
+    loadFormBtn.addEventListener('click', function() {
+      // Remove the button
+      this.remove();
+
+      // Create iframe
+      const iframe = document.createElement('iframe');
+      iframe.src = "https://forms.office.com/Pages/ResponsePage.aspx?id=bC4i9cZf60iPA3PbGCA7Y2YHfGb-G5NHpb26fqm2uHlUOFMzRjZCS1RWTzRXRDUyOFlWVVZYMFJMRi4u&embed=true";
+      iframe.width = "100%";
+      iframe.height = "700";
+      iframe.style.border = "none";
+      iframe.loading = "lazy";
+      iframe.allowFullscreen = true;
+
+      // Add iframe to container
+      document.getElementById('form-container').appendChild(iframe);
+    });
+  }
+});
 
 
 /* =========================================================

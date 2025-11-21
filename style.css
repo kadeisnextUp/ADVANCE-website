@@ -396,7 +396,27 @@ body.page-resources a {
   color: rgb(150, 0, 20); /* darker red for contrast on light areas */
 }
 
+/* button and form on join page*/
+#load-form {
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 700;
+  background: rgb(220, 20, 60);
+  color: #000;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
 
+#load-form:hover {
+  background: rgb(200, 0, 40);
+}
+
+#form-container {
+  min-height: 400px;
+  text-align: center;
+  margin-top: 20px;
+}
 
 /* ------------------------------
    Events Page (red/black theme)
