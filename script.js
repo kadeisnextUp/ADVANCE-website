@@ -411,6 +411,21 @@ function releaseFocusTrap() {
   }
 });
 
+// Preload form in hidden iframe (only on join page)
+document.addEventListener('DOMContentLoaded', function() {
+  if (document.getElementById('load-form')) {
+    // Create hidden iframe to preload
+    const preloadFrame = document.createElement('iframe');
+    preloadFrame.src = "https://forms.office.com/Pages/ResponsePage.aspx?id=bC4i9cZf60iPA3PbGCA7Y2YHfGb-G5NHpb26fqm2uHlUOFMzRjZCS1RWTzRXRDUyOFlWVVZYMFJMRi4u&embed=true";
+    preloadFrame.style.display = 'none';
+    preloadFrame.style.visibility = 'hidden';
+    preloadFrame.style.position = 'absolute';
+    preloadFrame.style.width = '1px';
+    preloadFrame.style.height = '1px';
+    document.body.appendChild(preloadFrame);
+  }
+});
+
 
 /* =========================================================
    EVENTS PAGE: render square cards into Upcoming & Past
