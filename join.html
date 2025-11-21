@@ -4,16 +4,16 @@
  <!-- Security Headers-->
 <meta http-equiv="Content-Security-Policy" 
       content="default-src 'self'; 
-               script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.lordicon.com; 
-               connect-src 'self' https://cdn.lordicon.com; 
+               script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.lordicon.com https://*.office.com https://*.microsoft.com https://*.microsoftonline.com; 
+               connect-src 'self' https://cdn.lordicon.com https://*.office.com https://*.microsoft.com https://*.microsoftonline.com https://*.office.net; 
                img-src 'self' data: blob: https:;
                worker-src 'self' blob:;
                child-src 'self' blob:;
-               frame-src https://*.office.com https://*.microsoft.com;
-               style-src 'self' 'unsafe-inline';
+               frame-src https://*.office.com https://*.microsoft.com https://*.microsoftonline.com https://*.office.net;
+               style-src 'self' 'unsafe-inline' https://*.office.com https://*.microsoft.com;
                object-src 'none';
                base-uri 'self';
-               form-action 'self' https://*.office.com;">
+               form-action 'self' https://*.office.com https://*.microsoft.com;">
   <!--normal stuff-->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
