@@ -391,22 +391,41 @@ function releaseFocusTrap() {
   document.addEventListener('DOMContentLoaded', function() {
   const loadFormBtn = document.getElementById('load-form');
   
-  if (loadFormBtn) {  // Only run if button exists
+  if (loadFormBtn) {
     loadFormBtn.addEventListener('click', function() {
+      const container = document.getElementById('form-container');
+      
       // Remove the button
       this.remove();
+      
+      // Add loading class
+      container.classList.add('loading');
 
       // Create iframe
       const iframe = document.createElement('iframe');
       iframe.src = "https://forms.office.com/Pages/ResponsePage.aspx?id=bC4i9cZf60iPA3PbGCA7Y2YHfGb-G5NHpb26fqm2uHlUOFMzRjZCS1RWTzRXRDUyOFlWVVZYMFJMRi4u&embed=true";
       iframe.width = "100%";
-      iframe.height = "700";
-      iframe.style.border = "none";
-      iframe.loading = "lazy";
       iframe.allowFullscreen = true;
+      iframe.loading = "eager";
+      
+      // Set responsive height based on screen size
+      if (window.innerWidth < 768) {
+        // Mobile: use viewport height
+        iframe.height = Math.max(window.innerHeight - 200, 600) + "px";
+        iframe.style.minHeight = "600px";
+      } else {
+        // Desktop: use fixed height
+        iframe.height = "700";
+      }
+      
+      // Show iframe when it loads
+      iframe.addEventListener('load', function() {
+        container.classList.remove('loading');
+        iframe.classList.add('loaded');
+      });
 
-      // Add iframe to container
-      document.getElementById('form-container').appendChild(iframe);
+      // Append iframe to container
+      container.appendChild(iframe);
     });
   }
 });
