@@ -388,44 +388,42 @@ function releaseFocusTrap() {
 /* =========================================================
    Join PAGE: script to load the form 
    ========================================================= */
-  document.addEventListener('DOMContentLoaded', function() {
+  /* =========================================================
+   Join PAGE: script to load the form 
+   ========================================================= */
+document.addEventListener('DOMContentLoaded', function() {
   const loadFormBtn = document.getElementById('load-form');
   
   if (loadFormBtn) {
     loadFormBtn.addEventListener('click', function() {
-      const container = document.getElementById('form-container');
+      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth < 768;
+      const formUrl = "https://forms.office.com/Pages/ResponsePage.aspx?id=bC4i9cZf60iPA3PbGCA7Y2YHfGb-G5NHpb26fqm2uHlUOFMzRjZCS1RWTzRXRDUyOFlWVVZYMFJMRi4u";
       
-      // Remove the button
-      this.remove();
-      
-      // Add loading class
-      container.classList.add('loading');
-
-      // Create iframe
-      const iframe = document.createElement('iframe');
-      iframe.src = "https://forms.office.com/Pages/ResponsePage.aspx?id=bC4i9cZf60iPA3PbGCA7Y2YHfGb-G5NHpb26fqm2uHlUOFMzRjZCS1RWTzRXRDUyOFlWVVZYMFJMRi4u&embed=true";
-      iframe.width = "100%";
-      iframe.allowFullscreen = true;
-      iframe.loading = "eager";
-      
-      // Set responsive height based on screen size
-      if (window.innerWidth < 768) {
-        // Mobile: use viewport height
-        iframe.height = Math.max(window.innerHeight - 200, 600) + "px";
-        iframe.style.minHeight = "600px";
+      if (isMobile) {
+        // On mobile: open form in new tab
+        window.open(formUrl, '_blank');
+        this.textContent = 'Form opened in new tab';
+        this.style.background = 'rgb(180, 20, 60)';
+        this.disabled = true;
       } else {
-        // Desktop: use fixed height
-        iframe.height = "700";
-      }
-      
-      // Show iframe when it loads
-      iframe.addEventListener('load', function() {
-        container.classList.remove('loading');
-        iframe.classList.add('loaded');
-      });
+        // On desktop: load iframe
+        const container = document.getElementById('form-container');
+        this.remove();
+        container.classList.add('loading');
 
-      // Append iframe to container
-      container.appendChild(iframe);
+        const iframe = document.createElement('iframe');
+        iframe.src = formUrl + "&embed=true";
+        iframe.width = "100%";
+        iframe.height = "700";
+        iframe.allowFullscreen = true;
+        
+        iframe.addEventListener('load', function() {
+          container.classList.remove('loading');
+          iframe.classList.add('loaded');
+        });
+
+        container.appendChild(iframe);
+      }
     });
   }
 });
