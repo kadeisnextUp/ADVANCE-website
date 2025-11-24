@@ -418,6 +418,47 @@ body.page-resources a {
   margin-top: 20px;
 }
 
+/* Loading spinner for form */
+#form-container.loading::after {
+  content: '';
+  display: block;
+  width: 50px;
+  height: 50px;
+  margin: 40px auto;
+  border: 5px solid rgba(220, 20, 60, 0.2);
+  border-top-color: rgb(220, 20, 60);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+#form-container iframe {
+  border: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  width: 100%;
+  max-width: 100%;
+}
+
+#form-container iframe.loaded {
+  opacity: 1;
+}
+
+/* Mobile optimization for form */
+@media (max-width: 768px) {
+  #form-container {
+    margin-top: 10px;
+    padding: 0;
+  }
+  
+  #form-container iframe {
+    min-height: 600px !important;
+  }
+}
+
 /* ------------------------------
    Events Page (red/black theme)
 ------------------------------ */
