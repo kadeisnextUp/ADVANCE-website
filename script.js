@@ -130,27 +130,42 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // Highlight active link based on current path (more robust)
-  var links = document.querySelectorAll('.site-nav a');
-  var current = normalizePath(window.location.pathname);
-  links.forEach(function (a) {
-    var href = a.getAttribute('href');
-    try {
-      var hrefPath = new URL(href, window.location.href).pathname;
-      if (normalizePath(hrefPath) === current) {
-        a.classList.add('active');
-      }
-    } catch (err) {
-      // ignore malformed hrefs
+// Highlight active link based on body class
+var links = document.querySelectorAll('.site-nav a');
+var bodyClass = document.body.className;
+
+// Map body classes to page names
+var pageMap = {
+  'home': 'index.html',
+  'about': 'about.html',
+  'page-join': 'join.html',
+  'page-events': 'events.html',
+  'executive': 'executiveBoard.html',
+  'sponsors': 'sponsors.html',
+  'page-resources': 'resources.html'
+};
+
+var activePage = pageMap[bodyClass] || '';
+
+links.forEach(function (a) {
+  var href = a.getAttribute('href');
+  
+  // Remove active class from all first
+  a.classList.remove('active');
+  
+  // Add active class if matches
+  if (activePage && href === activePage) {
+    a.classList.add('active');
+  }
+  
+  // Close menu when any nav link is clicked
+  a.addEventListener('click', function () {
+    if (siteNav) {
+      siteNav.classList.remove('open');
+      if (navToggle) navToggle.setAttribute('aria-expanded', 'false');
     }
-    // close menu when any nav link is clicked (mobile UX)
-    a.addEventListener('click', function () {
-      if (siteNav) {
-        siteNav.classList.remove('open');
-        if (navToggle) navToggle.setAttribute('aria-expanded', 'false');
-      }
-    });
   });
+});
 
   // Events carousel rendering (if events-data.js provided window.EVENTS)
   if (window.EVENTS && Array.isArray(window.EVENTS) && window.EVENTS.length) {
@@ -545,7 +560,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
-  // Run after the rest of Kaden's DOMContentLoaded logic
+  // Run after the rest of DOMContentLoaded logic
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', renderEvents);
   } else {
