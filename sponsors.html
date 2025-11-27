@@ -13,8 +13,6 @@
                style-src 'self' 'unsafe-inline';
                object-src 'none';
                base-uri 'self';">
-  <!-- Vercel Speed Insights -->
-  <script defer src="/_vercel/insights/script.js"></script>
   <!-- normal stuff -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -97,6 +95,11 @@
 </head>
 
 <body class="sponsors">
+  <!-- Vercel Speed Insights -->
+  <script>
+  window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
   <!-- Header -->
   <header class="site-header">
     <div class="container header-inner">
