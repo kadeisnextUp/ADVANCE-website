@@ -1,5 +1,5 @@
 /*vercel tracking stuff */
-import { SpeedInsights } from "@vercel/speed-insights/next"
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 /* 
  * JavaScript for ADVANCE website. This is the expanded main script file with comments to understand what
