@@ -174,7 +174,7 @@ body.home {
   grid-template-columns: 1fr minmax(340px, clamp(360px, 28vw, 620px));
   gap: 36px; align-items: start;
 }
-.home-left { min-width: 700px; }
+.home-left { min-width: 0; width: 100%;}
 
 /* Advance title and slogan */
 .title-text, .quote-text, .slogan-text { 
