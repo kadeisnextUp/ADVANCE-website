@@ -35,15 +35,18 @@
 
 
     body.page-events .site-nav a {
-      color: #E00122; /* UC Red for all nav links */
+      color: #E00122 !important; /* UC Red for all nav links */
     }
 
-    body.page-events .site-nav a:hover,
-    body.page-events .site-nav a:focus {
-      color: #FFD700; /* gold accent on hover */
-      background: rgba(224,1,34,0.15); /* subtle red tint on hover */
-      transform: translateY(-1px);
+    body.page-events .site-nav a:hover {
+      color: #FFD700 !important; /* gold highlight */
+      background: rgba(224,1,34,0.15);
     }
+
+    body.page-events .site-nav a:focus {
+      color: var(--accent);  /* keep red when focused */
+    }
+
     body.page-events .site-nav a.active {
       color: var(--accent);
       background: rgba(224,1,34,0.25); /* stronger red tint for active */

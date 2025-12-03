@@ -22,7 +22,7 @@
 
 /* Base */
 * { box-sizing: border-box; }
-html, body { height: auto; font-family: var(--font); margin: 0; padding: 0;line-height: 1.5; display: block; flex-direction: column; min-height: auto; overflow-x: hidden; }
+html, body { height: auto; font-family: var(--font); margin: 0; padding: 0;line-height: 1.5; display: block; flex-direction: column; min-height: auto;}
 a { text-decoration: none; }
 img { display: block; max-width: 100%; height: auto; }
 .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
@@ -35,13 +35,16 @@ img { display: block; max-width: 100%; height: auto; }
    ========================= */
 .site-header {
   width: 100%;
-  position: relative;
+  position: sticky;
+  top: 0;
   z-index: 40;
+  background: transparent;
+  backdrop-filter: blur(10px);
 }
 
 .header-inner {
   display: flex; align-items: center; justify-content: space-between;
-  gap: 16px; padding: 12px 0;
+  gap: 16px; padding: 8px 0;
 }
 .brand-logos { display: inline-flex; gap: 12px; align-items: center; }
 .brand-logos .brand img { height: 56px; }
@@ -72,19 +75,24 @@ img { display: block; max-width: 100%; height: auto; }
 
 .site-nav a:hover {
   background: rgba(255,215,0,0.12);
-  color: var(--accent);
+  color: var(--accent) !important;
   transform: translateY(-1px);
   outline: none;
 }
 
+.site-nav a:focus {
+  color: var(--accent);  
+}
+
 .site-nav a.active{
   color: var(--accent); /* active link color */
+  background: rgba(255,215,0,0.25);
 }
 
 
 
 .nav-toggle{ display:none; background:transparent; border:0; cursor:pointer; padding:8px; }
-.hamburger{ display:block; width:26px; height:2px; background:#fff; position:relative; }
+.hamburger{ display:block; width:26px; height:2px; background:#fff; position:sticky;  }
 .hamburger::before, .hamburger::after{
   content:''; position:absolute; left:0; width:26px; height:2px; background:#fff;
 }
@@ -478,7 +486,8 @@ body.executive {
 
 /* Gold navbar links for Executive Board page */
 body.executive .site-nav a {
-  color: var(--accent) !important;
+  color: var(--accent);
+  transition: color 0.8s ease;
 }
 
 
