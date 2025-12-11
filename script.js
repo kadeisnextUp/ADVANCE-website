@@ -4,6 +4,32 @@
   * instead, edit the min file and rebuild.
  */
 
+document.addEventListener("DOMContentLoaded", () => {
+  const modal = document.getElementById("videoModal");
+  const closeBtn = document.getElementById("closeVideoModal");
+
+  // Event end date (stop showing after Feb 7, 2026 @ 11:59 PM)
+  const eventEndDate = new Date("2026-02-07T23:59:59");
+  const now = new Date();
+
+  // Show modal EVERY visit until the event expires
+  if (now < eventEndDate) {
+    modal.classList.remove("hidden");
+  }
+
+  // Close button
+  closeBtn.addEventListener("click", () => {
+    modal.classList.add("hidden");
+  });
+
+  // Close when clicking outside content
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) {
+      modal.classList.add("hidden");
+    }
+  });
+});
+
 //clock on homepage
 // Clock
     var clockID = 0;
