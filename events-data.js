@@ -30,10 +30,18 @@ window.EVENTS = [
   {
     id:'evt-4',
     title:'Corporate Excursion',
-    date:'2026-03-14',
+    date:'TBA',
     flyer:'images/Logos/ADVANCE_new_logo_non_transparent.webp',
     full:'images/Logos/ADVANCE_new_logo_non_transparent.webp',
-    description:'Join us for a corporate excursion to explore opportunities in New York City! (Mar 14–21, 2026)'
+    description:'Join us for a corporate excursion to explore opportunities in Cincinnati!'
+  },
+  {
+    id:'evt-5',
+    title:'Quarter Zip + LinkedIn Networking Night',
+    date:'2026-02-03', 
+    flyer:'images/Logos/ADVANCE_new_logo_non_transparent.webp',
+    full:'images/Logos/ADVANCE_new_logo_non_transparent.webp',
+    description:'This will be a low-pressure event, and business professional attire is required (quarter-zip preferred). There will be an open networking session at the end to exchange LinkedIn information and meet new students!'
   }
 
 ];
