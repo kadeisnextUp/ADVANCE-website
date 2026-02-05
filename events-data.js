@@ -38,7 +38,7 @@ window.EVENTS = [
   {
     id:'evt-5',
     title:'Quarter Zip + LinkedIn Networking Night',
-    date:'2026-02-03', 
+    date:'2026-02-10', 
     flyer:'images/Logos/ADVANCE_new_logo_non_transparent.webp',
     full:'images/Logos/ADVANCE_new_logo_non_transparent.webp',
     description:'This will be a low-pressure event, and business professional attire is required (quarter-zip preferred). There will be an open networking session at the end to exchange LinkedIn information and meet new students!'

@@ -337,7 +337,7 @@ body.home {
 
 /* ===========================
    VIDEO POPUP 
-=========================== */
+
 
 .video-modal {
   position: fixed;
@@ -363,12 +363,14 @@ body.home {
   overflow: hidden;
   box-shadow: 0 0 30px rgba(0,0,0,0.6);
 }
+ 
 
-/* Responsive iframe area (Canva is 4:5 aspect ratio) */
+
+/* Responsive iframe area (Canva is 4:5 aspect ratio) 
 .video-wrapper {
   position: relative;
   width: 100%;
-  padding-top: 125%; /* match Canva's embedded aspect ratio */
+  padding-top: 125%; /* match Canva's embedded aspect ratio 
 }
 
 .video-wrapper iframe {
@@ -407,7 +409,7 @@ body.home {
     padding: 4px 10px;
   }
 }
-
+=========================== */
 
 /* ------------------------------
    About Page
