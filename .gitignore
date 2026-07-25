@@ -75,3 +75,6 @@ logs/
 .tmp/
 dist/
 build/
+
+# ── Superpowers (brainstorming companion scratch files) ────────────────────────
+.superpowers/
