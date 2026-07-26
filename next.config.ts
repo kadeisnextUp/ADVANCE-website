@@ -41,10 +41,11 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       {
-        // Everything except /join. The negative lookahead keeps this from
-        // ALSO matching /join, which would otherwise stack a second,
-        // conflicting Content-Security-Policy header on that route.
-        source: '/((?!join).*)',
+        // Everything except /join and its subpaths. The negative lookahead is
+        // anchored to a full path segment ((?!join(?:/|$))) rather than a bare
+        // prefix, so routes like /joins or /join-us still match this global rule
+        // instead of silently getting zero CSP header.
+        source: '/((?!join(?:/|$)).*)',
         headers: [...securityHeaders, { key: 'Content-Security-Policy', value: globalCsp }],
       },
       {
