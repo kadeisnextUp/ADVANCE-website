@@ -45,4 +45,12 @@ describe('getUpcomingEvents', () => {
 
     expect(result.map((e) => e.id)).toEqual(['dated', 'tba-1', 'tba-2']);
   });
+
+  it('keeps a same-day event as upcoming until the end of that day', () => {
+    const events: Event[] = [{ ...baseEvent, id: 'today', date: '2026-07-25' }];
+
+    const result = getUpcomingEvents(events, new Date('2026-07-25T09:00:00'));
+
+    expect(result.map((e) => e.id)).toEqual(['today']);
+  });
 });
