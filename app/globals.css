@@ -128,3 +128,48 @@
     @apply font-sans;
   }
 }
+
+.page-banner {
+  width: 100%;
+  overflow: hidden;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
+}
+
+.page-banner__inner {
+  display: inline-block;
+  white-space: nowrap;
+  animation: page-banner-scroll linear infinite;
+  animation-duration: 8s;
+}
+
+.page-banner__item {
+  display: inline-block;
+  padding: 12px 0;
+  color: var(--primary);
+  font-weight: 700;
+}
+
+@keyframes page-banner-scroll {
+  from {
+    transform: translateX(200%);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+.page-banner:hover .page-banner__inner,
+.page-banner:focus-within .page-banner__inner {
+  animation-play-state: paused;
+}
+
+.page-banner:focus {
+  outline: 2px dashed rgba(255, 215, 0, 0.25);
+  outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-banner__inner {
+    animation: none;
+  }
+}
