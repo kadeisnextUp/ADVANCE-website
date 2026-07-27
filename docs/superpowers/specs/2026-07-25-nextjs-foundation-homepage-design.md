@@ -2,7 +2,7 @@
 
 **Date:** 2026-07-25
 **Branch:** `2026-2027`
-**Status:** Pending final review
+**Status:** Implemented
 
 ## Context
 
