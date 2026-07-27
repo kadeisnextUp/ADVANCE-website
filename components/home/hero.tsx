@@ -59,7 +59,7 @@ export function Hero() {
         <p className="min-h-[1.5em] italic text-primary">{revealed.quote}</p>
         <p className="min-h-[1.5em] text-foreground/80">{revealed.welcome}</p>
         <p className="min-h-[1.5em] max-w-xl text-foreground/80">{revealed.mission}</p>
-        <Button render={<Link href="/join" />} size="lg" className="mt-2">
+        <Button render={<Link href="/join" />} nativeButton={false} size="lg" className="mt-2">
           Join ADVANCE
         </Button>
       </div>
