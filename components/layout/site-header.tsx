@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 
 const NAV_LINKS = [
   { href: '/about', label: 'About' },
@@ -72,7 +72,8 @@ export function SiteHeader() {
           >
             <Menu className="h-6 w-6 text-primary" />
           </SheetTrigger>
-          <SheetContent side="right" className="border-white/10 bg-background">
+          <SheetContent side="right" className="border-white/10 bg-background text-foreground">
+            <SheetTitle className="sr-only">Navigation</SheetTitle>
             <nav className="mt-8 flex flex-col gap-2" aria-label="Mobile navigation">
               <NavLinks onNavigate={() => setOpen(false)} />
             </nav>

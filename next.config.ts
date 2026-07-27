@@ -49,7 +49,7 @@ const nextConfig: NextConfig = {
         headers: [...securityHeaders, { key: 'Content-Security-Policy', value: globalCsp }],
       },
       {
-        source: '/join',
+        source: '/join/:path*',
         headers: [...securityHeaders, { key: 'Content-Security-Policy', value: joinCsp }],
       },
     ];
