@@ -4,13 +4,12 @@ import { useEffect, useRef, useState } from 'react';
 
 export function useScrollReveal<T extends HTMLElement>(threshold = 0.2) {
   const ref = useRef<T | null>(null);
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(
+    () => typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  );
 
   useEffect(() => {
-    if (typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      setVisible(true);
-      return;
-    }
+    if (visible) return;
 
     const node = ref.current;
     if (!node) return;
@@ -27,7 +26,7 @@ export function useScrollReveal<T extends HTMLElement>(threshold = 0.2) {
 
     observer.observe(node);
     return () => observer.disconnect();
-  }, [threshold]);
+  }, [threshold, visible]);
 
   return { ref, visible };
 }
