@@ -33,7 +33,13 @@ export function UpcomingEvents() {
               className="min-w-[85%] shrink-0 snap-center border-primary/15 bg-background sm:min-w-0"
             >
               <div className="relative h-40 w-full">
-                <Image src={`/${event.flyer}`} alt="" fill className="object-cover" />
+                <Image
+                  src={`/${event.flyer}`}
+                  alt=""
+                  fill
+                  sizes="(min-width: 640px) 33vw, 85vw"
+                  className="object-cover"
+                />
               </div>
               <CardHeader>
                 <CardTitle className="text-primary">{event.title}</CardTitle>

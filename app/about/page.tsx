@@ -13,6 +13,8 @@ export default function AboutPage() {
     <>
       <PageBanner tagline="ADVANCE - Where We Are Building Leaders and Shaping Legacies!!!" />
 
+      <h1 className="sr-only">About ADVANCE</h1>
+
       <AboutSection
         heading="Who We Are"
         body="ADVANCE is a professional development student organization founded in 1986 by four African American students at the University of Cincinnati, alongside Terry Davis, then Assistant Director of the university's Career Development Center, in response to the need for stronger career awareness and preparation among minority students. The organization was inspired by the Corporate Orientation Program (CORP), which operated under the Council on Career Development Minorities, Inc. In the decades since, ADVANCE has remained a unique program among colleges and universities, earning the Chevron Award from the National Association of Colleges and Employers (NACE) for its outstanding work."
