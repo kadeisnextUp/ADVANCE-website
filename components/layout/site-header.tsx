@@ -10,7 +10,7 @@ import { Sheet, SheetContent, SheetTitle, SheetTrigger } from '@/components/ui/s
 
 const NAV_LINKS = [
   { href: '/about', label: 'About' },
-  { href: '/join', label: 'Join' },
+  { href: '/join', label: 'The Process' },
   { href: '/events', label: 'Events' },
   { href: '/executive-board', label: 'Executive Board' },
   { href: '/sponsors', label: 'Sponsors' },
