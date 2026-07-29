@@ -1,10 +1,10 @@
 import type { Event, EventDate } from './events';
 
-function isTba(date: EventDate): boolean {
+export function isTba(date: EventDate): boolean {
   return date === 'TBA' || date.startsWith('TBA ');
 }
 
-function isPast(date: EventDate, referenceDate: Date): boolean {
+export function isPast(date: EventDate, referenceDate: Date): boolean {
   if (isTba(date)) return false;
   return new Date(`${date}T23:59:59`) < referenceDate;
 }

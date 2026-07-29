@@ -1,16 +1,8 @@
 import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { events } from '@/lib/data/events';
+import { formatEventDate } from '@/lib/data/format-event-date';
 import { getUpcomingEvents } from '@/lib/data/get-upcoming-events';
-
-function formatEventDate(date: string): string {
-  if (date.startsWith('TBA')) return date;
-  return new Date(`${date}T00:00:00`).toLocaleDateString('en-US', {
-    month: 'long',
-    day: 'numeric',
-    year: 'numeric',
-  });
-}
 
 export function UpcomingEvents() {
   const upcoming = getUpcomingEvents(events);
