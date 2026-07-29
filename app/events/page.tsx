@@ -4,6 +4,8 @@ import { EventsView } from '@/components/events/events-view';
 import { events } from '@/lib/data/events';
 import { groupEventsByMonth } from '@/lib/data/group-events-by-month';
 
+export const revalidate = 3600;
+
 export const metadata: Metadata = {
   title: 'Events | ADVANCE',
   description: "Browse ADVANCE's upcoming and past events, all in one place.",

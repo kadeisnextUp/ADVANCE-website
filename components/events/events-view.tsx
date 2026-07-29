@@ -14,12 +14,13 @@ interface EventsViewProps {
 export function EventsView({ upcoming, past }: EventsViewProps) {
   const [activeEvent, setActiveEvent] = useState<Event | null>(null);
 
-  function renderColumn(heading: string, groups: MonthGroup[]) {
+  function renderColumn(heading: string, groups: MonthGroup[], emptyMessage: string) {
+    const headingId = `events-${heading.toLowerCase()}-heading`;
     return (
-      <section aria-label={heading}>
-        <h2 className="mb-4 text-xl font-bold text-primary">{heading}</h2>
+      <section aria-labelledby={headingId}>
+        <h2 id={headingId} className="mb-4 text-xl font-bold text-primary">{heading}</h2>
         {groups.length === 0 ? (
-          <p className="text-foreground/70">No events yet. Check back soon.</p>
+          <p className="text-foreground/70">{emptyMessage}</p>
         ) : (
           groups.map((group) => (
             <div key={group.label} className="mb-8">
@@ -40,8 +41,8 @@ export function EventsView({ upcoming, past }: EventsViewProps) {
 
   return (
     <div className="mx-auto grid max-w-6xl gap-10 px-6 pb-16 sm:grid-cols-2">
-      {renderColumn('Upcoming', upcoming)}
-      {renderColumn('Past', past)}
+      {renderColumn('Upcoming', upcoming, 'No events yet. Check back soon.')}
+      {renderColumn('Past', past, 'No past events yet.')}
       <EventLightbox event={activeEvent} onClose={() => setActiveEvent(null)} />
     </div>
   );

@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { useScrollReveal } from '@/lib/use-scroll-reveal';
 import { formatEventDate } from '@/lib/data/format-event-date';
+import { isTba } from '@/lib/data/get-upcoming-events';
 import type { Event } from '@/lib/data/events';
 
 interface EventCardProps {
@@ -30,13 +31,18 @@ export function EventCard({ event, onImageClick }: EventCardProps) {
           src={`/${event.flyer}`}
           alt=""
           fill
-          sizes="(min-width: 640px) 33vw, 100vw"
+          sizes="(min-width: 1024px) 17vw, (min-width: 640px) 25vw, 100vw"
           className="object-cover"
         />
       </button>
       <div className="p-4">
         <h4 className="mb-1 font-bold text-primary">{event.title}</h4>
-        <time className="mb-2 block text-sm text-foreground/70">{formatEventDate(event.date)}</time>
+        <time
+          dateTime={isTba(event.date) ? undefined : event.date}
+          className="mb-2 block text-sm text-foreground/70"
+        >
+          {formatEventDate(event.date)}
+        </time>
         <p className="text-sm text-foreground/80">{event.description}</p>
       </div>
     </div>

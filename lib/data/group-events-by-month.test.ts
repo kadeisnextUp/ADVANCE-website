@@ -71,4 +71,11 @@ describe('groupEventsByMonth', () => {
     expect(upcoming.map((g) => g.label)).toEqual(['January 2030', 'TBA']);
     expect(upcoming[1].events.map((e) => e.id)).toEqual(['tba-1', 'tba-2']);
   });
+
+  it('returns empty groups for an empty events array', () => {
+    const { upcoming, past } = groupEventsByMonth([], new Date('2026-07-25'));
+
+    expect(upcoming).toEqual([]);
+    expect(past).toEqual([]);
+  });
 });

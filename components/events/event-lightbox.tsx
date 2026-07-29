@@ -12,16 +12,16 @@ interface EventLightboxProps {
 export function EventLightbox({ event, onClose }: EventLightboxProps) {
   return (
     <Dialog open={event !== null} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="max-w-[92vw] bg-black p-4 ring-primary/20 sm:max-w-[92vw]">
+      <DialogContent className="max-w-[92vw] bg-background p-4 text-foreground ring-primary/20 sm:max-w-[92vw]">
         {event && (
           <>
             <DialogTitle className="text-center text-primary">{event.title}</DialogTitle>
-            <div className="relative mx-auto h-[75vh] w-[85vw] max-w-3xl">
+            <div className="relative mx-auto h-[75vh] w-full max-w-3xl">
               <Image
                 src={`/${event.full}`}
                 alt={event.title}
                 fill
-                sizes="85vw"
+                sizes="90vw"
                 className="object-contain"
               />
             </div>

@@ -1,5 +1,5 @@
 import type { Event } from './events';
-import { isPast, isTba } from './get-upcoming-events';
+import { getUpcomingEvents, isPast, isTba } from './get-upcoming-events';
 
 export interface MonthGroup {
   label: string;
@@ -16,6 +16,11 @@ function monthLabel(key: string): string {
   return new Date(year, month - 1, 1).toLocaleString('en-US', { month: 'long', year: 'numeric' });
 }
 
+// Assumes `events` is already sorted in the desired within-group order —
+// insertion order into the Map below is what determines each group's
+// internal event order. The TBA-group-last handling here is a defensive
+// backstop (both call sites below already guarantee TBA-last/never-past
+// before calling this), not the primary ordering mechanism.
 function groupByMonth(events: Event[]): MonthGroup[] {
   const groups = new Map<string, Event[]>();
 
@@ -43,16 +48,7 @@ export function groupEventsByMonth(
   events: Event[],
   referenceDate: Date = new Date()
 ): { upcoming: MonthGroup[]; past: MonthGroup[] } {
-  const upcoming = events
-    .filter((event) => !isPast(event.date, referenceDate))
-    .sort((a, b) => {
-      const aTba = isTba(a.date);
-      const bTba = isTba(b.date);
-      if (aTba && !bTba) return 1;
-      if (!aTba && bTba) return -1;
-      if (aTba && bTba) return 0;
-      return new Date(a.date).getTime() - new Date(b.date).getTime();
-    });
+  const upcoming = getUpcomingEvents(events, referenceDate);
 
   const past = events
     .filter((event) => isPast(event.date, referenceDate))
