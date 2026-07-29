@@ -31,7 +31,7 @@ const joinCsp = [
   "connect-src 'self' https://*.office.com https://*.microsoft.com https://*.microsoftonline.com https://*.office.net https://vitals.vercel-insights.com",
   "worker-src 'self' blob:",
   "child-src 'self' blob:",
-  "frame-src https://*.office.com https://*.microsoft.com https://*.microsoftonline.com https://*.office.net",
+  "frame-src https://*.office.com https://*.microsoft.com https://*.microsoftonline.com https://*.office.net https://*.cloud.microsoft",
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self' https://*.office.com https://*.microsoft.com",
