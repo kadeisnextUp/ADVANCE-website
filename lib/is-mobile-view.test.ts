@@ -13,4 +13,12 @@ describe('isMobileView', () => {
   it('returns false for a desktop user agent at a wide viewport width', () => {
     expect(isMobileView('Mozilla/5.0 (Windows NT 10.0; Win64; x64)', 1440)).toBe(false);
   });
+
+  it('treats exactly 768px as desktop (the boundary is exclusive)', () => {
+    expect(isMobileView('Mozilla/5.0 (Windows NT 10.0; Win64; x64)', 768)).toBe(false);
+  });
+
+  it('treats 767px as mobile (just under the boundary)', () => {
+    expect(isMobileView('Mozilla/5.0 (Windows NT 10.0; Win64; x64)', 767)).toBe(true);
+  });
 });

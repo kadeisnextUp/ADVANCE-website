@@ -31,6 +31,9 @@ const joinCsp = [
   "connect-src 'self' https://*.office.com https://*.microsoft.com https://*.microsoftonline.com https://*.office.net https://vitals.vercel-insights.com",
   "worker-src 'self' blob:",
   "child-src 'self' blob:",
+  // forms.office.com redirects to forms.cloud.microsoft internally — without
+  // this entry the embedded form silently fails to render (discovered via
+  // real browser testing, not documentation).
   "frame-src https://*.office.com https://*.microsoft.com https://*.microsoftonline.com https://*.office.net https://*.cloud.microsoft",
   "object-src 'none'",
   "base-uri 'self'",
