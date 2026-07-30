@@ -26,9 +26,9 @@ export function ExecutiveBoardCard({ member, onSelect }: ExecutiveBoardCardProps
       <button type="button" onClick={() => onSelect(member)} className="block w-full text-left" aria-label={ariaLabel}>
         <ExecutiveBoardAvatar member={member} className="aspect-square w-full" />
         <div className="p-4">
-          <h4 className={`mb-1 font-bold text-primary transition-colors duration-700 ${member.name === null ? 'italic' : ''}`}>
+          <h3 className={`mb-1 font-bold text-primary transition-colors duration-700 ${member.name === null ? 'italic' : ''}`}>
             {displayName}
-          </h4>
+          </h3>
           <p className="mb-2 text-sm text-foreground/70 transition-colors duration-700">{member.role}</p>
           <p className="text-sm text-foreground/80 transition-colors duration-700">
             {getFirstSentence(member.bio)}{' '}

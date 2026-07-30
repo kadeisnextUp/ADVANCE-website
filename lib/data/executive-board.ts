@@ -112,7 +112,7 @@ export const executiveBoard: ExecutiveBoardMember[] = [
     photo: null,
     team: 'internal',
     theme: { bg: 'hsl(320 42% 15%)', fg: 'hsl(320 30% 88%)', accent: 'hsl(320 55% 68%)' },
-    bio: 'The Human Resources position reports to the Vice-President of Internal Affairs and oversees member recruitment, onboarding, placement, and retention, including application processing and department assignments. This role maintains accurate rosters and contact information, coordinates orientations, meetings, and check-ins, and collaborates with Marketing and Digital Technology on the ADVANCE newsletter. Additionally, HR manages awards and recognition programs, supports Executive Board needs, and represents ADVANCE at student activity fairs.',
+    bio: 'The Human Resources position reports to the Vice President of Internal Affairs and oversees member recruitment, onboarding, placement, and retention, including application processing and department assignments. This role maintains accurate rosters and contact information, coordinates orientations, meetings, and check-ins, and collaborates with Marketing and Digital Technology on the ADVANCE newsletter. Additionally, HR manages awards and recognition programs, supports Executive Board needs, and represents ADVANCE at student activity fairs.',
   },
   {
     id: 'director-community-affairs',
@@ -130,7 +130,7 @@ export const executiveBoard: ExecutiveBoardMember[] = [
     photo: null,
     team: 'internal',
     theme: { bg: 'hsl(124 42% 15%)', fg: 'hsl(124 30% 88%)', accent: 'hsl(124 55% 68%)' },
-    bio: 'The Director of Health and Wellness reports to the Vice President of Internal Affairs and promotes a culture of well-being within ADVANCE. They collaborate with executive board members to integrate wellness initiatives into meetings, programs, and events. The role involves connecting members with campus health resources, fostering an inclusive and supportive environment, and gathering feedback to address evolving wellness needs. Through these efforts, the Director ensures members feel supported, valued, and encouraged to prioritize their overall well-being.',
+    bio: 'The Director of Health & Wellness reports to the Vice President of Internal Affairs and promotes a culture of well-being within ADVANCE. They collaborate with executive board members to integrate wellness initiatives into meetings, programs, and events. The role involves connecting members with campus health resources, fostering an inclusive and supportive environment, and gathering feedback to address evolving wellness needs. Through these efforts, the Director ensures members feel supported, valued, and encouraged to prioritize their overall well-being.',
   },
   {
     id: 'director-digital-technology',

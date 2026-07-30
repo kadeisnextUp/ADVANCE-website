@@ -12,7 +12,7 @@ interface ExecutiveBoardBioDialogProps {
 export function ExecutiveBoardBioDialog({ member, onClose }: ExecutiveBoardBioDialogProps) {
   return (
     <Dialog open={member !== null} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="max-w-md bg-background p-6 text-foreground ring-primary/20 transition-colors duration-700">
+      <DialogContent className="max-w-[calc(100%-2rem)] bg-background p-6 text-foreground ring-primary/20 transition-colors duration-700 animation-duration-100 sm:max-w-md">
         {member && (
           <>
             <ExecutiveBoardAvatar member={member} className="mx-auto h-24 w-24 shrink-0" sizes="96px" />

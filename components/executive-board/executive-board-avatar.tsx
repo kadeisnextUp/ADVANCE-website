@@ -24,7 +24,7 @@ export function ExecutiveBoardAvatar({ member, className = '', sizes = DEFAULT_S
   return (
     <div
       aria-hidden="true"
-      className={`flex items-center justify-center rounded-full border-2 bg-black/40 font-bold text-primary transition-colors duration-700 ${
+      className={`flex items-center justify-center rounded-full border-2 bg-foreground/10 text-2xl font-bold text-primary transition-colors duration-700 sm:text-4xl ${
         isVacant ? 'border-dashed border-primary/50' : 'border-primary/60'
       } ${className}`}
     >
