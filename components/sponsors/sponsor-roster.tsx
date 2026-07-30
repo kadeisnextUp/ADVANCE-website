@@ -24,9 +24,9 @@ export function SponsorRoster({ sponsors }: SponsorRosterProps) {
                 <div className="relative mb-3 h-16 w-full">
                   <Image
                     src={`/${sponsor.logo}`}
-                    alt={`${sponsor.name} logo`}
+                    alt=""
                     fill
-                    sizes="200px"
+                    sizes="(min-width: 1024px) 317px, (min-width: 640px) 45vw, 90vw"
                     className="object-contain"
                   />
                 </div>
@@ -38,6 +38,7 @@ export function SponsorRoster({ sponsors }: SponsorRosterProps) {
                   href={sponsor.website}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label={`Visit ${sponsor.name}'s website`}
                   className="mt-2 inline-block text-sm text-primary underline-offset-4 hover:underline"
                 >
                   Visit website
