@@ -44,7 +44,7 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-white/5 bg-black/60 backdrop-blur">
+    <header className="sticky top-0 z-40 border-b border-white/5 bg-background/60 backdrop-blur transition-colors duration-700">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-2">
         <div className="flex items-center gap-3">
           <Link href="/" aria-label="ADVANCE home">

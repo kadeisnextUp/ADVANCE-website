@@ -10,7 +10,7 @@ const SOCIAL_LINKS = [
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-white/10 bg-background px-6 py-8 text-center">
+    <footer className="border-t border-white/10 bg-background px-6 py-8 text-center transition-colors duration-700">
       <p className="text-sm text-foreground/70">
         &copy; {new Date().getFullYear()} ADVANCE. All rights reserved.
       </p>

@@ -122,10 +122,20 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground transition-colors duration-700;
   }
   html {
     @apply font-sans;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
   }
 }
 
@@ -147,6 +157,13 @@
   padding: 12px 0;
   color: var(--primary);
   font-weight: 700;
+  transition: color 0.7s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-banner__item {
+    transition: none;
+  }
 }
 
 @keyframes page-banner-scroll {
