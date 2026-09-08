@@ -9,6 +9,8 @@ CLAUDE.md
 .copilot/
 .github/copilot-instructions.md
 docs/superpowers/
+.impeccable/
+PRODUCT.md
 
 # ── Environment & Secrets ─────────────────────────────────────────────────────
 .env
