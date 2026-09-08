@@ -7,6 +7,11 @@ export interface Event {
   flyer: string;
   full: string;
   description: string;
+  location?: string;
+  // True when `flyer`/`full` is just the org logo standing in for real event
+  // art, not an actual flyer — drives the "flyer coming soon" card treatment
+  // instead of a clickable zoom that would open the logo.
+  flyerPending?: boolean;
 }
 
 export const events: Event[] = [
@@ -25,7 +30,8 @@ export const events: Event[] = [
     flyer: 'images/Event_photos/Coporate_Excursion_Info_1.webp',
     full: 'images/Event_photos/Coporate_Excursion_Info_1.webp',
     description:
-      'Join us in Clifton Court RM 2130 to learn more about the trip and how you can be part of this exclusive porfessional development experience.',
+      'Learn more about the trip and how you can be part of this exclusive professional development experience.',
+    location: 'Clifton Court, RM 2130',
   },
   {
     id: 'evt-3',
@@ -34,6 +40,7 @@ export const events: Event[] = [
     flyer: 'images/Logos/ADVANCE_new_logo_non_transparent.webp',
     full: 'images/Logos/ADVANCE_new_logo_non_transparent.webp',
     description: 'A community walk in Burnet Woods to enjoy nature and connect with members. This event is led by Jada!',
+    flyerPending: true,
   },
   {
     id: 'evt-4',
@@ -42,6 +49,7 @@ export const events: Event[] = [
     flyer: 'images/Logos/ADVANCE_new_logo_non_transparent.webp',
     full: 'images/Logos/ADVANCE_new_logo_non_transparent.webp',
     description: 'Join us for a corporate excursion to explore opportunities in Cincinnati!',
+    flyerPending: true,
   },
   {
     id: 'evt-5',
@@ -51,5 +59,15 @@ export const events: Event[] = [
     full: 'images/Logos/ADVANCE_new_logo_non_transparent.webp',
     description:
       'This will be a low-pressure event, and business professional attire is required (quarter-zip preferred). There will be an open networking session at the end to exchange LinkedIn information and meet new students!',
+    flyerPending: true,
+  },
+  {
+    id: 'evt-6',
+    title: 'Meet the Eboard',
+    date: '2026-09-24',
+    flyer: 'images/Logos/ADVANCE_new_logo_non_transparent.webp',
+    full: 'images/Logos/ADVANCE_new_logo_non_transparent.webp',
+    description: 'Meet the new executive board and learn more about what we have planned this year!.',
+    flyerPending: true,
   },
 ];
