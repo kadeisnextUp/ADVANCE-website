@@ -71,7 +71,7 @@ export const executiveBoard: ExecutiveBoardMember[] = [
   },
   {
     id: 'director-programming',
-    name: 'Sa-Kiyah Collins',
+    name: 'Sa-Kyiah Collins',
     role: 'Director of Programming',
     photo: null,
     team: 'external',
