@@ -18,7 +18,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={sora.variable}>
       <body className="flex min-h-screen flex-col bg-background font-sans text-foreground">
         <SiteHeader />
-        <main className="flex-1">{children}</main>
+        <main className="flex-1 pt-[73px]">{children}</main>
         <SiteFooter />
         <Analytics />
         <SpeedInsights />

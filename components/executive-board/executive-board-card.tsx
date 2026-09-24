@@ -23,17 +23,22 @@ export function ExecutiveBoardCard({ member, onSelect }: ExecutiveBoardCardProps
         visible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
       }`}
     >
-      <button type="button" onClick={() => onSelect(member)} className="block w-full text-left" aria-label={ariaLabel}>
+      <button
+        type="button"
+        onClick={() => onSelect(member)}
+        className="block w-full text-left transition-colors hover:bg-primary/5 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary/50 focus-visible:outline-none"
+        aria-label={ariaLabel}
+      >
         <ExecutiveBoardAvatar member={member} className="aspect-square w-full" />
         <div className="p-4">
           <h3 className={`mb-1 font-bold text-primary transition-colors duration-700 ${member.name === null ? 'italic' : ''}`}>
             {displayName}
           </h3>
           <p className="mb-2 text-sm text-foreground/70 transition-colors duration-700">{member.role}</p>
-          <p className="text-sm text-foreground/80 transition-colors duration-700">
-            {getFirstSentence(member.bio)}{' '}
+          <div className="text-sm text-foreground/80 transition-colors duration-700">
+            <p className="line-clamp-2">{getFirstSentence(member.bio)}</p>
             <span className="font-semibold text-primary transition-colors duration-700">Read more</span>
-          </p>
+          </div>
         </div>
       </button>
     </div>

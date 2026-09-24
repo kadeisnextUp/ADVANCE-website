@@ -63,11 +63,11 @@ export const events: Event[] = [
   },
   {
     id: 'evt-6',
-    title: 'Meet the Eboard',
+    title: 'Crash Course on professionalism',
     date: '2026-09-24',
     flyer: 'images/Logos/ADVANCE_new_logo_non_transparent.webp',
     full: 'images/Logos/ADVANCE_new_logo_non_transparent.webp',
-    description: 'Meet the new executive board and learn more about what we have planned this year!.',
+    description: 'Meet the new executive board for the 2026-2027 academic year! Also get the opportunity to connect with other students and learn about ADVANCE.',
     flyerPending: true,
   },
 ];

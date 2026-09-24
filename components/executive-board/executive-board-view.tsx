@@ -12,6 +12,9 @@ interface ExecutiveBoardViewProps {
 export function ExecutiveBoardView({ members }: ExecutiveBoardViewProps) {
   const [selectedMember, setSelectedMember] = useState<ExecutiveBoardMember | null>(null);
 
+  // Site-wide theme match: the whole page takes on the selected member's
+  // colors while their bio is open, not just the dialog — matches the
+  // intended experience of the main site.
   useEffect(() => {
     const root = document.documentElement.style;
 

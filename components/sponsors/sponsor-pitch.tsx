@@ -13,7 +13,7 @@ const VALUE_PROPS = [
   },
   {
     title: 'Direct Impact',
-    body: 'Sponsorship funds scholarships, workshops, and events that directly shape the next generation of professionals in the Greater Cincinnati area.',
+    body: 'Sponsorship funds the workshops and events that directly shape University of Cincinnati students into the next generation of professionals.',
   },
 ];
 
@@ -23,11 +23,14 @@ export function SponsorPitch() {
       <h2 id="sponsor-pitch-heading" className="mb-6 text-2xl font-bold text-primary">
         Why Sponsor ADVANCE
       </h2>
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+      <div className="divide-y divide-primary/25 border-y border-primary/25">
         {VALUE_PROPS.map((prop) => (
-          <div key={prop.title} className="rounded-xl bg-background p-5 ring-1 ring-primary/15">
-            <h3 className="mb-2 font-bold text-primary">{prop.title}</h3>
-            <p className="text-sm text-foreground/80">{prop.body}</p>
+          <div
+            key={prop.title}
+            className="grid grid-cols-1 gap-3 py-8 sm:grid-cols-[minmax(0,280px)_1fr] sm:gap-10"
+          >
+            <h3 className="text-lg font-bold text-primary sm:text-xl">{prop.title}</h3>
+            <p className="text-foreground/80 sm:self-center">{prop.body}</p>
           </div>
         ))}
       </div>

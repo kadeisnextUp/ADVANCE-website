@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { PageBanner } from '@/components/layout/page-banner';
 import { ResourceLinkList } from '@/components/resources/resource-link-list';
-import { helpfulLinks, memberMaterials } from '@/lib/data/resources';
+import { helpfulLinks, memberForms } from '@/lib/data/resources';
 
 export const metadata: Metadata = {
   title: 'Resources | ADVANCE',
@@ -18,16 +18,19 @@ export default function ResourcesPage() {
         <h1 className="mb-2 text-3xl font-bold text-primary">Resources</h1>
         <p className="text-foreground/80">
           Welcome to the ADVANCE Resources page! Here, members and students can access materials
-          to help them grow personally and professionally. Whether you&apos;re looking for resume
-          tips, networking guidance, or career development tools — we&apos;ve got you covered.
+          to help them grow personally and professionally.
         </p>
       </section>
 
-      <ResourceLinkList heading="Helpful Links" links={helpfulLinks} />
       <ResourceLinkList
-        heading="ADVANCE Member Materials"
-        intro="Access exclusive resources created by ADVANCE for our members, including event RSVPs and membership forms."
-        links={memberMaterials}
+        heading="Forms & RSVPs"
+        intro="Apply for the Executive Board or RSVP for an upcoming event."
+        links={memberForms}
+      />
+      <ResourceLinkList
+        heading="Helpful Links"
+        intro="A curated set of tools for resumes, job searches, and professional development."
+        links={helpfulLinks}
       />
     </>
   );

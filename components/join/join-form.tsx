@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
 import { isMobileView } from '@/lib/is-mobile-view';
 
 const FORM_URL =
@@ -65,10 +66,12 @@ export function JoinForm() {
     return () => clearTimeout(timeoutId);
   }, [state]);
 
-  // Move focus to the revealed content once the embed finishes loading —
-  // the button that had focus no longer exists at that point.
+  // Move focus to the revealed content as soon as loading starts, not once
+  // it finishes — the button that had focus unmounts immediately, and the
+  // container persists unchanged through 'loading-iframe' -> 'iframe-loaded'
+  // (same DOM node), so focus set here naturally carries through both.
   useEffect(() => {
-    if (state === 'iframe-loaded') {
+    if (state === 'loading-iframe') {
       revealRef.current?.focus();
     }
   }, [state]);
@@ -95,42 +98,82 @@ export function JoinForm() {
       </div>
 
       {!showEmbed && (
-        <Button onClick={handleClick} disabled={state === 'opened-new-tab'} size="lg">
-          {state === 'opened-new-tab' ? 'Form opened in new tab' : 'Open Form'}
-        </Button>
+        <div className="flex flex-col items-start gap-2">
+          {/* Not disabled: window.open's return value can't confirm the popup
+              actually opened (see the noopener comment above), so the button
+              stays actionable — clicking again just reopens it — rather than
+              locking the visitor out on an unverifiable "success" state. */}
+          <Button onClick={handleClick} size="lg" className="h-14 px-8 text-base font-semibold">
+            {state === 'opened-new-tab' ? 'Reopen form' : 'Open Form'}
+          </Button>
+          {state === 'opened-new-tab' && (
+            <>
+              <p className="text-sm text-foreground/70">
+                Didn&apos;t see it open?{' '}
+                <a
+                  href={FORM_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary underline underline-offset-2 hover:text-primary/80"
+                >
+                  Open the form in a new tab
+                </a>
+                .
+              </p>
+              <p className="text-sm text-foreground/70">
+                Once you submit, a member of our team will follow up soon — thanks for taking the
+                first step toward joining ADVANCE. You&apos;ll see a Microsoft Forms confirmation
+                screen when you&apos;re finished — that&apos;s expected.
+              </p>
+            </>
+          )}
+        </div>
       )}
 
       {showEmbed && (
-        <>
-          {state === 'loading-iframe' && (
-            <p className="mb-2 text-sm text-foreground/70">Loading form...</p>
-          )}
-          {state === 'loading-iframe' && showFallback && (
-            <p className="mb-2 text-sm text-foreground/70">
-              Having trouble?{' '}
-              <a
-                href={FORM_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-primary underline underline-offset-2 hover:text-primary/80"
-              >
-                Open the form in a new tab
-              </a>
-              .
+        <Card className="max-w-2xl border-primary/25 bg-background">
+          <CardContent>
+            <p className="mb-4 text-foreground/80">
+              You&apos;re almost there — fill out the form below to complete your ADVANCE
+              interest submission.
             </p>
-          )}
-          <div ref={revealRef} tabIndex={-1}>
-            <iframe
-              title="ADVANCE interest form"
-              src={EMBED_URL}
-              width="100%"
-              height="700"
-              allowFullScreen
-              onLoad={() => setState('iframe-loaded')}
-              className={state === 'iframe-loaded' ? undefined : 'invisible h-0'}
-            />
-          </div>
-        </>
+            {state === 'loading-iframe' && (
+              <p className="mb-2 text-sm text-foreground/70">Loading form...</p>
+            )}
+            {state === 'loading-iframe' && showFallback && (
+              <p className="mb-2 text-sm text-foreground/70">
+                Trouble loading the form here?{' '}
+                <a
+                  href={FORM_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary underline underline-offset-2 hover:text-primary/80"
+                >
+                  Open the form in a new tab
+                </a>
+                .
+              </p>
+            )}
+            <div ref={revealRef} tabIndex={-1}>
+              <iframe
+                title="ADVANCE interest form"
+                src={EMBED_URL}
+                width="100%"
+                allowFullScreen
+                onLoad={() => setState('iframe-loaded')}
+                onError={() => setShowFallback(true)}
+                className={state === 'iframe-loaded' ? 'h-[min(700px,80dvh)]' : 'invisible h-0'}
+              />
+            </div>
+            {state === 'iframe-loaded' && (
+              <p className="mt-4 text-sm text-foreground/70">
+                Once you submit, a member of our team will follow up soon — thanks for taking the
+                first step toward joining ADVANCE. You&apos;ll see a Microsoft Forms confirmation
+                screen when you&apos;re finished — that&apos;s expected.
+              </p>
+            )}
+          </CardContent>
+        </Card>
       )}
     </div>
   );
